@@ -1,0 +1,156 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body, html {
+    width: 100vw;
+    height: 100vh;
+}
+.bgimage {
+    width: 100%;
+    height: 100%;
+    background: url("assets/NaturePic1.webp"); 
+    background-size: cover;
+    transition: 0.5s;
+    filter: blur(10px);
+    -webkit-filter: blur(10px); 
+}
+.weather-container {
+    width: 93%;
+    height: 85%;
+    border-radius: 1.5rem;
+    border: 1px solid #fff;
+    background: url("assets/NaturePic1.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+} 
+.weather-container header {
+    margin: 0 0.5rem;
+    padding: 1rem;
+ /* background: greenyellow; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2; 
+}
+header .time-date {
+  /* background: pink; */
+    color: #ffffff;
+    width: 18rem;
+}
+header .time-date h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+header .searchBox {
+ /* background: yellow;  */
+    width: 30rem;
+    height: 2.3rem;
+    padding: 0 0.5rem;
+    border-radius: 2rem;
+    border: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+header .searchBox i {
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+header .searchBox input {
+    height: 100%;
+    border-radius: 2rem;
+    border: none;
+    outline: none;
+    padding: 0 0.4rem;
+    flex: 1;
+}
+header .curr-location {
+  /* background: green;  */
+    width: 10rem;
+    height: 2.3rem;
+    padding: 0 0.8rem 0 0.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+    border-radius: 2rem;
+}
+header .curr-location i {
+   font-size: 1.2rem;
+}
+header .curr-location span {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Celsius-Fahrenheit toggle button */
+header .tempSwitch {
+    position: relative;
+    display: inline-block;
+    width: 5rem;
+    height: 2rem;
+    /* background: green; */
+}
+header .tempSwitch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+header .tempSwitch .tempSlider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #2196F3;
+    transition: 0.4s;
+    border-radius: 3rem;
+    cursor: pointer;
+}
+.tempSwitch .tempSlider:before {
+    position: absolute;
+    content: "C";
+    width: 1.4rem;
+    height: 1.4rem;
+    left: 0.3rem;
+    bottom: 0.3rem;
+    background-color: #ffffff;
+    transition: 0.4s;
+    border-radius: 50%;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #2196F3;
+}
+input:checked + .tempSlider {
+    background: #f44336;
+}
+input:checked + .tempSlider:before {
+    transform: translateX(3rem);
+    content: "F";
+    color: #f44336;
+}
+#darklightToggle {
+    background-color: #000000;
+    padding: 0.7rem 1.2rem;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    color:  #eee;
+    font-size: 1rem;
+    outline: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+

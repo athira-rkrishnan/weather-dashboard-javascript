@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Weather Dashboard</title>
+    <link rel = "stylesheet" type = "text/css" href = "style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+</head>
+<body>
+    <div class = "bgimage" id = "bgImage"></div>
+    <div class = "weather-container">
+        <header>
+            <div class = "time-date">
+                <h2>07.32 AM</h2>
+                <h3>Monday, 23 March, 2026</h3>
+            </div>
+            <div class = "searchBox">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type = "text" placeholder = "Search city..."></input>
+            </div>
+            <div class = "curr-location">
+                <i class="fa-solid fa-location-crosshairs"></i>
+                <span>Current Location</span>
+            </div>
+            <label class = "tempSwitch">
+                <input type = "checkbox" id = "tempToggle">
+                <span class = "tempSlider"></span>
+            </label>
+            <button id = "darklightToggle">
+                <span id = "theme-icon"><i class="fa-solid fa-moon"></i></span>
+                <span id = "theme-text">Dark Mode</span>
+            </button>
+        </header>
+     </div>
+
+
+
+     <script src = "script.js"></script>
+      
+</body>
+</html>
