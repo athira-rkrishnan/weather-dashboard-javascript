@@ -1,4 +1,4 @@
-// Updating Time
+// Updating Time and date
 function updateTime() {
     const currDateTime = new Date();
     let hours = currDateTime.getHours();
@@ -9,6 +9,15 @@ function updateTime() {
     hours = hours < 10 ? "0" + hours : hours;
     minutes = minutes < 10 ? "0" + minutes : minutes;
     document.getElementById("time").textContent = `${hours}:${minutes} ${ampm}`;
+
+    const dateFormat = {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    };
+    const formattedDate = currDateTime.toLocaleDateString(undefined, dateFormat);
+    document.getElementById("date").textContent = formattedDate;
 }
 setInterval(updateTime, 1000);
 updateTime();
