@@ -1,3 +1,19 @@
+// Updating Time
+function updateTime() {
+    const currDateTime = new Date();
+    let hours = currDateTime.getHours();
+    let minutes = currDateTime.getMinutes();
+    let ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = (hours === 0) ? 12 : hours;
+    hours = hours < 10 ? "0" + hours : hours;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    document.getElementById("time").textContent = `${hours}:${minutes} ${ampm}`;
+}
+setInterval(updateTime, 1000);
+updateTime();
+
+// Dark-Light Theme Toggle Button
 const backgroundImage = document.getElementById("bgImage");
 const toggleBtn = document.getElementById("darklightToggle");
 const themeIcon = document.getElementById("theme-icon");
