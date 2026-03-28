@@ -16,8 +16,8 @@
                 <h3 id = "date">Monday, 23 March, 2026</h3>
             </div>
             <div class = "searchBox grayglass-effect">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type = "text" placeholder = "Search city..."></input>
+                <i class="fa-solid fa-magnifying-glass" style = "color: black;" id = "search-icon"></i>
+                <input type = "text" id = "search-input" placeholder = "Search city..."></input>
             </div>
             <div class = "curr-location grayglass-effect">
                 <i class="fa-solid fa-location-crosshairs"></i>
@@ -35,9 +35,9 @@
         <div class = "container">
             <div class = "locationForecast">
                 <div class = "loctnTemp lightgray-effect">
-                    <div class = "location grayglass-effect">
+                    <div class = "location grayglass-effect" id = "location">
                         <i class="fa-solid fa-location-dot"></i>
-                        <span>Singapore</span>
+                        <span id = "lctn-name">Singapore</span>
                     </div>
                     <div class = "weatherDetails grayglass-effect">
                         <div class = "weatherIcon">

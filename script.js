@@ -22,6 +22,24 @@ function updateTime() {
 setInterval(updateTime, 1000);
 updateTime();
 
+const searchIcon = document.getElementById("search-icon");
+const searchInput = document.getElementById("search-input");
+const locationElement = document.querySelector("#location");
+const lctnIcon = document.querySelector(".fa-location-dot");
+const locationName = document.getElementById("lctn-name");
+searchIcon.addEventListener("click", () => {
+    locationName.textContent = searchInput.value;
+    locationElement.style.display = "inline-block";
+    locationElement.style.width = "auto";
+    lctnIcon.style.marginRight = "0.1rem";    
+});
+
+
+
+
+
+
+
 // Dark-Light Theme Toggle Button
 const backgroundImage = document.getElementById("bgImage");
 const toggleBtn = document.getElementById("darklightToggle");
