@@ -22,22 +22,46 @@ function updateTime() {
 setInterval(updateTime, 1000);
 updateTime();
 
+
 const searchIcon = document.getElementById("search-icon");
 const searchInput = document.getElementById("search-input");
 const locationElement = document.querySelector("#location");
 const lctnIcon = document.querySelector(".fa-location-dot");
 const locationName = document.getElementById("lctn-name");
-searchIcon.addEventListener("click", () => {
-    locationName.textContent = searchInput.value;
+const errorMsg = document.getElementById("error-msg");
+
+function displayLocationName() {
+    const value = searchInput.value.trim();
+    if(value === "") {
+        errorMsg.textContent = "Please enter a city name!";
+        errorMsg.style.display = "block";
+        locationElement.style.display = "inline";
+        locationName.style.display = "none";
+        return;
+    }
+    if(!/^[a-zA-Z\s]+$/.test(value)) {
+        errorMsg.textContent = "Invalid city name!";
+        errorMsg.style.display = "block";
+        locationElement.style.display = "inline";
+        locationName.style.display = "none";
+        searchInput.value = "";
+        return;
+    }
+    errorMsg.style.display = "none";
     locationElement.style.display = "inline-block";
     locationElement.style.width = "auto";
-    lctnIcon.style.marginRight = "0.1rem";    
+    lctnIcon.style.marginRight = "0.1rem";
+    locationName.textContent = value;
+    locationName.style.display = "inline";
+    searchInput.value = "";  
+}
+searchIcon.addEventListener("click", displayLocationName);
+
+searchInput.addEventListener("keydown", (event) => {
+    if(event.key === "Enter") {
+        displayLocationName();
+    }
 });
-
-
-
-
-
 
 
 // Dark-Light Theme Toggle Button
