@@ -7,6 +7,7 @@ body, html {
     width: 100vw;
     height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
+    position: relative;
 }
 .bgimage {
     width: 100%;
@@ -32,6 +33,30 @@ body, html {
     transform: translate(-50%, -50%);
     z-index: 1;
 } 
+.errorPopup {
+    width: 15rem;
+    z-index: 5;
+    background-color: gray;
+    border-radius: 0.7rem;
+    padding: 0.5rem 0.6rem;
+    position: absolute;
+    top: 3%;
+    left: 35%;
+    display: flex;
+    align-items: center;
+    visibility: hidden;
+}
+.errorPopup .fa-triangle-exclamation {
+    margin-right: 0.6rem;
+}
+.errorPopup .fa-sort-down {
+    position: fixed;
+    top: 6%;
+    left: 41%;
+    z-index: -1;
+    color: gray;
+    font-size: 1.2rem;
+}
 .weather-container header {
     margin: 0 0.5rem;
     padding: 1rem;
@@ -100,7 +125,6 @@ header .curr-location span {
     font-size: 1rem;
     font-weight: 500;
 }
-
 /* Celsius-Fahrenheit toggle button */
 header .tempSwitch {
     position: relative;
@@ -162,7 +186,6 @@ input:checked + .tempSlider:before {
     gap: 0.6rem;
     cursor: pointer;
 }
-
 .container {
    /* background-color: rgb(108, 108, 49);   */
     width: 86rem;
