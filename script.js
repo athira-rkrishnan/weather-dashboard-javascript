@@ -65,6 +65,41 @@ searchInput.addEventListener("keydown", (event) => {
 });
 
 
+
+
+// Fetching Weather Data 
+async function getWeather() {
+    const apiURL = "https://api.openweathermap.org/data/2.5/weather?q=Kochi&appid=6a524c9afeac3b039318a2ede31c3cc6&units=metric";
+    try {
+        const response = await fetch(apiURL);
+        if(!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        console.log(data);
+        const weatherDescription = data.weather[0].description;
+        const weatherIconCode = data.weather[0].icon;
+        const feelsLike = Math.round(data.main.feels_like);
+        const temp = Math.round(data.main.temp);
+        const highTemp = Math.round(data.main.temp_max);
+        const lowTemp = Math.round(data.main.temp_min);
+
+        document.querySelector(".weather-name").textContent = weatherDescription.charAt(0).toUpperCase() + 
+        weatherDescription.slice(1);
+        document.querySelector(".feels-like").textContent = `Feels like ${feelsLike}°C`;
+        document.querySelector(".temp-value").textContent = `${temp}°C`;
+        document.querySelector(".high").textContent = `High: ${highTemp}`;
+        document.querySelector(".low").textContent = `Low: ${lowTemp}`;
+    }
+    catch(error) {
+        console.error("Error fetching weather data:", error);
+    }
+}
+
+
+ getWeather();
+
+
 // Dark-Light Theme Toggle Button
 const backgroundImage = document.getElementById("bgImage");
 const toggleBtn = document.getElementById("darklightToggle");
