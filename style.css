@@ -294,13 +294,16 @@ input:checked + .tempSlider:before {
 }
 .locationForecast .daysForecast {
  /*   background-color: rgb(44, 85, 65);    */
+    height: 17rem;
     border-radius: 1rem;
     padding: 0.7rem 0.4rem;
 }
 .daysForecast .tempLists {
+    height: 13.3rem;
     border-radius: 1rem;
+    overflow-y: scroll;
 }
-.daysForecast .days-lists {
+.daysForecast .tempLists .days-lists {
    /* background: rgb(164, 72, 87);  */
     display: flex;
     align-items: center;
