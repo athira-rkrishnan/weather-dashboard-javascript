@@ -54,7 +54,8 @@ function displayLocationName() {
     lctnIcon.style.marginRight = "0.1rem";
     locationName.textContent = value;
     locationName.style.display = "inline";
-    searchInput.value = "";  
+    getWeather(value);
+    searchInput.value = "";       
 }
 searchIcon.addEventListener("click", displayLocationName);
 
@@ -68,8 +69,9 @@ searchInput.addEventListener("keydown", (event) => {
 
 
 // Fetching Weather Data 
-async function getWeather() {
-    const apiURL = "https://api.openweathermap.org/data/2.5/weather?q=France&appid=6a524c9afeac3b039318a2ede31c3cc6&units=metric";
+async function getWeather(locationName) {
+    //console.log(value);
+    const apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${locationName}&appid=6a524c9afeac3b039318a2ede31c3cc6&units=metric`;
     try {
         const response = await fetch(apiURL);
         if(!response.ok) {
@@ -122,7 +124,7 @@ async function getWeather() {
 }
 
 
- getWeather();
+ //getWeather();
 
 
 // Dark-Light Theme Toggle Button
