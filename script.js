@@ -85,7 +85,6 @@ async function getWeather(locationName) {
         const temp = Math.round(data.main.temp);
         const highTemp = Math.round(data.main.temp_max);
         const lowTemp = Math.round(data.main.temp_min);
-
         const iconMap = {
             "01d": "assets/01d.png",
             "01n": "assets/01n.png",
@@ -108,8 +107,22 @@ async function getWeather(locationName) {
         };
         const iconSrc = iconMap[weatherIconCode] || "assets/cloudy.png";
 
-
-
+        const sunriseUnix = data.sys.sunrise;
+        const sunsetUnix = data.sys.sunset;
+        const dayLengthSec = data.sys.sunset - data.sys.sunrise;
+        const sunriseMillisec = new Date(sunriseUnix * 1000);
+        const sunsetMillisec = new Date(sunsetUnix * 1000);
+        const hours = Math.floor(dayLengthSec / 3600);
+        const minutes = Math.floor((dayLengthSec % 3600) / 60);
+        const formattedSunriseTime = sunriseMillisec.toLocaleTimeString(undefined, {
+            hour: '2-digit', 
+            minute: '2-digit',
+        });
+        const formattedSunsetTime = sunsetMillisec.toLocaleTimeString(undefined, {
+            hour: '2-digit', 
+            minute: '2-digit',
+        });
+       
         document.querySelector(".weatherImg").src = iconSrc;
         document.querySelector(".weather-name").textContent = weatherDescription.charAt(0).toUpperCase() + 
         weatherDescription.slice(1);
@@ -117,6 +130,11 @@ async function getWeather(locationName) {
         document.querySelector(".temp-value").textContent = `${temp}°C`;
         document.querySelector(".high").textContent = `High: ${highTemp}`;
         document.querySelector(".low").textContent = `Low: ${lowTemp}`;
+
+        document.getElementById("riseTime").textContent = formattedSunriseTime;
+        document.getElementById("setTime").textContent = formattedSunsetTime;
+        document.getElementById("dayLength").textContent = `${hours}h ${minutes}min`;
+
     }
     catch(error) {
         console.error("Error fetching weather data:", error);
