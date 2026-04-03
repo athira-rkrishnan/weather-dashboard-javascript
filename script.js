@@ -123,15 +123,13 @@ async function getWeather(locationName) {
             minute: '2-digit',
         });
        
-        const humidity = data.main.humidity;
-        const visibilityMeters = data.visibility;
-        const pressure = data.main.pressure;
-        const windspeedMetersPerSec = data.wind.speed;
-        const visibilityKm = visibilityMeters / 1000;
-        const windspeedKm = windspeedMetersPerSec * 3.6;
-        //console.log(visibilityKm);
-        //console.log(windspeedKm);
-
+        const humidity = data.main?.humidity ?? "N/A";
+        const visibilityMeters = data?.visibility;
+        const pressure = data.main?.pressure ?? "N/A";
+        const windspeedMetersPerSec = data.wind?.speed;
+        const visibilityKm = visibilityMeters != null ? (visibilityMeters / 1000) : "N/A";
+        const windspeedKm = windspeedMetersPerSec != null ? (windspeedMetersPerSec * 3.6) : "N/A";
+       
         document.querySelector(".weatherImg").src = iconSrc;
         document.querySelector(".weather-name").textContent = weatherDescription.charAt(0).toUpperCase() + 
         weatherDescription.slice(1);
@@ -144,11 +142,10 @@ async function getWeather(locationName) {
         document.getElementById("setTime").textContent = formattedSunsetTime;
         document.getElementById("dayLength").textContent = `${hours}h ${minutes}min`;
 
-        document.getElementById("humidity").textContent = `${humidity} %`;
-        document.getElementById("visibility").textContent = `${visibilityKm} km`;
-        document.getElementById("pressure").textContent = `${pressure} mb`;
-        document.getElementById("windSpeed").textContent = `${windspeedKm.toFixed(1)} km/h`;
-
+        document.getElementById("humidity").textContent = humidity === "N/A" ? "N/A" : `${humidity} %`;
+        document.getElementById("visibility").textContent = visibilityKm === "N/A" ? "N/A" : `${visibilityKm} km`;
+        document.getElementById("pressure").textContent = pressure === "N/A" ? "N/A" : `${pressure} mb`;
+        document.getElementById("windSpeed").textContent = windspeedKm === "N/A" ? "N/A" : `${windspeedKm.toFixed(1)} km/h`;
 
     }
     catch(error) {
