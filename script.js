@@ -123,6 +123,15 @@ async function getWeather(locationName) {
             minute: '2-digit',
         });
        
+        const humidity = data.main.humidity;
+        const visibilityMeters = data.visibility;
+        const pressure = data.main.pressure;
+        const windspeedMetersPerSec = data.wind.speed;
+        const visibilityKm = visibilityMeters / 1000;
+        const windspeedKm = windspeedMetersPerSec * 3.6;
+        //console.log(visibilityKm);
+        //console.log(windspeedKm);
+
         document.querySelector(".weatherImg").src = iconSrc;
         document.querySelector(".weather-name").textContent = weatherDescription.charAt(0).toUpperCase() + 
         weatherDescription.slice(1);
@@ -134,6 +143,12 @@ async function getWeather(locationName) {
         document.getElementById("riseTime").textContent = formattedSunriseTime;
         document.getElementById("setTime").textContent = formattedSunsetTime;
         document.getElementById("dayLength").textContent = `${hours}h ${minutes}min`;
+
+        document.getElementById("humidity").textContent = `${humidity} %`;
+        document.getElementById("visibility").textContent = `${visibilityKm} km`;
+        document.getElementById("pressure").textContent = `${pressure} mb`;
+        document.getElementById("windSpeed").textContent = `${windspeedKm.toFixed(1)} km/h`;
+
 
     }
     catch(error) {
