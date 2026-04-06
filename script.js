@@ -106,8 +106,6 @@ async function getWeather(locationName) {
         console.log(aqi); 
         console.log(components);
 
-        
-
         const weatherDescription = weatherData.weather?.[0]?.description ?? "N/A";
         const weatherIconCode = weatherData.weather?.[0]?.icon;
         const feelsLike = Math.round(weatherData.main?.feels_like);
@@ -138,19 +136,43 @@ async function getWeather(locationName) {
 
         const sunriseUnix = weatherData.sys?.sunrise;
         const sunsetUnix = weatherData.sys?.sunset;
-        const dayLengthSec = sunsetUnix - sunriseUnix;
-        const sunriseMillisec = new Date(sunriseUnix * 1000);
-        const sunsetMillisec = new Date(sunsetUnix * 1000);
-        const hours = Math.floor(dayLengthSec / 3600);
-        const minutes = Math.floor((dayLengthSec % 3600) / 60);
-        const formattedSunriseTime = sunriseMillisec.toLocaleTimeString(undefined, {
-            hour: '2-digit', 
-            minute: '2-digit',
-        });
-        const formattedSunsetTime = sunsetMillisec.toLocaleTimeString(undefined, {
-            hour: '2-digit', 
-            minute: '2-digit',
-        });
+        const riseTimeElmnt = document.getElementById("riseTime");
+        const setTimeElmnt = document.getElementById("setTime");
+        const dayLengthElmnt = document.getElementById("dayLength");
+
+        if(sunriseUnix != null && sunsetUnix != null) {
+            const dayLengthSec = sunsetUnix - sunriseUnix;
+            const sunriseMillisec = new Date(sunriseUnix * 1000);
+            const sunsetMillisec = new Date(sunsetUnix * 1000);
+            
+            const formattedSunriseTime = sunriseMillisec.toLocaleTimeString([], {
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: true
+            });
+            const formattedSunsetTime = sunsetMillisec.toLocaleTimeString([], {
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: true
+            });
+            riseTimeElmnt.textContent = formattedSunriseTime;
+            setTimeElmnt.textContent = formattedSunsetTime;
+
+            if(dayLengthSec > 0) {
+                const hours = Math.floor(dayLengthSec / 3600);
+                const minutes = Math.floor((dayLengthSec % 3600) / 60);
+                dayLengthElmnt.textContent = `${hours}h ${minutes}min`;
+            }
+            else {
+                dayLengthElmnt.textContent = "N/A";
+            }
+        }
+        else {
+            riseTimeElmnt.textContent = "N/A";
+            setTimeElmnt.textContent = "N/A";
+            dayLengthElmnt.textContent = "N/A";
+        } 
+        
        
         const humidity = weatherData.main?.humidity ?? "N/A";
         const visibilityMeters = weatherData?.visibility;
@@ -179,10 +201,7 @@ async function getWeather(locationName) {
         document.getElementById("O3Value").textContent = components?.o3 != null ? `${components.o3} μg/m3` : "N/A";
         document.getElementById("COValue").textContent = components?.co != null ? `${components.co} μg/m3` : "N/A";
 
-        document.getElementById("riseTime").textContent = formattedSunriseTime;
-        document.getElementById("setTime").textContent = formattedSunsetTime;
-        document.getElementById("dayLength").textContent = `${hours}h ${minutes}min`;
-
+       
         document.getElementById("humidity").textContent = humidity === "N/A" ? "N/A" : `${humidity} %`;
         document.getElementById("visibility").textContent = visibilityKm === "N/A" ? "N/A" : `${visibilityKm} km`;
         document.getElementById("pressure").textContent = pressure === "N/A" ? "N/A" : `${pressure} mb`;
