@@ -354,6 +354,80 @@ input:checked + .tempSlider:before {
     border-radius: 1rem;
     flex-basis: 75%;
 }
+.airContainer {
+    display: flex;
+
+}
+.airContainer .airQltyIndexValue {
+    background: rgb(168, 168, 50);
+    width: 15rem;
+    height: 9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+}
+.airQltyIndexValue .airIndexValue {
+    background: violet;
+    width: 10rem;
+    height: 3rem;
+    border: 1px solid black;
+    border-radius: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+.airQltyIndexValue .airIndexDescrptn {
+    width: 5rem;
+    height: 1.4rem;
+    background: seagreen;
+    border-radius: 0.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.airContainer .airComponents {
+    background: rgb(81, 191, 81);
+    width: 35rem;
+    height: 9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.airContainer .airComponents .compValuesRow1 {
+    background: pink;
+    display: flex;
+    align-items: center;
+
+}
+.airContainer .airComponents .compValuesRow1 .compValues {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 12rem;
+    background:#4d9889;
+    padding: 1rem;
+
+}
+.airContainer .airComponents .compValuesRow2 {
+    background: orange;
+    display: flex;
+    align-items: center;
+    
+}
+.airContainer .airComponents .compValuesRow2 .compValues {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 12rem;
+    height: 4.4rem;
+    background:#0c473c;
+    padding: 1rem;
+} 
+
 .todaysOverview .sunrise-set {
  /*   background:rgb(44, 85, 65);  */
     border-radius: 1rem;

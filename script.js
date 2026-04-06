@@ -71,20 +71,57 @@ searchInput.addEventListener("keydown", (event) => {
 // Fetching Weather Data 
 async function getWeather(locationName) {
     //console.log(value);
-    const apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${locationName}&appid=6a524c9afeac3b039318a2ede31c3cc6&units=metric`;
+    const apiKey = "968b2abf92825ff2190a5cdbfd465552";
+    const weatherapiURL = `https://api.openweathermap.org/data/2.5/weather?q=${locationName}&appid=${apiKey}&units=metric`;
+    const airQualityIndexURL= (lat, lon) => {
+       return `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+    };
+    console.log(airQualityIndexURL);
+    
     try {
-        const response = await fetch(apiURL);
-        if(!response.ok) {
-            throw new Error("Network response was not ok");
+        const weatherResponse = await fetch(weatherapiURL);
+        if(!weatherResponse.ok) {
+            throw new Error("Failed to fetch weather data");
         }
-        const data = await response.json();
-        console.log(data);
-        const weatherDescription = data.weather[0].description;
-        const weatherIconCode = data.weather[0].icon;
-        const feelsLike = Math.round(data.main.feels_like);
-        const temp = Math.round(data.main.temp);
-        const highTemp = Math.round(data.main.temp_max);
-        const lowTemp = Math.round(data.main.temp_min);
+        const weatherData = await weatherResponse.json();
+        
+        
+        console.log(weatherData);
+
+        const latitude = weatherData.coord.lat;
+        const longitude = weatherData.coord.lon;
+
+        console.log(latitude);
+        console.log(longitude);
+
+        const airQualityIndexResponse = fetch(airQualityIndexURL(latitude, longitude));
+        const [airQltyIndexRes, _] = await Promise.all([airQualityIndexResponse, Promise.resolve()]);
+
+        if(!airQltyIndexRes.ok) {
+            throw new Error("Failed to fetch air pollution data");
+        }
+        const airQltyIndexData = await airQltyIndexRes.json();
+        console.log(airQltyIndexData);
+
+        const aqi = airQltyIndexData.list[0].main.aqi;
+        const components = airQltyIndexData.list[0].components;
+        console.log(aqi); 
+        console.log(components);
+
+        document.getElementById("aqiValue").textContent = `${aqi}`;
+        document.getElementById("pm2.5Value").textContent = `${components.pm2_5} μg/m3`;
+        document.getElementById("pm10Value").textContent = `${components.pm10} μg/m3`;
+        document.getElementById("so2Value").textContent = `${components.so2} μg/m3`;
+        document.getElementById("no2Value").textContent = `${components.no2} μg/m3`;
+        document.getElementById("O3Value").textContent = `${components.o3} μg/m3`;
+        document.getElementById("COValue").textContent = `${components.co} μg/m3`;
+
+        const weatherDescription = weatherData.weather[0].description;
+        const weatherIconCode = weatherData.weather[0].icon;
+        const feelsLike = Math.round(weatherData.main.feels_like);
+        const temp = Math.round(weatherData.main.temp);
+        const highTemp = Math.round(weatherData.main.temp_max);
+        const lowTemp = Math.round(weatherData.main.temp_min);
         const iconMap = {
             "01d": "assets/01d.png",
             "01n": "assets/01n.png",
@@ -107,9 +144,9 @@ async function getWeather(locationName) {
         };
         const iconSrc = iconMap[weatherIconCode] || "assets/cloudy.png";
 
-        const sunriseUnix = data.sys.sunrise;
-        const sunsetUnix = data.sys.sunset;
-        const dayLengthSec = data.sys.sunset - data.sys.sunrise;
+        const sunriseUnix = weatherData.sys.sunrise;
+        const sunsetUnix = weatherData.sys.sunset;
+        const dayLengthSec = weatherData.sys.sunset - weatherData.sys.sunrise;
         const sunriseMillisec = new Date(sunriseUnix * 1000);
         const sunsetMillisec = new Date(sunsetUnix * 1000);
         const hours = Math.floor(dayLengthSec / 3600);
@@ -123,10 +160,10 @@ async function getWeather(locationName) {
             minute: '2-digit',
         });
        
-        const humidity = data.main?.humidity ?? "N/A";
-        const visibilityMeters = data?.visibility;
-        const pressure = data.main?.pressure ?? "N/A";
-        const windspeedMetersPerSec = data.wind?.speed;
+        const humidity = weatherData.main?.humidity ?? "N/A";
+        const visibilityMeters = weatherData?.visibility;
+        const pressure = weatherData.main?.pressure ?? "N/A";
+        const windspeedMetersPerSec = weatherData.wind?.speed;
         const visibilityKm = visibilityMeters != null ? (visibilityMeters / 1000) : "N/A";
         const windspeedKm = windspeedMetersPerSec != null ? (windspeedMetersPerSec * 3.6) : "N/A";
        
