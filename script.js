@@ -84,13 +84,10 @@ async function getWeather(locationName) {
             throw new Error("Failed to fetch weather data");
         }
         const weatherData = await weatherResponse.json();
-        
-        
         console.log(weatherData);
 
-        const latitude = weatherData.coord.lat;
-        const longitude = weatherData.coord.lon;
-
+        const latitude = weatherData.coord?.lat;
+        const longitude = weatherData.coord?.lon;
         console.log(latitude);
         console.log(longitude);
 
@@ -103,25 +100,20 @@ async function getWeather(locationName) {
         const airQltyIndexData = await airQltyIndexRes.json();
         console.log(airQltyIndexData);
 
-        const aqi = airQltyIndexData.list[0].main.aqi;
-        const components = airQltyIndexData.list[0].components;
+        const aqi = airQltyIndexData?.list?.[0]?.main?.aqi ?? "N/A";
+        const {description, color} = getAirQltyIndexName(aqi);
+        const components = airQltyIndexData?.list?.[0]?.components;
         console.log(aqi); 
         console.log(components);
 
-        document.getElementById("aqiValue").textContent = `${aqi}`;
-        document.getElementById("pm2.5Value").textContent = `${components.pm2_5} μg/m3`;
-        document.getElementById("pm10Value").textContent = `${components.pm10} μg/m3`;
-        document.getElementById("so2Value").textContent = `${components.so2} μg/m3`;
-        document.getElementById("no2Value").textContent = `${components.no2} μg/m3`;
-        document.getElementById("O3Value").textContent = `${components.o3} μg/m3`;
-        document.getElementById("COValue").textContent = `${components.co} μg/m3`;
+        
 
-        const weatherDescription = weatherData.weather[0].description;
-        const weatherIconCode = weatherData.weather[0].icon;
-        const feelsLike = Math.round(weatherData.main.feels_like);
-        const temp = Math.round(weatherData.main.temp);
-        const highTemp = Math.round(weatherData.main.temp_max);
-        const lowTemp = Math.round(weatherData.main.temp_min);
+        const weatherDescription = weatherData.weather?.[0]?.description ?? "N/A";
+        const weatherIconCode = weatherData.weather?.[0]?.icon;
+        const feelsLike = Math.round(weatherData.main?.feels_like);
+        const temp = Math.round(weatherData.main?.temp);
+        const highTemp = Math.round(weatherData.main?.temp_max);
+        const lowTemp = Math.round(weatherData.main?.temp_min);
         const iconMap = {
             "01d": "assets/01d.png",
             "01n": "assets/01n.png",
@@ -144,9 +136,9 @@ async function getWeather(locationName) {
         };
         const iconSrc = iconMap[weatherIconCode] || "assets/cloudy.png";
 
-        const sunriseUnix = weatherData.sys.sunrise;
-        const sunsetUnix = weatherData.sys.sunset;
-        const dayLengthSec = weatherData.sys.sunset - weatherData.sys.sunrise;
+        const sunriseUnix = weatherData.sys?.sunrise;
+        const sunsetUnix = weatherData.sys?.sunset;
+        const dayLengthSec = sunsetUnix - sunriseUnix;
         const sunriseMillisec = new Date(sunriseUnix * 1000);
         const sunsetMillisec = new Date(sunsetUnix * 1000);
         const hours = Math.floor(dayLengthSec / 3600);
@@ -175,6 +167,18 @@ async function getWeather(locationName) {
         document.querySelector(".high").textContent = `High: ${highTemp}`;
         document.querySelector(".low").textContent = `Low: ${lowTemp}`;
 
+
+        document.getElementById("aqiValue").textContent = `${aqi}`;
+        const airIndexName = document.getElementById("airIndexName");
+        airIndexName.textContent = description;
+        airIndexName.style.backgroundColor = color;
+        document.getElementById("pm2.5Value").textContent = components?.pm2_5 != null ? `${components.pm2_5} μg/m3` : "N/A";
+        document.getElementById("pm10Value").textContent = components?.pm10 != null ? `${components.pm10} μg/m3` : "N/A";
+        document.getElementById("so2Value").textContent = components?.so2 != null ? `${components.so2} μg/m3` : "N/A";
+        document.getElementById("no2Value").textContent = components?.no2 != null ? `${components.no2} μg/m3` : "N/A";
+        document.getElementById("O3Value").textContent = components?.o3 != null ? `${components.o3} μg/m3` : "N/A";
+        document.getElementById("COValue").textContent = components?.co != null ? `${components.co} μg/m3` : "N/A";
+
         document.getElementById("riseTime").textContent = formattedSunriseTime;
         document.getElementById("setTime").textContent = formattedSunsetTime;
         document.getElementById("dayLength").textContent = `${hours}h ${minutes}min`;
@@ -190,8 +194,38 @@ async function getWeather(locationName) {
     }
 }
 
-
  //getWeather();
+
+ function getAirQltyIndexName(aqi) {
+    let description = "";
+    let color = "";
+    switch(aqi) {
+        case 1: 
+            description = "Good";
+            color = "green";
+            break;
+        case 2: 
+            description = "Fair";
+            color = "lightgreen";
+            break;
+        case 3: 
+            description = "Moderate";
+            color = "yellow";
+            break;
+        case 4:
+            description = "Poor";
+            color = "orange";
+            break;
+        case 5: 
+            description = "Very Poor";
+            color = "red";
+            break;
+        default: 
+            description = "Unknown";
+            color = "gray";
+    }
+    return {description, color};
+ }
 
 
 // Dark-Light Theme Toggle Button
