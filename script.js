@@ -181,9 +181,20 @@ async function getWeather(locationName) {
             dayLengthElmnt.textContent = "N/A";
         } 
         
-        const uvIndex = currForecastData?.current?.uvi ?? "N/A";
-        const rainMM = currForecastData?.current?.rain?.["1h"] ?? 0;
-        const rainPercent = Math.min(Math.round(rainMM * 10), 100);
+        const uvIndex = currForecastData?.current?.uvi;
+        const rainMM = currForecastData?.current?.rain?.["1h"];
+        let rainText;
+        if(rainMM == null) {
+            rainText = "N/A";
+        }
+        else if(rainMM == 0) {
+            rainText = "No rain";
+        }
+        else {
+            const rainPercent = Math.min(Math.round(rainMM * 10), 100);
+            rainText = `${rainPercent} %`;
+        }
+        
        
         const humidity = weatherData.main?.humidity ?? "N/A";
         const visibilityMeters = weatherData?.visibility;
@@ -212,8 +223,8 @@ async function getWeather(locationName) {
         document.getElementById("O3Value").textContent = components?.o3 != null ? `${components.o3} μg/m3` : "N/A";
         document.getElementById("COValue").textContent = components?.co != null ? `${components.co} μg/m3` : "N/A";
 
-        document.getElementById("uvIndex").textContent = uvIndex === "N/A" ? "N/A" : `${uvIndex} UV`;
-        document.getElementById("rain").textContent = rainPercent === 0 ? "No rain" : `${rainPercent} %`;
+        document.getElementById("uvIndex").textContent = uvIndex != null ? `${uvIndex} UV` : "N/A";
+        document.getElementById("rain").textContent = rainText;
 
         document.getElementById("humidity").textContent = humidity === "N/A" ? "N/A" : `${humidity} %`;
         document.getElementById("visibility").textContent = visibilityKm === "N/A" ? "N/A" : `${visibilityKm} km`;
