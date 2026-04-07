@@ -77,7 +77,12 @@ async function getWeather(locationName) {
        return `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
     };
     console.log(airQualityIndexURL);
-    
+
+    const currForecastAPIUrl = (lat, lon) => {
+        return `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&appid=${apiKey}`;
+    };
+    console.log(currForecastAPIUrl);
+        
     try {
         const weatherResponse = await fetch(weatherapiURL);
         if(!weatherResponse.ok) {
@@ -92,13 +97,16 @@ async function getWeather(locationName) {
         console.log(longitude);
 
         const airQualityIndexResponse = fetch(airQualityIndexURL(latitude, longitude));
-        const [airQltyIndexRes, _] = await Promise.all([airQualityIndexResponse, Promise.resolve()]);
+        const currForecastResponse = fetch(currForecastAPIUrl(latitude, longitude));
+        const [airQltyIndexRes, currForecastRes] = await Promise.all([airQualityIndexResponse, currForecastResponse]);
 
-        if(!airQltyIndexRes.ok) {
-            throw new Error("Failed to fetch air pollution data");
+        if(!airQltyIndexRes.ok || !currForecastRes.ok) {
+            throw new Error("Failed to fetch additional data");
         }
         const airQltyIndexData = await airQltyIndexRes.json();
+        const currForecastData = await currForecastRes.json();
         console.log(airQltyIndexData);
+        console.log(currForecastData);
 
         const aqi = airQltyIndexData?.list?.[0]?.main?.aqi ?? "N/A";
         const {description, color} = getAirQltyIndexName(aqi);
@@ -173,6 +181,9 @@ async function getWeather(locationName) {
             dayLengthElmnt.textContent = "N/A";
         } 
         
+        const uvIndex = currForecastData?.current?.uvi ?? "N/A";
+        const rainMM = currForecastData?.current?.rain?.["1h"] ?? 0;
+        const rainPercent = Math.min(Math.round(rainMM * 10), 100);
        
         const humidity = weatherData.main?.humidity ?? "N/A";
         const visibilityMeters = weatherData?.visibility;
@@ -201,7 +212,9 @@ async function getWeather(locationName) {
         document.getElementById("O3Value").textContent = components?.o3 != null ? `${components.o3} μg/m3` : "N/A";
         document.getElementById("COValue").textContent = components?.co != null ? `${components.co} μg/m3` : "N/A";
 
-       
+        document.getElementById("uvIndex").textContent = uvIndex === "N/A" ? "N/A" : `${uvIndex} UV`;
+        document.getElementById("rain").textContent = rainPercent === 0 ? "No rain" : `${rainPercent} %`;
+
         document.getElementById("humidity").textContent = humidity === "N/A" ? "N/A" : `${humidity} %`;
         document.getElementById("visibility").textContent = visibilityKm === "N/A" ? "N/A" : `${visibilityKm} km`;
         document.getElementById("pressure").textContent = pressure === "N/A" ? "N/A" : `${pressure} mb`;
