@@ -66,8 +66,6 @@ searchInput.addEventListener("keydown", (event) => {
 });
 
 
-
-
 // Fetching Weather Data 
 async function getWeather(locationName) {
     //console.log(value);
@@ -79,7 +77,7 @@ async function getWeather(locationName) {
     console.log(airQualityIndexURL);
 
     const currForecastAPIUrl = (lat, lon) => {
-        return `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&appid=${apiKey}`;
+        return `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&appid=${apiKey}&units=metric`;
     };
     console.log(currForecastAPIUrl);
         
@@ -195,6 +193,37 @@ async function getWeather(locationName) {
             rainText = `${rainPercent} %`;
         }
         
+        const daysForecastContainer = document.querySelector(".tempLists");
+        daysForecastContainer.innerHTML = "";
+        const daysForecasts = currForecastData.daily.slice(0, 7);
+        console.log(daysForecasts);
+        daysForecasts.forEach(day => {
+            const date = new Date(day.dt * 1000);
+            const options = {
+                month: "short",
+                day: "numeric"
+            };
+            const formattedDate = date.toLocaleDateString(undefined, options);
+
+            const weather = day.weather[0];
+            const iconCode = weather.icon;
+            const mainText = weather.main;
+            const tempDay = Math.round(day.temp.day);
+
+    console.log(`Date: ${formattedDate}`);
+      console.log(`Weather: ${mainText}`);
+      console.log(`Icon: ${iconCode}`);
+      console.log(`Temp: ${tempDay}°C`);
+
+            const daysForecastDiv = document.createElement("div");
+            daysForecastDiv.className = "days-lists";
+            daysForecastDiv.innerHTML = `<img src = "${iconSrc}" style="width: 30px;">
+                                         <span class="wname">${mainText}</span>
+                                         <span class="nxt-temp">${tempDay}°C</span>
+                                         <span>${formattedDate}</span>`;
+            daysForecastContainer.appendChild(daysForecastDiv);
+        });
+
        
         const humidity = weatherData.main?.humidity ?? "N/A";
         const visibilityMeters = weatherData?.visibility;
