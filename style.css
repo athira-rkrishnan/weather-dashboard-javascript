@@ -107,6 +107,22 @@ header .searchBox input {
     padding: 0 0.4rem;
     flex: 1;
 }
+/*
+header .searchBox #suggestion-box {
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    background: #fff;
+    width: 200px;
+}
+.suggestion-item {
+  padding: 8px;
+  cursor: pointer;
+}
+.suggestion-item:hover {
+  background-color: #f0f0f0;
+} */
 header .curr-location {
   /* background: green;  */
     width: 13rem;

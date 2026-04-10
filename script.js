@@ -366,3 +366,20 @@ const hourlyChart = new Chart(canvasEl, {
   }
 
   
+const currLocationBtn = document.querySelector('.curr-location');
+currLocationBtn.addEventListener("click", () => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+                const { latitude, longitude } = position.coords;
+                fetchWeatherData(latitude, longitude);
+            },
+            (error) => {
+                console.error('Geolocation error:', error);
+                alert('Unable to retrieve your location.');
+            }
+        );
+    } 
+    else {
+        alert('Geolocation is not supported by your browser.');
+    }
+});
