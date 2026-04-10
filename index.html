@@ -6,6 +6,7 @@
     <title>Advanced Weather Dashboard</title>
     <link rel = "stylesheet" type = "text/css" href = "style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class = "bgimage" id = "bgImage"></div> 
@@ -185,7 +186,8 @@
                 <div class = "hourlyForecast lightgray-effect">
                     <h3>Hourly Forecast</h3>
                     <div class = "hourlytempchart grayglass-effect">
-                        <img src = "assets/pngaaa.com-3900991.png" style = "width: 1060px; height: 157px;">
+<!--                    <img src = "assets/pngaaa.com-3900991.png" style = "width: 1060px; height: 157px;">   -->
+                        <canvas id = "hourChart" width="800" height="100"></canvas>
                     </div>
                 </div>
             </div>

@@ -210,10 +210,10 @@ async function getWeather(locationName) {
             const mainText = weather.main;
             const tempDay = Math.round(day.temp.day);
 
-    console.log(`Date: ${formattedDate}`);
-      console.log(`Weather: ${mainText}`);
-      console.log(`Icon: ${iconCode}`);
-      console.log(`Temp: ${tempDay}°C`);
+        console.log(`Date: ${formattedDate}`);
+        console.log(`Weather: ${mainText}`);
+        console.log(`Icon: ${iconCode}`);
+        console.log(`Temp: ${tempDay}°C`);
 
             const daysForecastDiv = document.createElement("div");
             daysForecastDiv.className = "days-lists";
@@ -223,6 +223,11 @@ async function getWeather(locationName) {
                                          <span>${formattedDate}</span>`;
             daysForecastContainer.appendChild(daysForecastDiv);
         });
+
+
+        const hourlyForecasts = currForecastData.hourly.slice(0, 24);
+        console.log(hourlyForecasts);
+        updateHourlyChart(hourlyForecasts);
 
        
         const humidity = weatherData.main?.humidity ?? "N/A";
@@ -259,7 +264,6 @@ async function getWeather(locationName) {
         document.getElementById("visibility").textContent = visibilityKm === "N/A" ? "N/A" : `${visibilityKm} km`;
         document.getElementById("pressure").textContent = pressure === "N/A" ? "N/A" : `${pressure} mb`;
         document.getElementById("windSpeed").textContent = windspeedKm === "N/A" ? "N/A" : `${windspeedKm.toFixed(1)} km/h`;
-
     }
     catch(error) {
         console.error("Error fetching weather data:", error);
@@ -328,3 +332,37 @@ toggleBtn.addEventListener("click", () => {
     }
 });
 
+
+
+const canvasEl = document.getElementById("hourChart");
+const hourlyChart = new Chart(canvasEl, {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        label: 'Temperature (°C)',
+        data: [],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  function updateHourlyChart(hourlyData) {
+    const labels = hourlyData.map(hour => {
+        const date = new Date(hour.dt * 1000);
+        return date.toLocaleTimeString([], {hour: '2-digit'});
+    });
+    const hrTemp = hourlyData.map(hour => Math.round(hour.temp));
+    hourlyChart.data.labels = labels;
+    hourlyChart.data.datasets[0].data = hrTemp;
+    hourlyChart.update();
+  }
+
+  
