@@ -1,3 +1,5 @@
+let currentTempData = null;
+
 // Updating Time and date
 function updateTime() {
     const currDateTime = new Date();
@@ -64,6 +66,8 @@ searchInput.addEventListener("keydown", (event) => {
         displayLocationName();
     }
 });
+
+
 
 
 // Fetching Weather Data 
@@ -271,6 +275,15 @@ async function getWeather(locationName, lat, lon) {
         document.getElementById("visibility").textContent = visibilityKm === "N/A" ? "N/A" : `${visibilityKm} km`;
         document.getElementById("pressure").textContent = pressure === "N/A" ? "N/A" : `${pressure} mb`;
         document.getElementById("windSpeed").textContent = windspeedKm === "N/A" ? "N/A" : `${windspeedKm.toFixed(1)} km/h`;
+
+        currentTempData = {
+            temp,
+            feelsLike,
+            highTemp,
+            lowTemp
+        };
+
+        updateCelsiusFahrenheitTemp();
     }
     catch(error) {
         console.error("Error fetching weather data:", error);
@@ -309,6 +322,35 @@ async function getWeather(locationName, lat, lon) {
     }
     return {description, color};
  }
+
+// Celsius to Fahrenheit Conversion 
+function convertToFahrenheit(celsius) {
+    return Math.round((celsius * 9/5) + 32);
+}
+
+const tempToggle = document.getElementById("tempToggle");
+function updateCelsiusFahrenheitTemp() {
+    if (!currentTempData) {
+        return;
+    }
+    const isFahrenheit = tempToggle.checked;
+    let { temp, feelsLike, highTemp, lowTemp } = currentTempData;
+    if (isFahrenheit) {
+        temp = convertToFahrenheit(temp);
+        feelsLike = convertToFahrenheit(feelsLike);
+        highTemp = convertToFahrenheit(highTemp);
+        lowTemp = convertToFahrenheit(lowTemp);
+    }
+    const unit = isFahrenheit ? "°F" : "°C";
+    document.querySelector(".temp-value").textContent = `${temp}${unit}`;
+    document.querySelector(".feels-like").textContent = `Feels like ${feelsLike}${unit}`;
+    document.querySelector(".high").textContent = `High: ${highTemp}${unit}`;
+    document.querySelector(".low").textContent = `Low: ${lowTemp}${unit}`;
+}
+
+tempToggle.addEventListener("change", () => {
+    updateCelsiusFahrenheitTemp();
+});
 
 
 // Dark-Light Theme Toggle Button
