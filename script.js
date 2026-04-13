@@ -414,3 +414,59 @@ window.addEventListener('load', () => {
 });
 
 
+function debounce(func, delay) {
+    let timeoutId;
+    return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
+    };
+}
+
+async function fetchCitySuggestions(query) {
+     const suggestionBox = document.getElementById("suggestion-box");
+
+    if (!query) {
+       suggestionBox.innerHTML = '';
+        return;
+    }
+    try {
+        const apiKey = "968b2abf92825ff2190a5cdbfd465552";
+        const geoCityFetchurl = `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${apiKey}`;
+        const res = await fetch(geoCityFetchurl);
+        const data = await res.json();
+        suggestionBox.innerHTML = "";
+        data.forEach(city => {
+            const div = document.createElement("div");
+            div.classList.add("suggestion-item");
+            const cityName = `${city.name}, ${city.country}`;
+            div.textContent = cityName;
+            div.addEventListener("click", () => {
+                searchInput.value = city.name;
+                suggestionBox.innerHTML = "";
+                displayLocationName(); 
+            });
+            suggestionBox.appendChild(div);
+        });
+    }
+    catch (error) {
+        console.error("Error fetching suggestions:", error);
+    }
+}
+
+
+const debouncedSearch = debounce(fetchCitySuggestions, 300);
+searchInput.addEventListener("input", (e) => {
+    const query = e.target.value.trim();
+    debouncedSearch(query);
+});
+
+
+
+
+    
+
+
+
+

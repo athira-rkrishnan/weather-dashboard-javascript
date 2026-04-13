@@ -94,6 +94,8 @@ header .searchBox {
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
+    position: relative;
+    z-index: 1000;
 }
 header .searchBox i {
     font-size: 1.2rem;
@@ -107,14 +109,17 @@ header .searchBox input {
     padding: 0 0.4rem;
     flex: 1;
 }
-/*
+
 header .searchBox #suggestion-box {
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc; */
     max-height: 150px;
     overflow-y: auto;
     position: absolute;
+    top: 110%;
     background: #fff;
-    width: 200px;
+    width: 100%;
+    z-index: 99999;
+    border: 2px solid red;
 }
 .suggestion-item {
   padding: 8px;
@@ -122,7 +127,8 @@ header .searchBox #suggestion-box {
 }
 .suggestion-item:hover {
   background-color: #f0f0f0;
-} */
+} 
+
 header .curr-location {
   /* background: green;  */
     width: 13rem;
