@@ -67,12 +67,19 @@ searchInput.addEventListener("keydown", (event) => {
 
 
 // Fetching Weather Data 
-async function getWeather(locationName) {
+async function getWeather(locationName, lat, lon) {
     //console.log(value);
     const apiKey = "968b2abf92825ff2190a5cdbfd465552";
-    const weatherapiURL = `https://api.openweathermap.org/data/2.5/weather?q=${locationName}&appid=${apiKey}&units=metric`;
+    let weatherapiURL;
+    if(lat && lon) {
+        weatherapiURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    }
+    else {
+        weatherapiURL = `https://api.openweathermap.org/data/2.5/weather?q=${locationName}&appid=${apiKey}&units=metric`;
+    }
+    console.log(weatherapiURL);
     const airQualityIndexURL= (lat, lon) => {
-       return `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+       return `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
     };
     console.log(airQualityIndexURL);
 
@@ -369,14 +376,27 @@ const hourlyChart = new Chart(canvasEl, {
 const currLocationBtn = document.querySelector('.curr-location');
 currLocationBtn.addEventListener("click", () => {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-                const { latitude, longitude } = position.coords;
-                fetchWeatherData(latitude, longitude);
-            },
-            (error) => {
-                console.error('Geolocation error:', error);
-                alert('Unable to retrieve your location.');
-            }
+        navigator.geolocation.getCurrentPosition(async (position) => {
+                const {latitude, longitude} = position.coords;
+                try {
+                   const apiKey = "968b2abf92825ff2190a5cdbfd465552";
+                   const geoURL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`;
+                   const res = await fetch(geoURL);
+                   const data = await res.json(); 
+                   console.log(data);
+
+                   const locationName = data[0]?.name;
+                   document.getElementById("lctn-name").textContent = locationName;
+                   getWeather(null, latitude, longitude);
+                }
+                catch (error) {
+                    console.error("Error fetching location:", error);
+                    alert("Unable to fetch location name.");
+                }  
+            }, (error) => {
+                    console.error('Geolocation error:', error);
+                    alert('Unable to retrieve your location.');
+                }
         );
     } 
     else {
