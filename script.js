@@ -375,6 +375,11 @@ const hourlyChart = new Chart(canvasEl, {
   
 const currLocationBtn = document.querySelector('.curr-location');
 currLocationBtn.addEventListener("click", () => {
+    loadCurrentLocation();
+});
+
+
+async function loadCurrentLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(async (position) => {
                 const {latitude, longitude} = position.coords;
@@ -385,8 +390,8 @@ currLocationBtn.addEventListener("click", () => {
                    const data = await res.json(); 
                    console.log(data);
 
-                   const locationName = data[0]?.name;
-                   document.getElementById("lctn-name").textContent = locationName;
+                   const cityName = data[0]?.name || "Mumbai";
+                   document.getElementById("lctn-name").textContent = cityName;
                    getWeather(null, latitude, longitude);
                 }
                 catch (error) {
@@ -402,4 +407,10 @@ currLocationBtn.addEventListener("click", () => {
     else {
         alert('Geolocation is not supported by your browser.');
     }
+}
+
+window.addEventListener('load', () => {
+    loadCurrentLocation();
 });
+
+
