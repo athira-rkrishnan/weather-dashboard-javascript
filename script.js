@@ -1,5 +1,26 @@
 let currentTempData = null;
+let dailyForecastData = [];
 let lastHourlyData = [];
+const iconMap = {
+            "01d": "assets/01d.png",
+            "01n": "assets/01n.png",
+            "02d": "assets/02d.png",
+            "02n": "assets/02n.png",
+            "03d": "assets/03d.png",
+            "03n": "assets/03n.png",
+            "04d": "assets/04d.png",
+            "04n": "assets/04n.png",
+            "09d": "assets/09d.png",
+            "09n": "assets/09n.png",
+            "10d": "assets/10d.png",
+            "10n": "assets/10n.png",
+            "11d": "assets/11d.png",
+            "11n": "assets/11n.png",
+            "13d": "assets/13d.png",
+            "13n": "assets/13n.png",
+            "50d": "assets/50d.png",
+            "50n": "assets/50n.png"
+        };
 
 // Updating Time and date
 function updateTime() {
@@ -69,8 +90,6 @@ searchInput.addEventListener("keydown", (event) => {
 });
 
 
-
-
 // Fetching Weather Data 
 async function getWeather(locationName, lat, lon) {
     //console.log(value);
@@ -130,26 +149,7 @@ async function getWeather(locationName, lat, lon) {
         const temp = Math.round(weatherData.main?.temp);
         const highTemp = Math.round(weatherData.main?.temp_max);
         const lowTemp = Math.round(weatherData.main?.temp_min);
-        const iconMap = {
-            "01d": "assets/01d.png",
-            "01n": "assets/01n.png",
-            "02d": "assets/02d.png",
-            "02n": "assets/02n.png",
-            "03d": "assets/03d.png",
-            "03n": "assets/03n.png",
-            "04d": "assets/04d.png",
-            "04n": "assets/04n.png",
-            "09d": "assets/09d.png",
-            "09n": "assets/09n.png",
-            "10d": "assets/10d.png",
-            "10n": "assets/10n.png",
-            "11d": "assets/11d.png",
-            "11n": "assets/11n.png",
-            "13d": "assets/13d.png",
-            "13n": "assets/13n.png",
-            "50d": "assets/50d.png",
-            "50n": "assets/50n.png"
-        };
+        
         const iconSrc = iconMap[weatherIconCode] || "assets/cloudy.png";
 
         const sunriseUnix = weatherData.sys?.sunrise;
@@ -209,34 +209,9 @@ async function getWeather(locationName, lat, lon) {
         daysForecastContainer.innerHTML = "";
         const daysForecasts = currForecastData.daily.slice(0, 7);
         console.log(daysForecasts);
-        daysForecasts.forEach(day => {
-            const date = new Date(day.dt * 1000);
-            const options = {
-                month: "short",
-                day: "numeric"
-            };
-            const formattedDate = date.toLocaleDateString(undefined, options);
-
-            const weather = day.weather[0];
-            const iconCode = weather.icon;
-            const mainText = weather.main;
-            const tempDay = Math.round(day.temp.day);
-
-        console.log(`Date: ${formattedDate}`);
-        console.log(`Weather: ${mainText}`);
-        console.log(`Icon: ${iconCode}`);
-        console.log(`Temp: ${tempDay}°C`);
-
-            const daysForecastDiv = document.createElement("div");
-            daysForecastDiv.className = "days-lists";
-            daysForecastDiv.innerHTML = `<img src = "${iconSrc}" style="width: 30px;">
-                                         <span class="wname">${mainText}</span>
-                                         <span class="nxt-temp">${tempDay}°C</span>
-                                         <span>${formattedDate}</span>`;
-            daysForecastContainer.appendChild(daysForecastDiv);
-        });
-
-
+        dailyForecastData = daysForecasts;
+        updateDaysForecast();
+        
         const hourlyForecasts = currForecastData.hourly.slice(0, 24);
         console.log(hourlyForecasts);
         lastHourlyData = hourlyForecasts;
@@ -350,9 +325,44 @@ function updateCelsiusFahrenheitTemp() {
     document.querySelector(".low").textContent = `Low: ${lowTemp}${unit}`;
 }
 
+
+function updateDaysForecast() {
+    const daylistsContainer = document.querySelector(".tempLists");
+    const isFahrenheit = tempToggle.checked;
+    daylistsContainer.innerHTML = "";
+    dailyForecastData.forEach(day => {
+        const date = new Date(day.dt * 1000);
+        const formattedDate = date.toLocaleDateString(undefined, {
+            month: "short",
+            day: "numeric"
+        });
+
+        let temp = Math.round(day.temp.day);
+        if (isFahrenheit) {
+            temp = convertToFahrenheit(temp);
+        }
+        const weather = day.weather[0];
+        const mainText = weather.main;
+        const iconCode = weather.icon;
+        const iconSrc = iconMap[iconCode] || "assets/cloudy.png";
+
+        const dayListDiv = document.createElement("div");
+        dayListDiv.className = "days-lists";
+        dayListDiv.innerHTML = `
+            <img src="${iconSrc}" style="width: 30px;">
+            <span class="wname">${mainText}</span>
+            <span class="nxt-temp">${temp}${isFahrenheit ? "°F" : "°C"}</span>
+            <span>${formattedDate}</span>
+        `;
+
+        daylistsContainer.appendChild(dayListDiv);
+    });
+}
+
 tempToggle.addEventListener("change", () => {
     updateCelsiusFahrenheitTemp();
     updateHourlyChart(lastHourlyData);
+    updateDaysForecast();
 
 });
 
@@ -386,7 +396,7 @@ toggleBtn.addEventListener("click", () => {
 });
 
 
-
+// Hourly Chart using Chart.js
 const canvasEl = document.getElementById("hourChart");
 const hourlyChart = new Chart(canvasEl, {
     type: 'line',
@@ -426,7 +436,7 @@ function updateHourlyChart(hourlyData) {
     hourlyChart.update();
 }
 
-  
+// Current Location using Geolocation API
 const currLocationBtn = document.querySelector('.curr-location');
 currLocationBtn.addEventListener("click", () => {
     loadCurrentLocation();
@@ -467,7 +477,7 @@ window.addEventListener('load', () => {
     loadCurrentLocation();
 });
 
-
+// Auto-suggestion using debouncing
 function debounce(func, delay) {
     let timeoutId;
     return function(...args) {
@@ -515,7 +525,6 @@ searchInput.addEventListener("input", (e) => {
     const query = e.target.value.trim();
     debouncedSearch(query);
 });
-
 
 
 
