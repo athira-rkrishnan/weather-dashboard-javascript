@@ -1,4 +1,5 @@
 let currentTempData = null;
+let lastHourlyData = [];
 
 // Updating Time and date
 function updateTime() {
@@ -238,7 +239,8 @@ async function getWeather(locationName, lat, lon) {
 
         const hourlyForecasts = currForecastData.hourly.slice(0, 24);
         console.log(hourlyForecasts);
-        updateHourlyChart(hourlyForecasts);
+        lastHourlyData = hourlyForecasts;
+        updateHourlyChart(lastHourlyData);
 
        
         const humidity = weatherData.main?.humidity ?? "N/A";
@@ -350,6 +352,8 @@ function updateCelsiusFahrenheitTemp() {
 
 tempToggle.addEventListener("change", () => {
     updateCelsiusFahrenheitTemp();
+    updateHourlyChart(lastHourlyData);
+
 });
 
 
@@ -403,16 +407,24 @@ const hourlyChart = new Chart(canvasEl, {
     }
   });
 
-  function updateHourlyChart(hourlyData) {
+function updateHourlyChart(hourlyData) {
+    const isFahrenheit = document.getElementById("tempToggle").checked;
     const labels = hourlyData.map(hour => {
         const date = new Date(hour.dt * 1000);
         return date.toLocaleTimeString([], {hour: '2-digit'});
     });
-    const hrTemp = hourlyData.map(hour => Math.round(hour.temp));
+    const hrTemp = hourlyData.map(hour => {
+        let temp = Math.round(hour.temp);
+        return isFahrenheit ? convertToFahrenheit(temp) : temp;
+    });
+
+    hourlyChart.data.datasets[0].label = isFahrenheit 
+        ? 'Temperature (°F)' 
+        : 'Temperature (°C)';
     hourlyChart.data.labels = labels;
     hourlyChart.data.datasets[0].data = hrTemp;
     hourlyChart.update();
-  }
+}
 
   
 const currLocationBtn = document.querySelector('.curr-location');
