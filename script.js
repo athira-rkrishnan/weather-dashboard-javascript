@@ -264,6 +264,7 @@ async function getWeather(locationName, lat, lon) {
     }
     catch(error) {
         console.error("Error fetching weather data:", error);
+        showErrorAlert("Failed to fetch weather data.");
     }
 }
 
@@ -460,16 +461,16 @@ async function loadCurrentLocation() {
                 }
                 catch (error) {
                     console.error("Error fetching location:", error);
-                    alert("Unable to fetch location name.");
+                    showErrorAlert("Unable to fetch location name.");
                 }  
             }, (error) => {
                     console.error('Geolocation error:', error);
-                    alert('Unable to retrieve your location.');
+                    showErrorAlert('Unable to retrieve your location.');
                 }
         );
     } 
     else {
-        alert('Geolocation is not supported by your browser.');
+        showErrorAlert('Geolocation is not supported by your browser.');
     }
 }
 
@@ -526,6 +527,21 @@ searchInput.addEventListener("input", (e) => {
     debouncedSearch(query);
 });
 
+const errorAlertBox = document.getElementById("error-alert");
+const errorAlertMsg = document.getElementById("error-alert-msg");
+const closeIcon = document.querySelector(".fa-square-xmark");
+
+closeIcon.addEventListener("click", () => {
+    errorAlertBox.classList.remove("show");
+});
+
+function showErrorAlert(message) {
+    errorAlertMsg.textContent = message;
+    errorAlertBox.classList.add("show");
+    setTimeout(() => {
+        errorAlertBox.classList.remove("show");
+    }, 3000);
+}
 
 
     
