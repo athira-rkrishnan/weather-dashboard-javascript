@@ -364,7 +364,6 @@ tempToggle.addEventListener("change", () => {
     updateCelsiusFahrenheitTemp();
     updateHourlyChart(lastHourlyData);
     updateDaysForecast();
-
 });
 
 
@@ -394,6 +393,8 @@ toggleBtn.addEventListener("click", () => {
         toggleBtn.style.color = "white";
         backgroundImage.style.backgroundImage = "url('assets/NaturePic1.webp')";
     }
+
+   
 });
 
 
@@ -402,21 +403,43 @@ const canvasEl = document.getElementById("hourChart");
 const hourlyChart = new Chart(canvasEl, {
     type: 'line',
     data: {
-      labels: [],
-      datasets: [{
-        label: 'Temperature (°C)',
-        data: [],
-        borderWidth: 1
-      }]
+        labels: [],
+        datasets: [{
+            label: 'Temperature (°C)',
+            data: [],
+            borderWidth: 1,
+            borderColor: 'rgb(8, 163, 163)',
+            backgroundColor: 'rgba(42, 245, 152, 1)'
+        }]
     },
     options: {
-      scales: {
-        y: {
-          beginAtZero: true
+        plugins: {
+            legend: {
+                labels: {
+                    color: 'black',
+                    font: {
+                        size: 14,
+                        weight: '600'
+                    }  
+                }
+            }
+        },
+        scales: {
+            x: {
+                ticks: {
+                    color: 'black'   
+                },    
+            },
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    color: 'black'   
+                }, 
+            }
         }
-      }
     }
-  });
+});
+
 
 function updateHourlyChart(hourlyData) {
     const isFahrenheit = document.getElementById("tempToggle").checked;
@@ -463,7 +486,7 @@ async function loadCurrentLocation() {
                     console.error("Error fetching location:", error);
                     showErrorAlert("Unable to fetch location name.");
                 }  
-            }, (error) => {
+            },  (error) => {
                     console.error('Geolocation error:', error);
                     showErrorAlert('Unable to retrieve your location.');
                 }
@@ -490,7 +513,7 @@ function debounce(func, delay) {
 }
 
 async function fetchCitySuggestions(query) {
-     const suggestionBox = document.getElementById("suggestion-box");
+    const suggestionBox = document.getElementById("suggestion-box");
 
     if (!query) {
        suggestionBox.innerHTML = '';

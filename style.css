@@ -35,8 +35,9 @@ body, html {
 } 
 .errorPopup {
     width: 15rem;
+    color: black;
     z-index: 5;
-    background-color: gray;
+    /*background-color: gray;  */
     border-radius: 0.7rem;
     padding: 0.5rem 0.6rem;
     position: absolute;
@@ -45,17 +46,29 @@ body, html {
     display: flex;
     align-items: center;
     visibility: hidden;
+    user-select: none;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0.5rem 1.25rem rgba(0,0,0,0.2); 
+    transition: 0.4s ease;
 }
 .errorPopup .fa-triangle-exclamation {
+    color: #106368;
+   box-shadow: 0 0.5rem 1.25rem rgb(137 126 126 / 20%); 
     margin-right: 0.6rem;
+    user-select: none;
 }
 .errorPopup .fa-sort-down {
     position: fixed;
-    top: 6%;
+    top: 65%;
     left: 41%;
     z-index: -1;
-    color: gray;
+    /*color: gray; */
     font-size: 1.2rem;
+    user-select: none;
+    background: rgba(255, 255, 255, 0.65);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
 }
 .weather-container header {
     margin: 0 0.5rem;
@@ -76,8 +89,10 @@ body, html {
 header .time-date {
   /* background: pink; */
     color: black;
-    width: 18rem;
+    width: 20.2rem;
     border-radius: 1rem;
+    padding: 0 0.8rem;
+    user-select: none;
 }
 header .time-date h2 {
     font-size: 1.8rem;
@@ -96,6 +111,8 @@ header .searchBox {
     gap: 0.5rem;
     position: relative;
     z-index: 1000;
+    user-select: none;
+    cursor: pointer;
 }
 header .searchBox i {
     font-size: 1.2rem;
@@ -109,9 +126,9 @@ header .searchBox input {
     padding: 0 0.4rem;
     flex: 1;
 }
-
+/*
 header .searchBox #suggestion-box {
-    /*border: 1px solid #ccc; */
+  
     max-height: 150px;
     overflow-y: auto;
     position: absolute;
@@ -127,7 +144,38 @@ header .searchBox #suggestion-box {
 }
 .suggestion-item:hover {
   background-color: #f0f0f0;
-} 
+} */
+
+header .searchBox #suggestion-box {
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    top: 110%;
+    left: 0;
+    border-radius: 12px;
+    z-index: 9999;
+    transition: all 0.3s ease;
+
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+   -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);   
+}
+.suggestion-item {
+    padding: 10px 14px;
+    cursor: pointer;
+    color: #000;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+.suggestion-item:hover {
+    background: rgba(255, 255, 255, 0.3);  
+    backdrop-filter: blur(10px);
+    transform: scale(1.02);
+    border-radius: 8px;
+}
 
 header .curr-location {
   /* background: green;  */
@@ -139,9 +187,13 @@ header .curr-location {
     align-items: center;
     gap: 0.3rem;
     border-radius: 2rem;
+    user-select: none;
+    cursor: pointer;
 }
 header .curr-location i {
    font-size: 1.2rem;
+   color: #153D4C;
+   cursor: pointer;
 }
 header .curr-location span {
     font-size: 1rem;
@@ -206,6 +258,7 @@ input:checked + .tempSlider:before {
     display: flex;
     align-items: center;
     gap: 0.6rem;
+    user-select: none;
     cursor: pointer;
 }
 .container {
@@ -218,8 +271,9 @@ input:checked + .tempSlider:before {
 }
 .container .locationForecast {
    /* background-color: rgb(144, 82, 92);  */
-    flex-basis: 20%;
+    flex-basis: 25%;
     height: 30rem; 
+    user-select: none;
 }
 .container .lightgray-effect {
     background: rgba(142, 139, 139, 0.15);
@@ -237,8 +291,9 @@ input:checked + .tempSlider:before {
 }
 .locationForecast .loctnTemp {
     /*  background: green;  */
+    height: 14.5rem;
     border-radius: 1rem;
-    padding: 0.7rem 0.4rem;
+    padding: 0.7rem 0.4rem 0.2rem;
     margin-bottom: 0.8rem;  
 }
 .loctnTemp .location {
@@ -263,9 +318,11 @@ input:checked + .tempSlider:before {
 }
 .locationForecast .weatherDetails {
   /*  background-color: pink;   */
+    height: 10.2rem;
     display: flex;
     margin: 0.7rem 0.5rem;
     border-radius: 1rem;
+    padding: 0 0.45rem 0.5rem;
 }
 .weatherDetails .weatherIcon {
    /* background:rgb(142, 105, 36);  */
@@ -291,6 +348,7 @@ input:checked + .tempSlider:before {
 }
 .weatherDetails .temp p {
     font-size: 0.9rem;
+    line-height: 1.3;
 }
 .weatherDetails .temp .highlowTemp {
     display: flex;
@@ -318,12 +376,13 @@ input:checked + .tempSlider:before {
  /*   background-color: rgb(44, 85, 65);    */
     height: 17rem;
     border-radius: 1rem;
-    padding: 0.7rem 0.4rem;
+    padding: 0.7rem 0.8rem;
 }
 .daysForecast .tempLists {
     height: 13.3rem;
     border-radius: 1rem;
     overflow-y: scroll;
+    scrollbar-color: #153D4C #c8c4c4;
 }
 .daysForecast .tempLists .days-lists {
    /* background: rgb(164, 72, 87);  */
@@ -352,11 +411,12 @@ input:checked + .tempSlider:before {
     flex-direction: column;
     flex-basis: 75%;
     gap: 0.5rem;
+    user-select: none;
 }
 .overviewHourly .todaysOverview {
  /*   background-color:aquamarine;   */
-    width: 68rem;
-    padding: 0.6rem 0.5rem;
+    width: 65rem;
+    padding: 0.6rem 0.8rem;
     border-radius: 1rem;
 }
 .overviewHourly .lightgray-effect {
@@ -375,13 +435,13 @@ input:checked + .tempSlider:before {
  /*   background: rgb(184, 184, 65);    */
     border-radius: 1rem;
     flex-basis: 75%;
+    padding: 0.5rem 1rem;
 }
 .airContainer {
     display: flex;
-
 }
 .airContainer .airQltyIndexValue {
-    background: rgb(168, 168, 50);
+   /* background: rgb(168, 168, 50);  */
     width: 15rem;
     height: 9rem;
     display: flex;
@@ -392,85 +452,153 @@ input:checked + .tempSlider:before {
 
 }
 .airQltyIndexValue .airIndexValue {
-    background: violet;
+   /* background: violet; */
     width: 10rem;
     height: 3rem;
     border: 1px solid black;
-    border-radius: 32px;
+    border-radius: 0.93rem;
+    font-size: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-   
+    color: white;
+    background: linear-gradient(135deg, rgb(3 17 22 / 83%), rgb(30 206 215 / 82%));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgb(124 153 158 / 30%);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 .airQltyIndexValue .airIndexDescrptn {
     width: 5rem;
     height: 1.4rem;
-    background: seagreen;
+    background: #fdff26;
+    color: #2e2929;
+    font-weight: 700;
+    padding: 0.9rem 0.22rem;
     border-radius: 0.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .airContainer .airComponents {
-    background: rgb(81, 191, 81);
-    width: 35rem;
+   /* background: rgb(81, 191, 81);  */
+    width: 34rem;
     height: 9rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 10px;
+    border-radius: 0.75rem;
+    color: white;
+    background: linear-gradient(135deg, rgb(3 17 22 / 83%), rgb(30 206 215 / 82%));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgb(124 153 158 / 30%);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 .airContainer .airComponents .compValuesRow1 {
-    background: pink;
+   /* background: pink; */
     display: flex;
     align-items: center;
+    gap: 20px;
+    padding: 0.10rem 0.8em;
 
 }
 .airContainer .airComponents .compValuesRow1 .compValues {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 12rem;
-    background:#4d9889;
-    padding: 1rem;
-
+    justify-content: start;
+    gap: 20px;
+    width: 10rem;
+    height: 3.4rem;
+  /*  background:#4d9889;  */
+    padding: 1rem 0.4rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);      
+}
+.airContainer .airComponents .compValuesRow1 .compValues i {
+    font-size: 1.35rem;
+   /* color: #5b9f0d; */
+   background: linear-gradient(to right, #08B3E5, #2AF598);   
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+}
+.airComponents .compValuesRow1 .compValues .compText {
+    font-size: 1.2rem;
+}
+.airComponents .compValuesRow1 .compValues .compValue {
+    font-size: 1rem;
 }
 .airContainer .airComponents .compValuesRow2 {
-    background: orange;
     display: flex;
     align-items: center;
-    
+    gap: 20px;
+    padding: 0.10rem 0.8em;  
 }
 .airContainer .airComponents .compValuesRow2 .compValues {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 12rem;
-    height: 4.4rem;
-    background:#0c473c;
-    padding: 1rem;
+    justify-content: start;
+    gap: 20px;
+    width: 10rem;
+    height: 3.4rem;
+  /*  background:#0c473c; */
+    padding: 1rem 0.4rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);      
 } 
-
+.airContainer .airComponents .compValuesRow2 .compValues i {
+    font-size: 1.35rem;
+  /*  color: #5b9f0d; */
+    background: linear-gradient(to right, #08B3E5, #2AF598);   
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.airComponents .compValuesRow2 .compValues .compText {
+    font-size: 1.2rem;
+}
+.airComponents .compValuesRow2 .compValues .compValue {
+    font-size: 1rem;
+}
 .todaysOverview .sunrise-set {
  /*   background:rgb(44, 85, 65);  */
     border-radius: 1rem;
-    flex-basis: 25%;
+    flex-basis: 18%;
     padding: 0.4rem 0.9rem;
+    user-select: none;
 }
-/*
+
 .sunrise-set .suntimeData {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 18px;
+    padding: 0.4rem 0;
     margin-bottom: 0.2rem;
-} */
-.sunrise-set .suntimeData div span {
+} 
+.sunrise-set .suntimeData h3 {
     font-size: 1rem;
+}
+.sunrise-set .suntimeData div span {
+    font-size: 1.2rem;
 }
 .todaysOverview .tempDetailsSec {
   /*  background:#64302c;   */
     display: flex;
-    gap: 0.5rem;
+    gap: 0.53rem;
 }
 .todaysOverview .tempDetailsSec .tempDetail {
   /*  background:#369a83;     */
-    width: 11rem;
+    width: 10.3rem;
+    height: 4.6rem;
     padding: 0.8rem;
     border-radius: 1rem;
 }
@@ -482,13 +610,23 @@ input:checked + .tempSlider:before {
     justify-content: flex-start;
     align-items: center;
 }
-.tempDetailsSec .tempDetail p img {
+.tempDetailsSec .tempDetail p i {
     margin-right: 0.8rem;
+    padding: 0.2rem 0 0.1rem;
+    font-size: 1.9rem;
+    background: linear-gradient(to right, #08B3E5, #2AF598); 
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+}
+.tempDetailsSec .tempDetail p .wicon {
+    margin-right: 0.8rem;
+    stroke: url(#svgIconGradient);
 }
 .overviewHourly .hourlyForecast {
    /* background-color:rgb(100, 31, 100);       */
     border-radius: 1rem;
     padding: 0.8rem;
+    width: 65rem;
 }
 .hourlyForecast .hourlytempchart {
     border-radius: 1rem;
@@ -514,6 +652,7 @@ input:checked + .tempSlider:before {
     box-shadow: 0 0.5rem 1.25rem rgba(0,0,0,0.2);
     transition: top 0.4s ease;
     z-index: 9999;
+    user-select: none;
 }
 
 .errorAlert.show {
@@ -535,6 +674,7 @@ input:checked + .tempSlider:before {
 }
 .errorAlert .alertIcon .fa-triangle-exclamation {
     font-size: 1rem;
+    color: #153D4C;
 }
 .errorAlert #error-alert-msg {
     width: 28rem;
@@ -546,4 +686,5 @@ input:checked + .tempSlider:before {
 .errorAlert .fa-square-xmark {
     font-size: 1.5rem;
     cursor: pointer;
+    color: #153D4C;
 }
