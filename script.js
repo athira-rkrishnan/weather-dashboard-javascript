@@ -212,7 +212,7 @@ async function getWeather(locationName, lat, lon) {
         dailyForecastData = daysForecasts;
         updateDaysForecast();
         
-        const hourlyForecasts = currForecastData.hourly.slice(0, 24);
+        const hourlyForecasts = currForecastData.hourly.slice(0, 12);
         console.log(hourlyForecasts);
         lastHourlyData = hourlyForecasts;
         updateHourlyChart(lastHourlyData);
@@ -268,7 +268,8 @@ async function getWeather(locationName, lat, lon) {
     }
 }
 
- //getWeather();
+//const placeName = "Agra";
+//getWeather(placeName);
 
  function getAirQltyIndexName(aqi) {
     let description = "";
@@ -393,8 +394,6 @@ toggleBtn.addEventListener("click", () => {
         toggleBtn.style.color = "white";
         backgroundImage.style.backgroundImage = "url('assets/NaturePic1.webp')";
     }
-
-   
 });
 
 
@@ -412,7 +411,11 @@ const hourlyChart = new Chart(canvasEl, {
             backgroundColor: 'rgba(42, 245, 152, 1)'
         }]
     },
+    options: getHourlyChartOptions()
+    /*
     options: {
+        responsive: true,
+        maintainAspectRatio: false,
         plugins: {
             legend: {
                 labels: {
@@ -437,7 +440,7 @@ const hourlyChart = new Chart(canvasEl, {
                 }, 
             }
         }
-    }
+    }*/
 });
 
 
@@ -479,7 +482,11 @@ async function loadCurrentLocation() {
                    console.log(data);
 
                    const cityName = data[0]?.name || "Mumbai";
-                   document.getElementById("lctn-name").textContent = cityName;
+                   locationElement.style.display = "inline-block";
+                   locationElement.style.width = "auto";
+                   lctnIcon.style.marginRight = "0.1rem";
+                   locationName.textContent = cityName;
+                   locationName.style.display = "inline";
                    getWeather(null, latitude, longitude);
                 }
                 catch (error) {
@@ -568,7 +575,81 @@ function showErrorAlert(message) {
 
 
     
+function getHourlyChartOptions() {
+    const hrChartwidth = window.innerWidth;
+    let fontSize, tickLimitX, tickLimitY, rotation, borderWidth, pointRadius;
+
+    if (hrChartwidth <= 480) {
+        fontSize = 7;
+        tickLimitX = 5;
+        tickLimitY = 4;
+        rotation = 0;
+        borderWidth = 1.3;     
+        pointRadius = 1.5;
+    } 
+    else {
+        fontSize = 13;
+        tickLimitX = 12;
+     /*   tickLimitY = 3;*/
+        rotation = 30;
+    }
+    return {
+        responsive: true,
+        maintainAspectRatio: false,
+        elements: {
+            line: {
+                borderWidth: borderWidth
+            },
+            point: {
+                radius: pointRadius,
+                hoverRadius: pointRadius + 2
+            }
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    color: 'black',
+                    font: {
+                        size: fontSize + 2,
+                        weight: '600'
+                    },
+                    padding: 2
+                }
+            }
+        },
+        scales: {
+            x: {
+                ticks: {
+                    color: 'black',
+                    font: {
+                        size: fontSize
+                    },
+                    maxRotation: rotation,
+                    minRotation: 0,
+                    maxTicksLimit: tickLimitX, 
+                    padding: 5
+                }
+            },
+            y: {
+                ticks: {   
+                    color: 'black',
+                    font: {
+                        size: fontSize
+                    },
+                    autoSkip: true,
+                    maxTicksLimit: tickLimitY,
+                    padding: 5
+                }
+            }
+        }
+    };
+}
 
 
+
+window.addEventListener('resize', () => {
+    hourlyChart.options = getHourlyChartOptions();
+    hourlyChart.update();
+});
 
 
