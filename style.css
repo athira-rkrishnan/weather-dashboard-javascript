@@ -914,6 +914,200 @@ input:checked + .tempSlider:before {
 
 
 
+@media (max-width: 768px) {
+    .weather-container {
+        width: 95%;
+        padding-bottom: 1rem;
+    }
+    header {
+       /* flex-wrap: wrap;*/
+        gap: 0.5rem;
+    }
+    header .time-date {
+        width: 9rem;
+        padding: 0.5rem 0.1rem;
+    }
+    header #time {
+        font-size: 1.5rem;
+    }
+    header #date {
+        font-size: 0.8rem;
+    }
+    header .searchBox {
+        width: 27%;
+    }
+    header .searchBox i {
+        font-size: 1rem;
+    }
+    header .searchBox input {
+        width: 0.3rem;
+    }
+    header .curr-location {
+        width: 9rem;  
+    }
+    header .curr-location span {
+        font-size: 0.65rem;
+        width: 4.85rem;
+    }
+    header .tempSwitch {
+        width: 3.2rem;
+    }
+    input:checked + .tempSlider:before {
+        transform: translateX(1.2rem);
+    }
+    #darklightToggle {
+        font-size: 0.65rem;
+    }
+    .container {
+        width: 100%;
+        flex-direction: column;
+        padding: 0 1.4rem;
+    }
+    .container .locationForecast {
+        display: flex;
+        gap: 10px;
+    }
+    .locationForecast .loctnTemp {
+        height: 17.2rem;
+    }
+    .locationForecast .weatherDetails {
+        height: 12.3rem;
+        padding: 0.5rem 0.3rem;
+    }
+    .locationForecast, .overviewHourly {
+        width: 100%;
+    }
+    .daysForecast .tempLists .days-lists img {
+        width: 2rem;
+    }
+    .daysForecast .days-lists .wname {
+        width: 11.85rem;
+    }
+    .daysForecast .days-lists .nxt-temp {
+        width: 3.5rem;
+    }
+    .daysForecast .days-lists .dayListMonth {
+        width: 3rem;
+    }
+    .overviewHourly .todaysOverview {
+        width: 100%;
+        
+    }
+    .airContainer .airQltyIndexValue {
+        width: 100%;
+        height: 14.4rem;
+        display: flex;
+        align-items: center;
+    }
+    .airContainer {
+        flex-direction: row;
+    }
+    .todaysOverview .sunrise-set {
+        width: 100%;
+        display: flex;
+        gap: 12px;
+        padding: 0 1.4rem;
+    }
+    .todaysOverview .airqlty-sunriseset {
+        flex-direction: column;
+    }
+    .sunrise-set .suntimeData {
+        display: flex;
+        gap: 13px;
+        width: 12rem;
+    }
+    .sunrise-set .suntimeData img {
+        width: 3.18rem;
+        height: 3rem;
+        margin-right: 0.12rem;
+    }
+    .sunrise-set .suntimeData h3 {
+        font-size: 1.1rem;
+    }
+    .sunrise-set .suntimeData div span {
+        font-size: 0.9rem;
+    }
+    .todaysOverview .tempDetailsSec {
+        display: flex;
+        gap: 1.3rem;
+        flex-wrap: wrap;
+        padding: 1rem 1.3rem;
+    }
+    .todaysOverview .tempDetailsSec .tempDetail {
+        width: 31%;
+    }
+    .airContainer .airComponents {
+        width: 100%;
+        height: 14.5rem;
+        display: flex;
+        flex-direction: row;
+        padding: 1.2rem 1rem;
+    }
+    .airContainer .airComponents .compValuesRow1 {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+        padding: 0.10rem 0.6em;
+    }
+     .airContainer .airComponents .compValuesRow1 .compValues {
+        width: 9rem;
+        display: flex;
+        gap: 8px;
+    }
+    .airContainer .airComponents .compValuesRow1 .compValues i {
+        font-size: 1.15rem;
+    }
+    .airComponents .compValuesRow1 .compValues .compText {
+        font-size: 1.1rem;
+    }
+    .airComponents .compValuesRow1 .compValues .compValue {
+        font-size: 1rem;
+    }
+    .airContainer .airComponents .compValuesRow2 {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+        padding: 0.10rem 0.6em;
+    }
+    .airContainer .airComponents .compValuesRow2 .compValues {
+        width: 9rem;
+        display: flex;
+        gap: 8px;
+    }
+    .airContainer .airComponents .compValuesRow2 .compValues i {
+        font-size: 1.15rem;
+    }
+    .airComponents .compValuesRow2 .compValues .compText {
+        font-size: 1.1rem;
+    }
+    .airComponents .compValuesRow2 .compValues .compValue {
+        font-size: 1rem;
+    }
+    .daysForecast .tempLists {
+        height: auto;
+        max-height: 12.5rem;
+    }
+    .overviewHourly .hourlyForecast {
+        width: 100%;
+        height: 16.4rem;
+        padding: 1rem 1.4rem;
+        margin-top: 0.93rem;
+    }
+    .hourlyForecast .hourlytempchart {
+        overflow-x: auto;
+        width: 100%;
+        height: auto;
+    }
+    .hourlyForecast .hourlytempchart canvas {
+        min-width: 50rem;  
+        min-height: 12.5rem;
+        padding-top: 0.75rem;
+    }
+    .errorAlert {
+        width: 85%;
+    }
+}
+
 
 
 

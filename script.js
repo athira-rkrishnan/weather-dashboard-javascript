@@ -587,6 +587,12 @@ function getHourlyChartOptions() {
         borderWidth = 1.3;     
         pointRadius = 1.5;
     } 
+    else if (hrChartwidth <= 768) {
+        fontSize = 10;
+        tickLimitX = 8;
+        rotation = 0;
+    } 
+
     else {
         fontSize = 13;
         tickLimitX = 12;
