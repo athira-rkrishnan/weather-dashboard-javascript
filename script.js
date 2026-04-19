@@ -351,7 +351,7 @@ function updateDaysForecast() {
         const dayListDiv = document.createElement("div");
         dayListDiv.className = "days-lists";
         dayListDiv.innerHTML = `
-            <img src="${iconSrc}" style="width: 30px;">
+            <img src="${iconSrc}">
             <span class="wname">${mainText}</span>
             <span class="nxt-temp">${temp}${isFahrenheit ? "°F" : "°C"}</span>
             <span>${formattedDate}</span>
