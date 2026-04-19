@@ -1297,3 +1297,17 @@ input:checked + .tempSlider:before {
 
 
 
+@media (min-width: 1200px) and (max-width: 1500px) {
+    .container {
+        max-width: 1350px;
+        margin: 0 auto;
+    }
+    .daysForecast .days-lists .wname {
+        width: 7rem;
+    }
+    .daysForecast .days-lists .dayListMonth {
+        width: 3rem;
+       
+        text-align: center;
+    }
+}
