@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 body, html {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
     position: relative;
@@ -15,24 +15,30 @@ body, html {
     background: url("assets/NaturePic1.webp"); 
     background-size: cover;
     transition: 0.5s;
-    filter: blur(10px);
-    -webkit-filter: blur(10px); 
+  /*  filter: blur(10px);
+    -webkit-filter: blur(10px);  */
 }
+
 .weather-container {
     width: 93%;
     height: 89%;
     border-radius: 1.5rem;
-    border: 1px solid #fff;
-    background: url("assets/NaturePic1.webp"); 
+    border: 1px solid #fff; 
+ /* background: url("assets/NaturePic1.webp"); 
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat;  */
     z-index: 1;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
-} 
+}  
+
+
+
+
+
 .errorPopup {
     width: 15rem;
     color: black;
@@ -89,7 +95,7 @@ body, html {
 header .time-date {
   /* background: pink; */
     color: black;
-    width: 20.2rem;
+    width: 25%;
     border-radius: 1rem;
     padding: 0 0.8rem;
     user-select: none;
@@ -100,7 +106,7 @@ header .time-date h2 {
 }
 header .searchBox {
  /* background: yellow;  */
-    width: 30rem;
+    width: 35%;
     height: 2.3rem;
     padding: 0 0.5rem;
     border-radius: 2rem;
@@ -158,10 +164,10 @@ header .searchBox #suggestion-box {
     z-index: 9999;
     transition: all 0.3s ease;
 
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-   -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(15px);
+   -webkit-backdrop-filter: blur(15px);
+  /*  border: 1px solid rgba(255, 255, 255, 0.3); */
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);   
 }
 .suggestion-item {
@@ -179,7 +185,7 @@ header .searchBox #suggestion-box {
 
 header .curr-location {
   /* background: green;  */
-    width: 13rem;
+    width: 18%;
     height: 2.3rem;
     padding: 0 0.8rem 0 0.3rem;
     display: flex;
@@ -192,8 +198,11 @@ header .curr-location {
 }
 header .curr-location i {
    font-size: 1.2rem;
-   color: #153D4C;
-   cursor: pointer;
+ /*  color: #153D4C;   */
+    background: linear-gradient(to right, #08B3E5, #2AF598);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
 }
 header .curr-location span {
     font-size: 1rem;
@@ -203,7 +212,7 @@ header .curr-location span {
 header .tempSwitch {
     position: relative;
     display: inline-block;
-    width: 5rem;
+    width: 6%;
     height: 2rem;
     /* background: green; */
 }
@@ -248,8 +257,9 @@ input:checked + .tempSlider:before {
     color: #16A085;
 }
 #darklightToggle {
+    width: 11%;
     background-color: #000000;
-    padding: 0.5rem 1.2rem;
+    padding: 0.5rem 1rem;
     border: 1px solid #ccc;
     border-radius: 1.3rem;
     color:  #eee;
@@ -263,12 +273,14 @@ input:checked + .tempSlider:before {
 }
 
 .container {
-    width: 86rem;
-    height: 32rem;
+    width: 97%;
+    height: 79%;
     margin: auto;
     display: flex;
     gap: 0.8rem;  
-}  
+}   
+
+
 /*
 .container {
     width: 100%;
@@ -283,7 +295,7 @@ input:checked + .tempSlider:before {
 .container .locationForecast {
    /* background-color: rgb(144, 82, 92);  */
     flex-basis: 25%;
-    height: 30rem; 
+    height: 106%; 
     user-select: none;
 }
 .container .lightgray-effect {
@@ -319,14 +331,15 @@ input:checked + .tempSlider:before {
 
 .locationForecast .loctnTemp {
     /*  background: green;  */
-    height: 14.5rem;
+    width: 100%;
+    height: 45%;
     border-radius: 1rem;
     padding: 0.7rem 0.4rem 0.2rem;
     margin-bottom: 0.8rem;  
 }
 .loctnTemp .location {
   /*  background: yellow;   */
-    width: 7.4rem;
+    width: 47%;
     padding: 0.3rem 0.4rem;
     border-radius: 1rem;
     margin-left: 0.5rem;
@@ -408,7 +421,8 @@ input:checked + .tempSlider:before {
 }
 .locationForecast .daysForecast {
  /*   background-color: rgb(44, 85, 65);    */
-    height: 17rem;
+    width: 100%;
+    height: 53%;
     border-radius: 1rem;
     padding: 0.7rem 0.8rem;
 }
@@ -456,7 +470,8 @@ input:checked + .tempSlider:before {
 }
 .overviewHourly .todaysOverview {
  /*   background-color:aquamarine;   */
-   width: 65rem; 
+    width: 100%; 
+    height: 65%;  
     padding: 0.6rem 0.8rem;
     border-radius: 1rem;
 }
@@ -475,7 +490,7 @@ input:checked + .tempSlider:before {
 .todaysOverview .airQualityIndx {
  /*   background: rgb(184, 184, 65);    */
     border-radius: 1rem;
-    flex-basis: 75%;
+    flex-basis: 80%;
     padding: 0.5rem 1rem;
 }
 .airContainer {
@@ -483,7 +498,7 @@ input:checked + .tempSlider:before {
 }
 .airContainer .airQltyIndexValue {
    /* background: rgb(168, 168, 50);  */
-    width: 15rem;
+    width: 34%;
     height: 9rem;
     display: flex;
     flex-direction: column;
@@ -523,7 +538,7 @@ input:checked + .tempSlider:before {
 }
 .airContainer .airComponents {
    /* background: rgb(81, 191, 81);  */
-    width: 34rem;
+    width: 74%;
     height: 9rem;
     display: flex;
     flex-direction: column;
@@ -645,7 +660,7 @@ input:checked + .tempSlider:before {
 }
 .todaysOverview .tempDetailsSec .tempDetail {
   /*  background:#369a83;     */
-    width: 10.3rem;
+    width: 18%;
     height: 4.6rem;
     padding: 0.8rem;
     border-radius: 1rem;
@@ -674,12 +689,12 @@ input:checked + .tempSlider:before {
    /* background-color:rgb(100, 31, 100);       */
     border-radius: 1rem;
     padding: 0.8rem;
-    width: 65rem; 
-    height: 20.2rem;
+    width: 100%; 
+    height: 55%;
 }
 .hourlyForecast .hourlytempchart {
     border-radius: 1rem;
-    height: 8.31rem;
+    height: 87%;
 }
 /*
 .hourlyForecast .hourlytempchart canvas {
@@ -751,31 +766,46 @@ input:checked + .tempSlider:before {
 }
 
 
-@media (max-width: 480px) {
+@media (min-width: 320px) and (max-width: 480px) {
+    .bgimage {
+        width: 100%;
+        min-height: 318vh;
+        height: auto;
+        background: url(assets/bg-imgGIF.gif); 
+        background-size: cover;
+        transition: 0.5s;
+    }
     .weather-container {
         width: 95%;
-        padding-bottom: 1rem;
-    }
+        margin: 1rem auto;
+        height: auto;
+        min-height: 307vh;
+        transform: none;
+        position: absolute;
+        top: 4%;
+        left: 2%;
+    }  
     header {
         flex-wrap: wrap;
         gap: 0.5rem;
     }
     header .time-date {
-        width: 25.2rem;
+        width: 100%;
     }
     header .searchBox {
         width: 100%;
     }
     header .curr-location {
-        width: 11rem;
+        width: 41%;
     }
     header .tempSwitch {
-        width: 4.2rem;
+        width: 19%;
     }
     input:checked + .tempSlider:before {
-        transform: translateX(2.2rem);
+        transform: translateX(2.8rem);
     }
     #darklightToggle {
+        width: 36%;
         padding: 0.5rem 1rem;
     }
     .container {
@@ -800,7 +830,7 @@ input:checked + .tempSlider:before {
     }
     .overviewHourly .todaysOverview {
         width: 100%;
-        margin-top: 2.18rem;
+        margin-top: 2rem;
     }
     .airContainer .airQltyIndexValue {
         width: 100%;
@@ -823,7 +853,7 @@ input:checked + .tempSlider:before {
     }
     .sunrise-set .suntimeData img {
         width: 2.18rem;
-        height: 3rem;
+        height: 2.15rem;
         margin-right: 0.12rem;
     }
     .sunrise-set .suntimeData h3 {
@@ -834,16 +864,16 @@ input:checked + .tempSlider:before {
     }
     .todaysOverview .tempDetailsSec {
         display: flex;
-        gap: 0.50rem;
+        gap: 0.90rem;
         flex-wrap: wrap;
-        padding: 0 1.4rem;
+        padding: 0 0.2rem;
     }
-    .tempDetail {
+    .todaysOverview .tempDetailsSec .tempDetail {
         width: 48%;
     }
     .airContainer .airComponents {
         width: 100%;
-        height: 14.5rem;
+        height: 33%;
         display: flex;
         flex-direction: row;
         padding: 1.2rem 1rem;
@@ -894,7 +924,7 @@ input:checked + .tempSlider:before {
     }
     .overviewHourly .hourlyForecast {
         width: 100%;
-        height: 12.5rem;
+        height: 25%;
         padding: 1rem 1.4rem;
         margin-top: 0.93rem;
     }
@@ -903,28 +933,52 @@ input:checked + .tempSlider:before {
         width: 100%;
         height: auto;
     }
+    /*
     .hourlyForecast .hourlytempchart canvas {
         min-width: 50rem;  
         min-height: 12.5rem;
         padding-top: 0.75rem;
+    } */
+    .hourlyForecast .hourlytempchart canvas {
+        width: 100% !important;
+        min-width: unset;
+        height: 100% !important;
+        min-height: 25vh;
+    }
+    .container, .locationForecast, .overviewHourly {
+        min-width: 0;
     }
     .errorAlert {
         width: 85%;
+        top: -1200px;
     }
 }
 
 
-
-@media (max-width: 768px) {
+@media (min-width: 481px) and (max-width: 768px) {
+    .bgimage {
+        width: 100%;
+        min-height: 238vh;
+        height: auto;
+        background: url(assets/bg-imgGIF.gif); 
+        background-size: cover;
+        transition: 0.5s;
+    }
     .weather-container {
         width: 95%;
-        padding-bottom: 1rem;
-    }
+        margin: 1rem auto;
+        height: auto;
+        min-height: 228vh;
+        transform: none;
+        position: absolute;
+        top: 4%;
+        left: 2%;
+    }  
     header {
         gap: 0.5rem;
     }
     header .time-date {
-        width: 9rem;
+        width: 22%;
         padding: 0.5rem 0.1rem;
     }
     header #time {
@@ -943,20 +997,22 @@ input:checked + .tempSlider:before {
         width: 0.3rem;
     }
     header .curr-location {
-        width: 9rem;  
+        width: 20%;  
     }
     header .curr-location span {
         font-size: 0.65rem;
         width: 4.85rem;
     }
     header .tempSwitch {
-        width: 3.2rem;
+        width: 8%;
     }
     input:checked + .tempSlider:before {
-        transform: translateX(1.2rem);
+        transform: translateX(1.3rem);
     }
     #darklightToggle {
+        width: 15%;
         font-size: 0.65rem;
+        padding: 0.7rem 0.4rem;
     }
     .container {
         width: 100%;
@@ -964,11 +1020,12 @@ input:checked + .tempSlider:before {
         padding: 0 1.4rem;
     }
     .container .locationForecast {
+        width: 100%;
         display: flex;
         gap: 10px;
     }
     .locationForecast .loctnTemp {
-        height: 17.2rem;
+        height: 13%;
     }
     .locationForecast .weatherDetails {
         height: 12.3rem;
@@ -977,11 +1034,14 @@ input:checked + .tempSlider:before {
     .locationForecast, .overviewHourly {
         width: 100%;
     }
+    .locationForecast .daysForecast {
+        padding: 0.8rem 0.8rem;
+    }
     .daysForecast .tempLists .days-lists img {
         width: 2rem;
     }
     .daysForecast .days-lists .wname {
-        width: 11.85rem;
+        width: 9rem;
     }
     .daysForecast .days-lists .nxt-temp {
         width: 3.5rem;
@@ -990,8 +1050,7 @@ input:checked + .tempSlider:before {
         width: 3rem;
     }
     .overviewHourly .todaysOverview {
-        width: 100%;
-        
+        width: 100%;  
     }
     .airContainer .airQltyIndexValue {
         width: 100%;
@@ -1031,7 +1090,7 @@ input:checked + .tempSlider:before {
         display: flex;
         gap: 1.3rem;
         flex-wrap: wrap;
-        padding: 1rem 1.3rem;
+        padding: 1rem 0rem;
     }
     .todaysOverview .tempDetailsSec .tempDetail {
         width: 31%;
@@ -1108,12 +1167,25 @@ input:checked + .tempSlider:before {
     }
 }
 
-
-@media (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1024px) {
+    .bgimage {
+        width: 100%;
+        min-height: 207vh;
+        height: auto;
+        background: url(assets/bg-imgGIF.gif); 
+        background-size: cover;
+        transition: 0.5s;
+    }
     .weather-container {
         width: 95%;
-        padding-bottom: 1rem;
-    }
+        margin: 1rem auto;
+        height: auto;
+        min-height: 196vh;
+        transform: none;
+        position: absolute;
+        top: 4%;
+        left: 2%;
+    }  
     header {
         gap: 0.5rem;
     }
@@ -1168,6 +1240,7 @@ input:checked + .tempSlider:before {
     }
     .locationForecast .daysForecast {
         width: 55%;
+        padding: 0.9rem 0.8rem;
     }
     .locationForecast .weatherDetails {
         height: 12.3rem;
@@ -1240,7 +1313,7 @@ input:checked + .tempSlider:before {
         gap: 13px;
         padding: 0.10rem 0.6em;
     }
-     .airContainer .airComponents .compValuesRow1 .compValues {
+    .airContainer .airComponents .compValuesRow1 .compValues {
         width: 10.2rem;
         display: flex;
         gap: 8px;
@@ -1274,6 +1347,10 @@ input:checked + .tempSlider:before {
     .airComponents .compValuesRow2 .compValues .compValue {
         font-size: 1rem;
     } 
+    .todaysOverview .tempDetailsSec .tempDetail {
+        width: 18%;
+        padding: 0.8rem 0.5rem;   
+    }
     .overviewHourly .hourlyForecast {
         width: 100%;
         height: 16.4rem;
@@ -1295,11 +1372,10 @@ input:checked + .tempSlider:before {
     }
 }
 
-
-
-@media (min-width: 1200px) and (max-width: 1500px) {
+@media (min-width: 1025px) and (max-width: 1500px) {
     .container {
         max-width: 1350px;
+        height: auto;
         margin: 0 auto;
     }
     .daysForecast .days-lists .wname {
@@ -1310,4 +1386,14 @@ input:checked + .tempSlider:before {
        
         text-align: center;
     }
+    .todaysOverview .airQualityIndx {
+        height: 72%;
+    }
+    .sunrise-set .suntimeData {
+        display: flex;
+        gap: 16px;
+    }
 }
+
+
+

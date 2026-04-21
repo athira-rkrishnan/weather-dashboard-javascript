@@ -261,6 +261,7 @@ async function getWeather(locationName, lat, lon) {
         };
 
         updateCelsiusFahrenheitTemp();
+        
     }
     catch(error) {
         console.error("Error fetching weather data:", error);
@@ -392,7 +393,7 @@ toggleBtn.addEventListener("click", () => {
         themeText.innerHTML = "Dark Mode";
         toggleBtn.style.background = "black";
         toggleBtn.style.color = "white";
-        backgroundImage.style.backgroundImage = "url('assets/NaturePic1.webp')";
+        backgroundImage.style.backgroundImage = "url('assets/bg-imgGIF.gif')";
     }
 });
 
