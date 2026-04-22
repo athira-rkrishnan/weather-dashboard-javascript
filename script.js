@@ -379,9 +379,9 @@ const moonIconClass = "fa-solid fa-moon";
 const sunIconClass = "fa-solid fa-sun";
 
 toggleBtn.addEventListener("click", () => {
-    backgroundImage.classList.toggle("dark-mode");
+    document.body.classList.toggle("dark-mode");
 
-    if(backgroundImage.classList.contains("dark-mode")) {
+    if(document.body.classList.contains("dark-mode")) {
         themeIcon.innerHTML = `<i class="${sunIconClass}"></i>`;
         themeText.textContent = "Light Mode";
         toggleBtn.style.background = "white";

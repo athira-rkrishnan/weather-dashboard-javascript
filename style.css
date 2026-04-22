@@ -765,6 +765,13 @@ input:checked + .tempSlider:before {
     color: #153D4C;
 }
 
+.dark-mode .time-date,
+.dark-mode .curr-location span,
+.dark-mode .days-title,
+.dark-mode .overview-txt,
+.dark-mode .hrHeading-Txt {
+    color: #ffffff;
+}
 
 @media (min-width: 320px) and (max-width: 480px) {
     .bgimage {
@@ -978,7 +985,7 @@ input:checked + .tempSlider:before {
         gap: 0.5rem;
     }
     header .time-date {
-        width: 22%;
+        width: 25%;
         padding: 0.5rem 0.1rem;
     }
     header #time {
@@ -1190,7 +1197,7 @@ input:checked + .tempSlider:before {
         gap: 0.5rem;
     }
     header .time-date {
-        width: 9.9rem;
+        width: 25%;
         padding: 0.5rem 0.1rem;
     }
     header #time {
@@ -1394,6 +1401,12 @@ input:checked + .tempSlider:before {
         gap: 16px;
     }
 }
+
+
+
+
+
+
 
 
 
