@@ -386,14 +386,14 @@ toggleBtn.addEventListener("click", () => {
         themeText.textContent = "Light Mode";
         toggleBtn.style.background = "white";
         toggleBtn.style.color = "black";
-        backgroundImage.style.backgroundImage = "url('assets/blackBG.webp')";
+        // backgroundImage.style.backgroundImage = "url('assets/blackBG.webp')";
     }
     else {
         themeIcon.innerHTML = `<i class="${moonIconClass}"></i>`;
         themeText.innerHTML = "Dark Mode";
         toggleBtn.style.background = "black";
         toggleBtn.style.color = "white";
-        backgroundImage.style.backgroundImage = "url('assets/bg-imgGIF.gif')";
+       // backgroundImage.style.backgroundImage = "url('assets/bg-imgGIF.gif')";
     }
 });
 

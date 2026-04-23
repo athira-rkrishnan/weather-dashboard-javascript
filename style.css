@@ -34,11 +34,6 @@ body, html {
     transform: translate(-50%, -50%);
     z-index: 1;
 }  
-
-
-
-
-
 .errorPopup {
     width: 15rem;
     color: black;
@@ -134,7 +129,6 @@ header .searchBox input {
 }
 /*
 header .searchBox #suggestion-box {
-  
     max-height: 150px;
     overflow-y: auto;
     position: absolute;
@@ -163,7 +157,6 @@ header .searchBox #suggestion-box {
     border-radius: 12px;
     z-index: 9999;
     transition: all 0.3s ease;
-
     background: rgba(255, 255, 255, 0.65);
     backdrop-filter: blur(15px);
    -webkit-backdrop-filter: blur(15px);
@@ -271,7 +264,6 @@ input:checked + .tempSlider:before {
     user-select: none;
     cursor: pointer;
 }
-
 .container {
     width: 97%;
     height: 79%;
@@ -279,8 +271,6 @@ input:checked + .tempSlider:before {
     display: flex;
     gap: 0.8rem;  
 }   
-
-
 /*
 .container {
     width: 100%;
@@ -291,7 +281,6 @@ input:checked + .tempSlider:before {
     padding: 0 1rem;
 }
 */
-
 .container .locationForecast {
    /* background-color: rgb(144, 82, 92);  */
     flex-basis: 25%;
@@ -312,8 +301,6 @@ input:checked + .tempSlider:before {
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
-
-
 /*
 .locationForecast {
     flex: 1;
@@ -325,10 +312,6 @@ input:checked + .tempSlider:before {
     min-width: 300px;
 }
 */
-
-
-
-
 .locationForecast .loctnTemp {
     /*  background: green;  */
     width: 100%;
@@ -505,7 +488,6 @@ input:checked + .tempSlider:before {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-
 }
 .airQltyIndexValue .airIndexValue {
    /* background: violet; */
@@ -558,7 +540,6 @@ input:checked + .tempSlider:before {
     align-items: center;
     gap: 18px;
     padding: 0.10rem 0.8em;
-
 }
 .airContainer .airComponents .compValuesRow1 .compValues {
     display: flex;
@@ -626,12 +607,12 @@ input:checked + .tempSlider:before {
 }
 .todaysOverview .sunrise-set {
  /*   background:rgb(44, 85, 65);  */
+    width: 20%;
     border-radius: 1rem;
    /* flex-basis: 18%;  */
     padding: 0.4rem 0.9rem;
     user-select: none;
 }
-
 .sunrise-set .suntimeData {
     display: flex;
     justify-content: start;
@@ -640,13 +621,11 @@ input:checked + .tempSlider:before {
     padding: 0.4rem 0;
     margin-bottom: 0.2rem;
 } 
-
 .sunrise-set .suntimeData img {
     width: 40px;
     height: 40px;
     margin-right: 5px;
 }
-
 .sunrise-set .suntimeData h3 {
     font-size: 1rem;
 }
@@ -730,7 +709,6 @@ input:checked + .tempSlider:before {
     z-index: 9999;
     user-select: none;
 }
-
 .errorAlert.show {
     top: 20px;
 } 
@@ -771,6 +749,55 @@ input:checked + .tempSlider:before {
 .dark-mode .overview-txt,
 .dark-mode .hrHeading-Txt {
     color: #ffffff;
+}
+.dark-mode .lightgray-effect {
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}  
+.dark-mode .grayglass-effect {
+    background: rgba(255, 255, 255, 0.50);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+.dark-mode .weather-container header .grayglass-effect {
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.dark-mode .errorPopup {
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+.dark-mode header .searchBox #suggestion-box {
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(12px);
+}
+.dark-mode .suggestion-item {
+    color: #e1e1e1;
+}
+.dark-mode .suggestion-item:hover {
+    background: rgba(230, 226, 226, 0.35);  
+    backdrop-filter: blur(10px);
+    transform: scale(1.02);
+    border-radius: 8px;
+}
+.dark-mode .errorAlert {
+    color: #f0eded;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.dark-mode .errorAlert .fa-square-xmark {
+    color: #0a9b84;
+}
+.dark-mode .errorAlert .alertIcon .fa-triangle-exclamation {
+    color: #0a9b84;
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
@@ -1115,7 +1142,7 @@ input:checked + .tempSlider:before {
         gap: 13px;
         padding: 0.10rem 0.6em;
     }
-     .airContainer .airComponents .compValuesRow1 .compValues {
+    .airContainer .airComponents .compValuesRow1 .compValues {
         width: 9rem;
         display: flex;
         gap: 8px;
@@ -1390,7 +1417,6 @@ input:checked + .tempSlider:before {
     }
     .daysForecast .days-lists .dayListMonth {
         width: 3rem;
-       
         text-align: center;
     }
     .todaysOverview .airQualityIndx {
@@ -1401,12 +1427,5 @@ input:checked + .tempSlider:before {
         gap: 16px;
     }
 }
-
-
-
-
-
-
-
 
 
