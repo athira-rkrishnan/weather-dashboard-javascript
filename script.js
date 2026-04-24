@@ -1,6 +1,7 @@
 let currentTempData = null;
 let dailyForecastData = [];
 let lastHourlyData = [];
+let currentIconCode = null;
 const iconMap = {
             "01d": "assets/01d.png",
             "01n": "assets/01n.png",
@@ -149,6 +150,9 @@ async function getWeather(locationName, lat, lon) {
         const temp = Math.round(weatherData.main?.temp);
         const highTemp = Math.round(weatherData.main?.temp_max);
         const lowTemp = Math.round(weatherData.main?.temp_min);
+
+        currentIconCode = weatherIconCode;
+        updateWeatherBgImg(currentIconCode);
         
         const iconSrc = iconMap[weatherIconCode] || "assets/cloudy.png";
 
@@ -658,5 +662,156 @@ window.addEventListener('resize', () => {
     hourlyChart.options = getHourlyChartOptions();
     hourlyChart.update();
 });
+
+
+function updateWeatherBgImg(iconCode) {
+  let backgroundUrl = '';
+  const screenWidth = window.innerWidth;
+
+  function getResponsiveImage(mobile, desktop) {
+    if (screenWidth <= 480) return mobile;
+    if (screenWidth <= 768) return mobile;
+    if (screenWidth <= 1024) return mobile;
+    return desktop;
+  }
+
+  switch(iconCode) {
+    case '01d':
+        backgroundUrl = getResponsiveImage(
+        'assets/mobile/Clearsky-Day.jpg',
+        'assets/largeDesktop/ClearSky-Day.jpg'
+      );
+      break;
+    case '01n':
+      backgroundUrl = getResponsiveImage(
+        'assets/mobile/mobileClearsky-Night.jpg',
+        'assets/largeDesktop/ClearSky-Night.jpg'
+      );
+      break;
+
+    case '02d':
+        backgroundUrl = getResponsiveImage(
+        'assets/mobile/fewClouds-Day.jpg',
+        'assets/largeDesktop/fewClouds-Day.jpg'
+      );
+      break;
+    case '02n':
+      backgroundUrl = getResponsiveImage(
+        'assets/mobile/fewClouds-Night.jpg',
+        'assets/largeDesktop/fewClouds-Night.jpg'
+      );
+      break;
+
+    case '03d':
+        backgroundUrl = getResponsiveImage(
+        'assets/mobile/scatteredClouds-Day.jpg',
+        'assets/largeDesktop/ScatteredClouds-Day.jpg'
+      );
+      break;
+    case '03n':
+      backgroundUrl = getResponsiveImage(
+        'assets/mobile/scatteredClouds-Night.jpg',
+        'assets/largeDesktop/ScatteredClouds-Night.jpg'
+      );
+      break;
+
+    case '04d':
+        backgroundUrl = getResponsiveImage(
+        'assets/mobile/brokenClouds-Day.jpg',
+        'assets/largeDesktop/BrokenClouds-Day.jpg'
+      );
+      break;
+    case '04n':
+      backgroundUrl = getResponsiveImage(
+        'assets/mobile/brokenClouds-Night.jpg',
+        'assets/largeDesktop/BrokenClouds-Night.jpg'
+      );
+      break;
+
+    case '09d':
+        backgroundUrl = getResponsiveImage(
+        'assets/mobile/showerrain-day.jpg',
+        'assets/largeDesktop/ShowerRain-Day.jpg'
+      );
+      break;
+    case '09n':
+      backgroundUrl = getResponsiveImage(
+        'assets/mobile/showerRain-Night.jpg',
+        'assets/largeDesktop/ShowerRain-Night.jpg'
+      );
+      break;
+
+    case '10d':
+        backgroundUrl = getResponsiveImage(
+        'assets/mobile/Rain-Day.jpg',
+        'assets/largeDesktop/RainDay.jpg'
+      );
+      break;
+    case '10n':
+      backgroundUrl = getResponsiveImage(
+        'assets/mobile/Rain-Night.jpg',
+        'assets/largeDesktop/RainNight.jpg'
+      );
+      break;
+
+    case '11d':
+        backgroundUrl = getResponsiveImage(
+        'assets/mobile/ThundersTorm-Day.jpg',
+        'assets/largeDesktop/T^hunderstormDay.jpg'
+      );
+      break;
+    case '11n':
+      backgroundUrl = getResponsiveImage(
+        'assets/mobile/Thundestorm_night.jpg',
+        'assets/largeDesktop/ThundestormNight.jpg'
+      );
+      break;
+
+    case '13d':
+        backgroundUrl = getResponsiveImage(
+        'assets/mobile/Snow-Day.jpg',
+        'assets/largeDesktop/snowDay.jpg'
+      );
+      break;
+    case '13n':
+      backgroundUrl = getResponsiveImage(
+        'assets/mobile/Snow-Night.jpg',
+        'assets/largeDesktop/SnowNight.jpg'
+      );
+      break;
+
+    case '50d':
+        backgroundUrl = getResponsiveImage(
+        'assets/mobile/Mist-Day.jpg',
+        'assets/largeDesktop/MistDay.jpg'
+      );
+      break;
+    case '50n':
+      backgroundUrl = getResponsiveImage(
+        'assets/mobile/Mist-Night.jpg',
+        'assets/largeDesktop/MistNight.jpg'
+      );
+      break;
+
+    default:
+      backgroundUrl = getResponsiveImage(
+        'assets/mobBackImg.webp',
+        'assets/NaturePic1.webp'
+      );
+  }
+
+  backgroundImage.style.backgroundImage = `url(${backgroundUrl})`;
+  backgroundImage.style.backgroundPosition = "center";
+  backgroundImage.style.backgroundSize = "cover";
+  backgroundImage.style.backgroundRepeat = "no-repeat";
+}
+
+
+window.addEventListener("resize", () => {
+  if (currentIconCode) {
+    updateWeatherBgImg(currentIconCode);
+  }
+});
+
 
 

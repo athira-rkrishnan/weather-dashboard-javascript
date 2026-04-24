@@ -14,7 +14,7 @@ body, html {
     height: 100%;
     background: url("assets/NaturePic1.webp"); 
     background-size: cover;
-    transition: 0.5s;
+    transition: background-image 0.6s ease-in-out;
   /*  filter: blur(10px);
     -webkit-filter: blur(10px);  */
 }
@@ -805,9 +805,9 @@ input:checked + .tempSlider:before {
         width: 100%;
         min-height: 318vh;
         height: auto;
-        background: url(assets/bg-imgGIF.gif); 
+        background: url(assets/mobBackImg.webp); 
         background-size: cover;
-        transition: 0.5s;
+        transition: background-image 0.6s ease-in-out;
     }
     .weather-container {
         width: 95%;
@@ -994,9 +994,9 @@ input:checked + .tempSlider:before {
         width: 100%;
         min-height: 238vh;
         height: auto;
-        background: url(assets/bg-imgGIF.gif); 
+        background: url(assets/mobBackImg.webp); 
         background-size: cover;
-        transition: 0.5s;
+        transition: background-image 0.6s ease-in-out;
     }
     .weather-container {
         width: 95%;
@@ -1206,9 +1206,9 @@ input:checked + .tempSlider:before {
         width: 100%;
         min-height: 207vh;
         height: auto;
-        background: url(assets/bg-imgGIF.gif); 
+        background: url(assets/mobBackImg.webp); 
         background-size: cover;
-        transition: 0.5s;
+        transition: background-image 0.6s ease-in-out;
     }
     .weather-container {
         width: 95%;
