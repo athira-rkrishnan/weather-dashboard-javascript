@@ -401,6 +401,22 @@ toggleBtn.addEventListener("click", () => {
         toggleBtn.style.color = "white";
     }
 
+    const isDark = document.body.classList.contains("dark-mode");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+
+});
+
+window.addEventListener("load", () => {
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme === "dark") {
+        document.body.classList.add("dark-mode");
+
+        themeIcon.innerHTML = `<i class="${sunIconClass}"></i>`;
+        themeText.textContent = "Light Mode";
+        toggleBtn.style.background = "white";
+        toggleBtn.style.color = "black";
+    }
 });
 
 
