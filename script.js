@@ -80,7 +80,8 @@ function displayLocationName() {
     locationName.textContent = value;
     locationName.style.display = "inline";
     getWeather(value);
-    searchInput.value = "";       
+    searchInput.value = "";  
+    localStorage.setItem("lastCity", value);     
 }
 searchIcon.addEventListener("click", displayLocationName);
 
@@ -333,6 +334,8 @@ function updateCelsiusFahrenheitTemp() {
 }
 
 
+
+
 function updateDaysForecast() {
     const daylistsContainer = document.querySelector(".tempLists");
     const isFahrenheit = tempToggle.checked;
@@ -390,15 +393,14 @@ toggleBtn.addEventListener("click", () => {
         themeText.textContent = "Light Mode";
         toggleBtn.style.background = "white";
         toggleBtn.style.color = "black";
-        // backgroundImage.style.backgroundImage = "url('assets/blackBG.webp')";
     }
     else {
         themeIcon.innerHTML = `<i class="${moonIconClass}"></i>`;
         themeText.innerHTML = "Dark Mode";
         toggleBtn.style.background = "black";
         toggleBtn.style.color = "white";
-       // backgroundImage.style.backgroundImage = "url('assets/bg-imgGIF.gif')";
     }
+
 });
 
 
@@ -493,6 +495,7 @@ async function loadCurrentLocation() {
                    locationName.textContent = cityName;
                    locationName.style.display = "inline";
                    getWeather(null, latitude, longitude);
+                   localStorage.setItem("lastCity", cityName);
                 }
                 catch (error) {
                     console.error("Error fetching location:", error);
@@ -509,8 +512,21 @@ async function loadCurrentLocation() {
     }
 }
 
+/*
 window.addEventListener('load', () => {
     loadCurrentLocation();
+}); */
+
+window.addEventListener('load', () => {
+    const savedCity = localStorage.getItem("lastCity");
+
+    if (savedCity) {
+        locationName.textContent = savedCity;
+        locationName.style.display = "inline";
+        getWeather(savedCity);
+    } else {
+        loadCurrentLocation();
+    }
 });
 
 // Auto-suggestion using debouncing
@@ -757,7 +773,7 @@ function updateWeatherBgImg(iconCode) {
     case '11d':
         backgroundUrl = getResponsiveImage(
         'assets/mobile/ThundersTorm-Day.jpg',
-        'assets/largeDesktop/T^hunderstormDay.jpg'
+        'assets/largeDesktop/ThunderstormDay.jpg'
       );
       break;
     case '11n':
