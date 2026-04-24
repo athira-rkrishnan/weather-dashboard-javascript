@@ -373,6 +373,16 @@ tempToggle.addEventListener("change", () => {
     updateCelsiusFahrenheitTemp();
     updateHourlyChart(lastHourlyData);
     updateDaysForecast();
+    localStorage.setItem("tempUnit", tempToggle.checked ? "F" : "C");
+
+});
+
+window.addEventListener("load", () => {
+    const savedUnit = localStorage.getItem("tempUnit");
+
+    if (savedUnit === "F") {
+        tempToggle.checked = true;
+    }
 });
 
 
