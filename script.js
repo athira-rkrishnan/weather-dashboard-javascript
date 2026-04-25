@@ -23,7 +23,7 @@ const iconMap = {
             "50n": "assets/50n.png"
         };
 
-// Updating Time and date
+// Function to update the current time and date display every second
 function updateTime() {
     const currDateTime = new Date();
     let hours = currDateTime.getHours();
@@ -56,6 +56,7 @@ const locationName = document.getElementById("lctn-name");
 const errorPopup = document.getElementById("error-Popup");
 const errorMsg = document.getElementById("error-msg");
 
+// Function to display location name based on user input or saved data
 function displayLocationName() {
     const value = searchInput.value.trim();
     if(value === "") {
@@ -81,7 +82,10 @@ function displayLocationName() {
     locationName.style.display = "inline";
     getWeather(value);
     searchInput.value = "";  
-    localStorage.setItem("lastCity", value);     
+    localStorage.setItem("locationData", JSON.stringify({
+        type: "city",
+        value: value
+    }));     
 }
 searchIcon.addEventListener("click", displayLocationName);
 
@@ -92,9 +96,8 @@ searchInput.addEventListener("keydown", (event) => {
 });
 
 
-// Fetching Weather Data 
+// Function to fetch weather data from API 
 async function getWeather(locationName, lat, lon) {
-    //console.log(value);
     const apiKey = "968b2abf92825ff2190a5cdbfd465552";
     let weatherapiURL;
     if(lat && lon) {
@@ -274,9 +277,7 @@ async function getWeather(locationName, lat, lon) {
     }
 }
 
-//const placeName = "Agra";
-//getWeather(placeName);
-
+// Function to translate air quality index number to description and color
  function getAirQltyIndexName(aqi) {
     let description = "";
     let color = "";
@@ -308,11 +309,12 @@ async function getWeather(locationName, lat, lon) {
     return {description, color};
  }
 
-// Celsius to Fahrenheit Conversion 
+// Conversion from Celsius to Fahrenheit
 function convertToFahrenheit(celsius) {
     return Math.round((celsius * 9/5) + 32);
 }
 
+// Function to update temperature display based on toggle (°C/°F)
 const tempToggle = document.getElementById("tempToggle");
 function updateCelsiusFahrenheitTemp() {
     if (!currentTempData) {
@@ -333,9 +335,7 @@ function updateCelsiusFahrenheitTemp() {
     document.querySelector(".low").textContent = `Low: ${lowTemp}${unit}`;
 }
 
-
-
-
+// Function to update days forecast list in DOM
 function updateDaysForecast() {
     const daylistsContainer = document.querySelector(".tempLists");
     const isFahrenheit = tempToggle.checked;
@@ -377,17 +377,9 @@ tempToggle.addEventListener("change", () => {
 
 });
 
-window.addEventListener("load", () => {
-    const savedUnit = localStorage.getItem("tempUnit");
-
-    if (savedUnit === "F") {
-        tempToggle.checked = true;
-    }
-});
 
 
-// Dark-Light Theme Toggle Button
-const backgroundImage = document.getElementById("bgImage");
+// Dark/Light theme toggle button handler
 const toggleBtn = document.getElementById("darklightToggle");
 const themeIcon = document.getElementById("theme-icon");
 const themeText = document.getElementById("theme-text");
@@ -416,21 +408,8 @@ toggleBtn.addEventListener("click", () => {
 
 });
 
-window.addEventListener("load", () => {
-    const savedTheme = localStorage.getItem("theme");
 
-    if (savedTheme === "dark") {
-        document.body.classList.add("dark-mode");
-
-        themeIcon.innerHTML = `<i class="${sunIconClass}"></i>`;
-        themeText.textContent = "Light Mode";
-        toggleBtn.style.background = "white";
-        toggleBtn.style.color = "black";
-    }
-});
-
-
-// Hourly Chart using Chart.js
+// Hourly temperature graph using Chart.js
 const canvasEl = document.getElementById("hourChart");
 const hourlyChart = new Chart(canvasEl, {
     type: 'line',
@@ -445,38 +424,9 @@ const hourlyChart = new Chart(canvasEl, {
         }]
     },
     options: getHourlyChartOptions()
-    /*
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                labels: {
-                    color: 'black',
-                    font: {
-                        size: 14,
-                        weight: '600'
-                    }  
-                }
-            }
-        },
-        scales: {
-            x: {
-                ticks: {
-                    color: 'black'   
-                },    
-            },
-            y: {
-                beginAtZero: true,
-                ticks: {
-                    color: 'black'   
-                }, 
-            }
-        }
-    }*/
 });
 
-
+// Function to update hourly chart with new data
 function updateHourlyChart(hourlyData) {
     const isFahrenheit = document.getElementById("tempToggle").checked;
     const labels = hourlyData.map(hour => {
@@ -496,13 +446,13 @@ function updateHourlyChart(hourlyData) {
     hourlyChart.update();
 }
 
-// Current Location using Geolocation API
+// Load current location via Geolocation API
 const currLocationBtn = document.querySelector('.curr-location');
 currLocationBtn.addEventListener("click", () => {
     loadCurrentLocation();
 });
 
-
+// Function to get current location and fetch weather data
 async function loadCurrentLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(async (position) => {
@@ -521,7 +471,12 @@ async function loadCurrentLocation() {
                    locationName.textContent = cityName;
                    locationName.style.display = "inline";
                    getWeather(null, latitude, longitude);
-                   localStorage.setItem("lastCity", cityName);
+                   localStorage.setItem("locationData", JSON.stringify({
+                        type: "current",
+                        value: cityName,
+                        lat: latitude,
+                        lon: longitude
+                    }));
                 }
                 catch (error) {
                     console.error("Error fetching location:", error);
@@ -538,24 +493,8 @@ async function loadCurrentLocation() {
     }
 }
 
-/*
-window.addEventListener('load', () => {
-    loadCurrentLocation();
-}); */
 
-window.addEventListener('load', () => {
-    const savedCity = localStorage.getItem("lastCity");
-
-    if (savedCity) {
-        locationName.textContent = savedCity;
-        locationName.style.display = "inline";
-        getWeather(savedCity);
-    } else {
-        loadCurrentLocation();
-    }
-});
-
-// Auto-suggestion using debouncing
+// Debounce utility for API call throttling
 function debounce(func, delay) {
     let timeoutId;
     return function(...args) {
@@ -566,11 +505,12 @@ function debounce(func, delay) {
     };
 }
 
+// Fetch city suggestions for autocomplete
 async function fetchCitySuggestions(query) {
     const suggestionBox = document.getElementById("suggestion-box");
 
     if (!query) {
-       suggestionBox.innerHTML = '';
+        suggestionBox.innerHTML = '';
         return;
     }
     try {
@@ -597,13 +537,15 @@ async function fetchCitySuggestions(query) {
     }
 }
 
-
+// Debounced input event for city suggestions
 const debouncedSearch = debounce(fetchCitySuggestions, 300);
 searchInput.addEventListener("input", (e) => {
     const query = e.target.value.trim();
     debouncedSearch(query);
 });
 
+
+// Error alert display function
 const errorAlertBox = document.getElementById("error-alert");
 const errorAlertMsg = document.getElementById("error-alert-msg");
 const closeIcon = document.querySelector(".fa-square-xmark");
@@ -621,7 +563,7 @@ function showErrorAlert(message) {
 }
 
 
-    
+// Function to generate options for hourly chart based on window size
 function getHourlyChartOptions() {
     const hrChartwidth = window.innerWidth;
     let fontSize, tickLimitX, tickLimitY, rotation, borderWidth, pointRadius;
@@ -639,11 +581,9 @@ function getHourlyChartOptions() {
         tickLimitX = 8;
         rotation = 0;
     } 
-
     else {
         fontSize = 13;
         tickLimitX = 12;
-     /*   tickLimitY = 3;*/
         rotation = 30;
     }
     return {
@@ -698,14 +638,8 @@ function getHourlyChartOptions() {
     };
 }
 
-
-
-window.addEventListener('resize', () => {
-    hourlyChart.options = getHourlyChartOptions();
-    hourlyChart.update();
-});
-
-
+// Function to update the weather background image based on icon code
+const backgroundImage = document.getElementById("bgImage");
 function updateWeatherBgImg(iconCode) {
   let backgroundUrl = '';
   const screenWidth = window.innerWidth;
@@ -720,139 +654,179 @@ function updateWeatherBgImg(iconCode) {
   switch(iconCode) {
     case '01d':
         backgroundUrl = getResponsiveImage(
-        'assets/mobile/Clearsky-Day.jpg',
-        'assets/largeDesktop/ClearSky-Day.jpg'
-      );
-      break;
+        'assets/mobile/Clearsky-Day.webp',
+        'assets/largeDesktop/ClearSky-Day.webp'
+        );
+        break;
     case '01n':
-      backgroundUrl = getResponsiveImage(
-        'assets/mobile/mobileClearsky-Night.jpg',
-        'assets/largeDesktop/ClearSky-Night.jpg'
-      );
-      break;
+        backgroundUrl = getResponsiveImage(
+        'assets/mobile/Clearsky-Night.webp',
+        'assets/largeDesktop/ClearSky-Night.webp'
+        );
+        break;
 
     case '02d':
         backgroundUrl = getResponsiveImage(
-        'assets/mobile/fewClouds-Day.jpg',
-        'assets/largeDesktop/fewClouds-Day.jpg'
-      );
-      break;
+        'assets/mobile/fewClouds-Day.webp',
+        'assets/largeDesktop/fewClouds-Day.webp'
+        );
+        break;
     case '02n':
-      backgroundUrl = getResponsiveImage(
-        'assets/mobile/fewClouds-Night.jpg',
-        'assets/largeDesktop/fewClouds-Night.jpg'
-      );
-      break;
+        backgroundUrl = getResponsiveImage(
+        'assets/mobile/fewClouds-Night.webp',
+        'assets/largeDesktop/fewClouds-Night.webp'
+        );
+        break;
 
     case '03d':
         backgroundUrl = getResponsiveImage(
-        'assets/mobile/scatteredClouds-Day.jpg',
-        'assets/largeDesktop/ScatteredClouds-Day.jpg'
-      );
-      break;
+        'assets/mobile/scatteredClouds-Day.webp',
+        'assets/largeDesktop/ScatteredClouds-Day.webp'
+        );
+        break;
     case '03n':
-      backgroundUrl = getResponsiveImage(
-        'assets/mobile/scatteredClouds-Night.jpg',
-        'assets/largeDesktop/ScatteredClouds-Night.jpg'
-      );
-      break;
+        backgroundUrl = getResponsiveImage(
+        'assets/mobile/scatteredClouds-Night.webp',
+        'assets/largeDesktop/ScatteredClouds-Night.webp'
+        );
+        break;
 
     case '04d':
         backgroundUrl = getResponsiveImage(
-        'assets/mobile/brokenClouds-Day.jpg',
-        'assets/largeDesktop/BrokenClouds-Day.jpg'
-      );
-      break;
+        'assets/mobile/brokenClouds-Day.webp',
+        'assets/largeDesktop/BrokenClouds-Day.webp'
+        );
+        break;
     case '04n':
-      backgroundUrl = getResponsiveImage(
-        'assets/mobile/brokenClouds-Night.jpg',
-        'assets/largeDesktop/BrokenClouds-Night.jpg'
-      );
-      break;
+        backgroundUrl = getResponsiveImage(
+        'assets/mobile/brokenClouds-Night.webp',
+        'assets/largeDesktop/BrokenClouds-Night.webp'
+        );
+        break;
 
     case '09d':
         backgroundUrl = getResponsiveImage(
-        'assets/mobile/showerrain-day.jpg',
-        'assets/largeDesktop/ShowerRain-Day.jpg'
-      );
-      break;
+        'assets/mobile/showerrain-day.webp',
+        'assets/largeDesktop/ShowerRain-Day.webp'
+        );
+        break;
     case '09n':
-      backgroundUrl = getResponsiveImage(
-        'assets/mobile/showerRain-Night.jpg',
-        'assets/largeDesktop/ShowerRain-Night.jpg'
-      );
-      break;
+        backgroundUrl = getResponsiveImage(
+        'assets/mobile/showerRain-Night.webp',
+        'assets/largeDesktop/ShowerRain-Night.webp'
+        );
+        break;
 
     case '10d':
         backgroundUrl = getResponsiveImage(
-        'assets/mobile/Rain-Day.jpg',
-        'assets/largeDesktop/RainDay.jpg'
-      );
-      break;
+        'assets/mobile/Rain-Day.webp',
+        'assets/largeDesktop/RainDay.webp'
+        );
+        break;
     case '10n':
-      backgroundUrl = getResponsiveImage(
-        'assets/mobile/Rain-Night.jpg',
-        'assets/largeDesktop/RainNight.jpg'
-      );
-      break;
+        backgroundUrl = getResponsiveImage(
+        'assets/mobile/Rain-Night.webp',
+        'assets/largeDesktop/RainNight.webp'
+        );
+        break;
 
     case '11d':
         backgroundUrl = getResponsiveImage(
-        'assets/mobile/ThundersTorm-Day.jpg',
-        'assets/largeDesktop/ThunderstormDay.jpg'
-      );
-      break;
+        'assets/mobile/Thunderstorm-Day.webp',
+        'assets/largeDesktop/ThunderstormDay.webp'
+        );
+        break;
     case '11n':
-      backgroundUrl = getResponsiveImage(
-        'assets/mobile/Thundestorm_night.jpg',
-        'assets/largeDesktop/ThundestormNight.jpg'
-      );
-      break;
+        backgroundUrl = getResponsiveImage(
+        'assets/mobile/Thundestorm_night.webp',
+        'assets/largeDesktop/ThundestormNight.webp'
+        );
+        break;
 
     case '13d':
         backgroundUrl = getResponsiveImage(
-        'assets/mobile/Snow-Day.jpg',
-        'assets/largeDesktop/snowDay.jpg'
-      );
-      break;
+        'assets/mobile/Snow-Day.webp',
+        'assets/largeDesktop/snowDay.webp'
+        );
+        break;
     case '13n':
-      backgroundUrl = getResponsiveImage(
-        'assets/mobile/Snow-Night.jpg',
-        'assets/largeDesktop/SnowNight.jpg'
-      );
-      break;
+        backgroundUrl = getResponsiveImage(
+        'assets/mobile/Snow-Night.webp',
+        'assets/largeDesktop/SnowNight.webp'
+        );
+        break;
 
     case '50d':
         backgroundUrl = getResponsiveImage(
-        'assets/mobile/Mist-Day.jpg',
-        'assets/largeDesktop/MistDay.jpg'
-      );
-      break;
+        'assets/mobile/Mist-Day.webp',
+        'assets/largeDesktop/MistDay.webp'
+        );
+        break;
     case '50n':
-      backgroundUrl = getResponsiveImage(
-        'assets/mobile/Mist-Night.jpg',
-        'assets/largeDesktop/MistNight.jpg'
-      );
-      break;
+        backgroundUrl = getResponsiveImage(
+        'assets/mobile/Mist-Night.webp',
+        'assets/largeDesktop/MistNight.webp'
+        );
+        break;
 
     default:
-      backgroundUrl = getResponsiveImage(
+        backgroundUrl = getResponsiveImage(
         'assets/mobBackImg.webp',
         'assets/NaturePic1.webp'
-      );
+        );
   }
 
   backgroundImage.style.backgroundImage = `url(${backgroundUrl})`;
-  backgroundImage.style.backgroundPosition = "center";
-  backgroundImage.style.backgroundSize = "cover";
-  backgroundImage.style.backgroundRepeat = "no-repeat";
 }
 
 
-window.addEventListener("resize", () => {
-  if (currentIconCode) {
-    updateWeatherBgImg(currentIconCode);
-  }
+// Load preferences and location data on window load
+window.addEventListener("load", () => {
+    const savedUnit = localStorage.getItem("tempUnit");
+    if (savedUnit === "F") {
+        tempToggle.checked = true;
+    }
+    updateCelsiusFahrenheitTemp();
+
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+        document.body.classList.add("dark-mode");
+
+        themeIcon.innerHTML = `<i class="${sunIconClass}"></i>`;
+        themeText.textContent = "Light Mode";
+        toggleBtn.style.background = "white";
+        toggleBtn.style.color = "black";
+    }
+
+    let savedData = null;
+    try {
+        savedData = JSON.parse(localStorage.getItem("locationData"));
+    } catch (e) {
+        console.error("Invalid localStorage data");
+    }
+
+    if (savedData) {
+        locationName.textContent = savedData.value;
+        locationName.style.display = "inline";
+
+        if (savedData.type === "current") {
+            getWeather(null, savedData.lat, savedData.lon);
+        } else {
+            getWeather(savedData.value);
+        }
+    } else {
+        loadCurrentLocation();
+    }
+});
+
+// Update hourly chart and background image on window resize
+window.addEventListener('resize', () => {
+    hourlyChart.options = getHourlyChartOptions();
+    hourlyChart.update();
+
+    if (currentIconCode) {
+        updateWeatherBgImg(currentIconCode);
+    }
 });
 
 

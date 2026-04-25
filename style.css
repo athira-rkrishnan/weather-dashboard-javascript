@@ -11,73 +11,30 @@ body, html {
 }
 .bgimage {
     width: 100%;
-    height: 100%;
-    background: url("assets/NaturePic1.webp"); 
+    height: 100vh;
+    background: url("assets/NaturePic1.webp");  
     background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
     transition: background-image 0.6s ease-in-out;
-  /*  filter: blur(10px);
-    -webkit-filter: blur(10px);  */
 }
-
 .weather-container {
     width: 93%;
     height: 89%;
     border-radius: 1.5rem;
     border: 1px solid #fff; 
- /* background: url("assets/NaturePic1.webp"); 
-    background-size: cover;
-    background-repeat: no-repeat;  */
-    z-index: 1;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
-}  
-.errorPopup {
-    width: 15rem;
-    color: black;
-    z-index: 5;
-    /*background-color: gray;  */
-    border-radius: 0.7rem;
-    padding: 0.5rem 0.6rem;
-    position: absolute;
-    top: 3%;
-    left: 35%;
-    display: flex;
-    align-items: center;
-    visibility: hidden;
-    user-select: none;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(15px);
-    box-shadow: 0 0.5rem 1.25rem rgba(0,0,0,0.2); 
-    transition: 0.4s ease;
-}
-.errorPopup .fa-triangle-exclamation {
-    color: #106368;
-   box-shadow: 0 0.5rem 1.25rem rgb(137 126 126 / 20%); 
-    margin-right: 0.6rem;
-    user-select: none;
-}
-.errorPopup .fa-sort-down {
-    position: fixed;
-    top: 65%;
-    left: 41%;
-    z-index: -1;
-    /*color: gray; */
-    font-size: 1.2rem;
-    user-select: none;
-    background: rgba(255, 255, 255, 0.65);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; 
 }
 .weather-container header {
-    margin: 0 0.5rem;
-    padding: 1rem;
- /* background: greenyellow; */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 0 0.5rem;
+    padding: 1rem;
     z-index: 2;   
 }
 .weather-container header .grayglass-effect {
@@ -88,9 +45,8 @@ body, html {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 header .time-date {
-  /* background: pink; */
-    color: black;
     width: 25%;
+    color: black;
     border-radius: 1rem;
     padding: 0 0.8rem;
     user-select: none;
@@ -100,7 +56,6 @@ header .time-date h2 {
     font-weight: bold;
 }
 header .searchBox {
- /* background: yellow;  */
     width: 35%;
     height: 2.3rem;
     padding: 0 0.5rem;
@@ -127,25 +82,6 @@ header .searchBox input {
     padding: 0 0.4rem;
     flex: 1;
 }
-/*
-header .searchBox #suggestion-box {
-    max-height: 150px;
-    overflow-y: auto;
-    position: absolute;
-    top: 110%;
-    background: #fff;
-    width: 100%;
-    z-index: 99999;
-    border: 2px solid red;
-}
-.suggestion-item {
-  padding: 8px;
-  cursor: pointer;
-}
-.suggestion-item:hover {
-  background-color: #f0f0f0;
-} */
-
 header .searchBox #suggestion-box {
     width: 100%;
     max-height: 200px;
@@ -156,17 +92,16 @@ header .searchBox #suggestion-box {
     left: 0;
     border-radius: 12px;
     z-index: 9999;
-    transition: all 0.3s ease;
     background: rgba(255, 255, 255, 0.65);
     backdrop-filter: blur(15px);
    -webkit-backdrop-filter: blur(15px);
-  /*  border: 1px solid rgba(255, 255, 255, 0.3); */
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);   
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);  
+    transition: all 0.3s ease; 
 }
 .suggestion-item {
+    color: #000;
     padding: 10px 14px;
     cursor: pointer;
-    color: #000;
     transition: background 0.2s ease, transform 0.1s ease;
 }
 .suggestion-item:hover {
@@ -175,23 +110,20 @@ header .searchBox #suggestion-box {
     transform: scale(1.02);
     border-radius: 8px;
 }
-
 header .curr-location {
-  /* background: green;  */
     width: 18%;
     height: 2.3rem;
-    padding: 0 0.8rem 0 0.3rem;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.3rem;
     border-radius: 2rem;
+    padding: 0 0.8rem 0 0.3rem;
     user-select: none;
     cursor: pointer;
 }
 header .curr-location i {
-   font-size: 1.2rem;
- /*  color: #153D4C;   */
+    font-size: 1.2rem;
     background: linear-gradient(to right, #08B3E5, #2AF598);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -201,18 +133,16 @@ header .curr-location span {
     font-size: 1rem;
     font-weight: 500;
 }
-/* Celsius-Fahrenheit toggle button */
 header .tempSwitch {
-    position: relative;
-    display: inline-block;
     width: 6%;
     height: 2rem;
-    /* background: green; */
+    position: relative;
+    display: inline-block;
 }
 header .tempSwitch input {
-    opacity: 0;
     width: 0;
     height: 0;
+    opacity: 0;
 }
 header .tempSwitch .tempSlider {
     position: absolute;
@@ -226,20 +156,20 @@ header .tempSwitch .tempSlider {
     cursor: pointer;
 }
 .tempSwitch .tempSlider:before {
-    position: absolute;
-    content: "C";
     width: 1.4rem;
     height: 1.4rem;
+    border-radius: 50%;
+    position: absolute;
+    content: "C";
     left: 0.3rem;
     bottom: 0.3rem;
     background-color: #ffffff;
+    color: #153D4C;
     transition: 0.4s;
-    border-radius: 50%;
     font-weight: bold;
     display: flex;
     justify-content: center;
-    align-items: center;
-    color: #153D4C;
+    align-items: center;    
 }
 input:checked + .tempSlider {
     background: #16A085;
@@ -252,11 +182,11 @@ input:checked + .tempSlider:before {
 #darklightToggle {
     width: 11%;
     background-color: #000000;
+    font-size: 1rem;
+    color:  #eee;
     padding: 0.5rem 1rem;
     border: 1px solid #ccc;
     border-radius: 1.3rem;
-    color:  #eee;
-    font-size: 1rem;
     outline: none;
     display: flex;
     align-items: center;
@@ -271,18 +201,7 @@ input:checked + .tempSlider:before {
     display: flex;
     gap: 0.8rem;  
 }   
-/*
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: auto;
-    display: flex;
-    gap: 0.8rem;
-    padding: 0 1rem;
-}
-*/
 .container .locationForecast {
-   /* background-color: rgb(144, 82, 92);  */
     flex-basis: 25%;
     height: 106%; 
     user-select: none;
@@ -301,19 +220,7 @@ input:checked + .tempSlider:before {
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
-/*
-.locationForecast {
-    flex: 1;
-    min-width: 280px;
-}
-
-.overviewHourly {
-    flex: 2;
-    min-width: 300px;
-}
-*/
 .locationForecast .loctnTemp {
-    /*  background: green;  */
     width: 100%;
     height: 45%;
     border-radius: 1rem;
@@ -321,17 +228,15 @@ input:checked + .tempSlider:before {
     margin-bottom: 0.8rem;  
 }
 .loctnTemp .location {
-  /*  background: yellow;   */
     width: 47%;
+    font-weight: 500;
     padding: 0.3rem 0.4rem;
     border-radius: 1rem;
-    margin-left: 0.5rem;
-    font-weight: 500;
+    margin-left: 0.5rem; 
     display: flex;
     align-items: center;
 }
 .loctnTemp .location .fa-location-dot {
-   /* color: #153D4C;  */
     margin-right: 0.4rem;
     background: linear-gradient(to right, #08B3E5, #2AF598);
     -webkit-background-clip: text;
@@ -344,15 +249,13 @@ input:checked + .tempSlider:before {
     transition: width 0.3s ease; 
 }
 .locationForecast .weatherDetails {
-  /*  background-color: pink;   */
     height: 10.2rem;
     display: flex;
     margin: 0.7rem 0.5rem;
-    border-radius: 1rem;
     padding: 0 0.45rem 0.5rem;
+    border-radius: 1rem;
 }
 .weatherDetails .weatherIcon {
-   /* background:rgb(142, 105, 36);  */
     flex-basis: 55%;
 }
 .weatherDetails .weatherIcon img {
@@ -367,7 +270,6 @@ input:checked + .tempSlider:before {
     line-height: 1.2;
 }
 .weatherDetails .temp {
-  /*  background: rgb(197, 145, 51);  */
     padding-top: 1.4rem;
 }
 .weatherDetails .temp h2 {
@@ -378,36 +280,30 @@ input:checked + .tempSlider:before {
 }
 .weatherDetails .temp p {
     font-size: 0.9rem;
+    color: #ffffff;
     line-height: 1.3;
 }
 .weatherDetails .temp .highlowTemp {
     display: flex;
+    gap: 0.4rem;
     background: #153D4C;
     padding: 0.2rem 0.3rem;
     border-radius: 0.5rem;
-    gap: 0.4rem;
-}
-.temp .highlowTemp p {
-    color: #ffffff;
 }
 .temp .highlowTemp .high {
     border-right: 1px solid #fff;
     padding-right: 0.2rem;
 }
-
-/* 7 Days Forecast Start */
-.locationForecast .days-title {
-    /*background: orange; */
-    border-radius: 1rem;
-    padding: 0.4rem 1.2rem;
-    font-weight: bold;
-}
 .locationForecast .daysForecast {
- /*   background-color: rgb(44, 85, 65);    */
     width: 100%;
     height: 53%;
     border-radius: 1rem;
     padding: 0.7rem 0.8rem;
+}
+.locationForecast .days-title {
+    border-radius: 1rem;
+    padding: 0.4rem 1.2rem;
+    font-weight: bold;
 }
 .daysForecast .tempLists {
     height: 13.3rem;
@@ -416,7 +312,6 @@ input:checked + .tempSlider:before {
     scrollbar-color: #153D4C #c8c4c4;
 }
 .daysForecast .tempLists .days-lists {
-   /* background: rgb(164, 72, 87);  */
     display: flex;
     align-items: center;
     gap: 0.3rem;
@@ -431,20 +326,15 @@ input:checked + .tempSlider:before {
 }
 .daysForecast .days-lists .wname {
     width: 7.4rem;
-   /* background: greenyellow;  */
 }
 .daysForecast .days-lists .nxt-temp {
     width: 3rem;
-  /*  background:rgb(6, 100, 135);  */
 }
 .daysForecast .days-lists .dayListMonth {
     width: 3rem;
     margin-left: 0.1rem;
 }
-
-/* Overview-Hourly Forecast Main Container */
 .overviewHourly {
-  /*  background-color: rgb(142, 105, 36);   */
     display: flex;
     flex-direction: column;
     flex-basis: 75%;
@@ -452,7 +342,6 @@ input:checked + .tempSlider:before {
     user-select: none;
 }
 .overviewHourly .todaysOverview {
- /*   background-color:aquamarine;   */
     width: 100%; 
     height: 65%;  
     padding: 0.6rem 0.8rem;
@@ -471,7 +360,6 @@ input:checked + .tempSlider:before {
     margin: 0.6rem 0 0.6rem 0;
 }
 .todaysOverview .airQualityIndx {
- /*   background: rgb(184, 184, 65);    */
     border-radius: 1rem;
     flex-basis: 80%;
     padding: 0.5rem 1rem;
@@ -480,7 +368,6 @@ input:checked + .tempSlider:before {
     display: flex;
 }
 .airContainer .airQltyIndexValue {
-   /* background: rgb(168, 168, 50);  */
     width: 34%;
     height: 9rem;
     display: flex;
@@ -490,16 +377,15 @@ input:checked + .tempSlider:before {
     gap: 0.5rem;
 }
 .airQltyIndexValue .airIndexValue {
-   /* background: violet; */
     width: 10rem;
     height: 3rem;
     border: 1px solid black;
     border-radius: 0.93rem;
     font-size: 1.5rem;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
     background: linear-gradient(135deg, rgb(3 17 22 / 83%), rgb(30 206 215 / 82%));
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -519,7 +405,6 @@ input:checked + .tempSlider:before {
     justify-content: center;
 }
 .airContainer .airComponents {
-   /* background: rgb(81, 191, 81);  */
     width: 74%;
     height: 9rem;
     display: flex;
@@ -535,7 +420,6 @@ input:checked + .tempSlider:before {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 .airContainer .airComponents .compValuesRow1 {
-   /* background: pink; */
     display: flex;
     align-items: center;
     gap: 18px;
@@ -548,7 +432,6 @@ input:checked + .tempSlider:before {
     gap: 20px;
     width: 10rem;
     height: 3.4rem;
-  /*  background:#4d9889;  */
     padding: 1rem 0.4rem;
     border-radius: 1rem;
     background: rgba(255, 255, 255, 0.15);
@@ -559,8 +442,7 @@ input:checked + .tempSlider:before {
 }
 .airContainer .airComponents .compValuesRow1 .compValues i {
     font-size: 1.35rem;
-   /* color: #5b9f0d; */
-   background: linear-gradient(to right, #08B3E5, #2AF598);   
+    background: linear-gradient(to right, #08B3E5, #2AF598);   
    -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;
 }
@@ -583,7 +465,6 @@ input:checked + .tempSlider:before {
     gap: 20px;
     width: 10rem;
     height: 3.4rem;
-  /*  background:#0c473c; */
     padding: 1rem 0.4rem;
     border-radius: 1rem;
     background: rgba(255, 255, 255, 0.15);
@@ -594,7 +475,6 @@ input:checked + .tempSlider:before {
 } 
 .airContainer .airComponents .compValuesRow2 .compValues i {
     font-size: 1.35rem;
-  /*  color: #5b9f0d; */
     background: linear-gradient(to right, #08B3E5, #2AF598);   
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -606,10 +486,8 @@ input:checked + .tempSlider:before {
     font-size: 1rem;
 }
 .todaysOverview .sunrise-set {
- /*   background:rgb(44, 85, 65);  */
     width: 20%;
     border-radius: 1rem;
-   /* flex-basis: 18%;  */
     padding: 0.4rem 0.9rem;
     user-select: none;
 }
@@ -633,12 +511,10 @@ input:checked + .tempSlider:before {
     font-size: 1.1rem;
 }
 .todaysOverview .tempDetailsSec {
-  /*  background:#64302c;   */
     display: flex;
     gap: 0.53rem;
 }
 .todaysOverview .tempDetailsSec .tempDetail {
-  /*  background:#369a83;     */
     width: 18%;
     height: 4.6rem;
     padding: 0.8rem;
@@ -665,28 +541,50 @@ input:checked + .tempSlider:before {
     stroke: url(#svgIconGradient);
 }
 .overviewHourly .hourlyForecast {
-   /* background-color:rgb(100, 31, 100);       */
-    border-radius: 1rem;
-    padding: 0.8rem;
     width: 100%; 
     height: 55%;
+    border-radius: 1rem;
+    padding: 0.8rem; 
 }
 .hourlyForecast .hourlytempchart {
     border-radius: 1rem;
     height: 87%;
 }
-/*
-.hourlyForecast .hourlytempchart canvas {
-    width: 800px;
-    height: 100px;
-} */
-
-/*
-.overviewHourly .todaysOverview,
-.overviewHourly .hourlyForecast {
-    width: 100%;
+.errorPopup {
+    width: 15rem;
+    color: black;
+    border-radius: 0.7rem;
+    padding: 0.5rem 0.6rem;
+    position: absolute;
+    top: 3%;
+    left: 35%;
+    display: flex;
+    align-items: center;
+    visibility: hidden;
+    user-select: none;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0.5rem 1.25rem rgba(0,0,0,0.2); 
+    transition: 0.4s ease;
+    z-index: 5;
 }
-*/
+.errorPopup .fa-triangle-exclamation {
+    color: #106368;
+    box-shadow: 0 0.5rem 1.25rem rgb(137 126 126 / 20%); 
+    margin-right: 0.6rem;
+    user-select: none;
+}
+.errorPopup .fa-sort-down {
+    position: fixed;
+    top: 65%;
+    left: 41%;
+    z-index: -1;
+    font-size: 1.2rem;
+    user-select: none;
+    background: rgba(255, 255, 255, 0.65);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+}
 .errorAlert {
     display: flex;
     justify-content: space-between;
@@ -698,12 +596,12 @@ input:checked + .tempSlider:before {
     top: -140px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(15px);
     padding: 1.95rem 1.25rem;
     border-radius: 0.9rem;
     color: black;
     font-weight: 500;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
     box-shadow: 0 0.5rem 1.25rem rgba(0,0,0,0.2);
     transition: top 0.4s ease;
     z-index: 9999;
@@ -713,12 +611,12 @@ input:checked + .tempSlider:before {
     top: 20px;
 } 
 .errorAlert .alertIcon {
-    font-size: 1rem;
-    background: white;
-    padding: 12px;
     width: 2rem;
     height: 2rem;
     border-radius: 20%;
+    font-size: 1rem;
+    background: white;
+    padding: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -742,7 +640,6 @@ input:checked + .tempSlider:before {
     cursor: pointer;
     color: #153D4C;
 }
-
 .dark-mode .time-date,
 .dark-mode .curr-location span,
 .dark-mode .days-title,
@@ -807,13 +704,15 @@ input:checked + .tempSlider:before {
         height: auto;
         background: url(assets/mobBackImg.webp); 
         background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
         transition: background-image 0.6s ease-in-out;
     }
     .weather-container {
         width: 95%;
-        margin: 1rem auto;
         height: auto;
         min-height: 307vh;
+        margin: 1rem auto;
         transform: none;
         position: absolute;
         top: 4%;
@@ -847,8 +746,15 @@ input:checked + .tempSlider:before {
         flex-direction: column;
         padding: 0 1.4rem;
     }
+    .container, .locationForecast, .overviewHourly {
+        min-width: 0;
+    }
     .locationForecast, .overviewHourly {
         width: 100%;
+    }
+    .daysForecast .tempLists {
+        height: auto;
+        max-height: 12.5rem;
     }
     .daysForecast .tempLists .days-lists img {
         width: 2.85rem;
@@ -866,44 +772,14 @@ input:checked + .tempSlider:before {
         width: 100%;
         margin-top: 2rem;
     }
-    .airContainer .airQltyIndexValue {
-        width: 100%;
-    }
     .airContainer {
         flex-direction: column;
     }
-    .todaysOverview .sunrise-set {
+    .airContainer .airQltyIndexValue {
         width: 100%;
-        display: flex;
-        gap: 12px;
-        padding: 0 1.4rem;
     }
     .todaysOverview .airqlty-sunriseset {
         flex-direction: column;
-    }
-    .sunrise-set .suntimeData {
-        display: flex;
-        gap: 13px;
-    }
-    .sunrise-set .suntimeData img {
-        width: 2.18rem;
-        height: 2.15rem;
-        margin-right: 0.12rem;
-    }
-    .sunrise-set .suntimeData h3 {
-        font-size: 0.7rem;
-    }
-    .sunrise-set .suntimeData div span {
-        font-size: 0.7rem;
-    }
-    .todaysOverview .tempDetailsSec {
-        display: flex;
-        gap: 0.90rem;
-        flex-wrap: wrap;
-        padding: 0 0.2rem;
-    }
-    .todaysOverview .tempDetailsSec .tempDetail {
-        width: 48%;
     }
     .airContainer .airComponents {
         width: 100%;
@@ -918,7 +794,7 @@ input:checked + .tempSlider:before {
         gap: 13px;
         padding: 0.10rem 0.6em;
     }
-     .airContainer .airComponents .compValuesRow1 .compValues {
+    .airContainer .airComponents .compValuesRow1 .compValues {
         width: 9rem;
         display: flex;
         gap: 8px;
@@ -952,9 +828,35 @@ input:checked + .tempSlider:before {
     .airComponents .compValuesRow2 .compValues .compValue {
         font-size: 0.8rem;
     }
-    .daysForecast .tempLists {
-        height: auto;
-        max-height: 12.5rem;
+    .todaysOverview .sunrise-set {
+        width: 100%;
+        display: flex;
+        gap: 12px;
+        padding: 0 1.4rem;
+    }
+    .sunrise-set .suntimeData {
+        display: flex;
+        gap: 13px;
+    }
+    .sunrise-set .suntimeData img {
+        width: 2.18rem;
+        height: 2.15rem;
+        margin-right: 0.12rem;
+    }
+    .sunrise-set .suntimeData h3 {
+        font-size: 0.7rem;
+    }
+    .sunrise-set .suntimeData div span {
+        font-size: 0.7rem;
+    }
+    .todaysOverview .tempDetailsSec {
+        display: flex;
+        gap: 0.90rem;
+        flex-wrap: wrap;
+        padding: 0 0.2rem;
+    }
+    .todaysOverview .tempDetailsSec .tempDetail {
+        width: 48%;
     }
     .overviewHourly .hourlyForecast {
         width: 100%;
@@ -967,21 +869,13 @@ input:checked + .tempSlider:before {
         width: 100%;
         height: auto;
     }
-    /*
-    .hourlyForecast .hourlytempchart canvas {
-        min-width: 50rem;  
-        min-height: 12.5rem;
-        padding-top: 0.75rem;
-    } */
     .hourlyForecast .hourlytempchart canvas {
         width: 100% !important;
         min-width: unset;
         height: 100% !important;
         min-height: 25vh;
     }
-    .container, .locationForecast, .overviewHourly {
-        min-width: 0;
-    }
+    
     .errorAlert {
         width: 85%;
         top: -1200px;
@@ -994,8 +888,10 @@ input:checked + .tempSlider:before {
         width: 100%;
         min-height: 238vh;
         height: auto;
-        background: url(assets/mobBackImg.webp); 
+        background: url(assets/mobBackImg.webp);  
         background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
         transition: background-image 0.6s ease-in-out;
     }
     .weather-container {
@@ -1206,15 +1102,17 @@ input:checked + .tempSlider:before {
         width: 100%;
         min-height: 207vh;
         height: auto;
-        background: url(assets/mobBackImg.webp); 
+        background: url(assets/mobBackImg.webp);  
         background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
         transition: background-image 0.6s ease-in-out;
     }
     .weather-container {
         width: 95%;
-        margin: 1rem auto;
         height: auto;
         min-height: 196vh;
+        margin: 1rem auto;
         transform: none;
         position: absolute;
         top: 4%;
@@ -1276,13 +1174,6 @@ input:checked + .tempSlider:before {
         width: 55%;
         padding: 0.9rem 0.8rem;
     }
-    .locationForecast .weatherDetails {
-        height: 12.3rem;
-        padding: 0.5rem 0.3rem;
-    }
-    .locationForecast, .overviewHourly {
-        width: 100%;
-    }
     .daysForecast .tempLists {
         height: 13rem;
     }
@@ -1301,6 +1192,13 @@ input:checked + .tempSlider:before {
         margin-left: 1rem;
         text-align: center;
     }
+    .locationForecast .weatherDetails {
+        height: 12.9rem;
+        padding: 0.5rem 0.3rem;
+    }
+    .locationForecast, .overviewHourly {
+        width: 100%;
+    } 
     .overviewHourly .todaysOverview {
         width: 100%; 
     }
@@ -1310,28 +1208,6 @@ input:checked + .tempSlider:before {
     .airContainer .airQltyIndexValue {
         width: 38%;
         height: 15rem;
-    } 
-    .todaysOverview .sunrise-set {
-        width: 24%;
-        height: 16.9rem;
-    } 
-    .sunrise-set .suntimeData {
-        display: flex;
-        gap: 13px;
-        width: 12rem;
-        padding: 1rem 0.2rem;
-    } 
-    .sunrise-set .suntimeData img {
-        width: 3.18rem;
-        height: 3rem;
-        margin-right: 0.12rem;
-    }
-    .sunrise-set .suntimeData h3 {
-        font-size: 1.18rem;
-        margin-bottom: 0.3rem;
-    }
-    .sunrise-set .suntimeData div span {
-        font-size: 1.1rem;
     } 
     .airContainer .airComponents {
         width: 72%;
@@ -1380,7 +1256,29 @@ input:checked + .tempSlider:before {
     }
     .airComponents .compValuesRow2 .compValues .compValue {
         font-size: 1rem;
+    }
+    .todaysOverview .sunrise-set {
+        width: 24%;
+        height: 16.9rem;
     } 
+    .sunrise-set .suntimeData {
+        width: 12rem;
+        display: flex;
+        gap: 13px;
+        padding: 1rem 0.2rem;
+    } 
+    .sunrise-set .suntimeData img {
+        width: 3.18rem;
+        height: 3rem;
+        margin-right: 0.12rem;
+    }
+    .sunrise-set .suntimeData h3 {
+        font-size: 1.18rem;
+        margin-bottom: 0.3rem;
+    }
+    .sunrise-set .suntimeData div span {
+        font-size: 1.1rem;
+    }   
     .todaysOverview .tempDetailsSec .tempDetail {
         width: 18%;
         padding: 0.8rem 0.5rem;   
@@ -1392,9 +1290,9 @@ input:checked + .tempSlider:before {
         margin-top: 0.93rem;
     }
     .hourlyForecast .hourlytempchart {
-        overflow-x: auto;
         width: 100%;
         height: auto;
+        overflow-x: auto;
     }
     .hourlyForecast .hourlytempchart canvas {
         min-width: 50rem;  
@@ -1409,8 +1307,17 @@ input:checked + .tempSlider:before {
 @media (min-width: 1025px) and (max-width: 1500px) {
     .container {
         max-width: 1350px;
-        height: auto;
+        height: 84%;
         margin: 0 auto;
+    }
+    .locationForecast .weatherDetails {
+        height: 12.3rem;
+    }
+    .locationForecast .daysForecast {
+        height: 47%;
+    }
+    .daysForecast .tempLists { 
+        height: 84%;
     }
     .daysForecast .days-lists .wname {
         width: 7rem;
