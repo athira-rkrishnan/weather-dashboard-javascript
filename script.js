@@ -21,7 +21,7 @@ const iconMap = {
             "13n": "assets/13n.png",
             "50d": "assets/50d.png",
             "50n": "assets/50n.png"
-        };
+};
 
 // Function to update the current time and date display every second
 function updateTime() {
@@ -46,7 +46,6 @@ function updateTime() {
 }
 setInterval(updateTime, 1000);
 updateTime();
-
 
 const searchIcon = document.getElementById("search-icon");
 const searchInput = document.getElementById("search-input");
@@ -95,7 +94,6 @@ searchInput.addEventListener("keydown", (event) => {
     }
 });
 
-
 // Function to fetch weather data from API 
 async function getWeather(locationName, lat, lon) {
     const apiKey = "968b2abf92825ff2190a5cdbfd465552";
@@ -106,16 +104,12 @@ async function getWeather(locationName, lat, lon) {
     else {
         weatherapiURL = `https://api.openweathermap.org/data/2.5/weather?q=${locationName}&appid=${apiKey}&units=metric`;
     }
-    console.log(weatherapiURL);
     const airQualityIndexURL= (lat, lon) => {
        return `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
     };
-    console.log(airQualityIndexURL);
-
     const currForecastAPIUrl = (lat, lon) => {
         return `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&appid=${apiKey}&units=metric`;
     };
-    console.log(currForecastAPIUrl);
         
     try {
         const weatherResponse = await fetch(weatherapiURL);
@@ -123,13 +117,9 @@ async function getWeather(locationName, lat, lon) {
             throw new Error("Failed to fetch weather data");
         }
         const weatherData = await weatherResponse.json();
-        console.log(weatherData);
-
         const latitude = weatherData.coord?.lat;
         const longitude = weatherData.coord?.lon;
-        console.log(latitude);
-        console.log(longitude);
-
+    
         const airQualityIndexResponse = fetch(airQualityIndexURL(latitude, longitude));
         const currForecastResponse = fetch(currForecastAPIUrl(latitude, longitude));
         const [airQltyIndexRes, currForecastRes] = await Promise.all([airQualityIndexResponse, currForecastResponse]);
@@ -139,15 +129,11 @@ async function getWeather(locationName, lat, lon) {
         }
         const airQltyIndexData = await airQltyIndexRes.json();
         const currForecastData = await currForecastRes.json();
-        console.log(airQltyIndexData);
-        console.log(currForecastData);
-
+        
         const aqi = airQltyIndexData?.list?.[0]?.main?.aqi ?? "N/A";
         const {description, color} = getAirQltyIndexName(aqi);
         const components = airQltyIndexData?.list?.[0]?.components;
-        console.log(aqi); 
-        console.log(components);
-
+        
         const weatherDescription = weatherData.weather?.[0]?.description ?? "N/A";
         const weatherIconCode = weatherData.weather?.[0]?.icon;
         const feelsLike = Math.round(weatherData.main?.feels_like);
@@ -157,7 +143,6 @@ async function getWeather(locationName, lat, lon) {
 
         currentIconCode = weatherIconCode;
         updateWeatherBgImg(currentIconCode);
-        
         const iconSrc = iconMap[weatherIconCode] || "assets/cloudy.png";
 
         const sunriseUnix = weatherData.sys?.sunrise;
@@ -216,16 +201,13 @@ async function getWeather(locationName, lat, lon) {
         const daysForecastContainer = document.querySelector(".tempLists");
         daysForecastContainer.innerHTML = "";
         const daysForecasts = currForecastData.daily.slice(0, 7);
-        console.log(daysForecasts);
         dailyForecastData = daysForecasts;
         updateDaysForecast();
         
         const hourlyForecasts = currForecastData.hourly.slice(0, 12);
-        console.log(hourlyForecasts);
         lastHourlyData = hourlyForecasts;
         updateHourlyChart(lastHourlyData);
 
-       
         const humidity = weatherData.main?.humidity ?? "N/A";
         const visibilityMeters = weatherData?.visibility;
         const pressure = weatherData.main?.pressure ?? "N/A";
@@ -241,7 +223,6 @@ async function getWeather(locationName, lat, lon) {
         document.querySelector(".high").textContent = `High: ${highTemp}`;
         document.querySelector(".low").textContent = `Low: ${lowTemp}`;
 
-
         document.getElementById("aqiValue").textContent = `${aqi}`;
         const airIndexName = document.getElementById("airIndexName");
         airIndexName.textContent = description;
@@ -254,12 +235,11 @@ async function getWeather(locationName, lat, lon) {
         document.getElementById("COValue").textContent = components?.co != null ? `${components.co} μg/m3` : "N/A";
 
         document.getElementById("uvIndex").textContent = uvIndex != null ? `${uvIndex} UV` : "N/A";
-        document.getElementById("rain").textContent = rainText;
-
         document.getElementById("humidity").textContent = humidity === "N/A" ? "N/A" : `${humidity} %`;
         document.getElementById("visibility").textContent = visibilityKm === "N/A" ? "N/A" : `${visibilityKm} km`;
         document.getElementById("pressure").textContent = pressure === "N/A" ? "N/A" : `${pressure} mb`;
         document.getElementById("windSpeed").textContent = windspeedKm === "N/A" ? "N/A" : `${windspeedKm.toFixed(1)} km/h`;
+        document.getElementById("rain").textContent = rainText;
 
         currentTempData = {
             temp,
@@ -267,18 +247,15 @@ async function getWeather(locationName, lat, lon) {
             highTemp,
             lowTemp
         };
-
         updateCelsiusFahrenheitTemp();
-        
     }
     catch(error) {
-        console.error("Error fetching weather data:", error);
         showErrorAlert("Failed to fetch weather data.");
     }
 }
 
 // Function to translate air quality index number to description and color
- function getAirQltyIndexName(aqi) {
+function getAirQltyIndexName(aqi) {
     let description = "";
     let color = "";
     switch(aqi) {
@@ -307,32 +284,6 @@ async function getWeather(locationName, lat, lon) {
             color = "gray";
     }
     return {description, color};
- }
-
-// Conversion from Celsius to Fahrenheit
-function convertToFahrenheit(celsius) {
-    return Math.round((celsius * 9/5) + 32);
-}
-
-// Function to update temperature display based on toggle (°C/°F)
-const tempToggle = document.getElementById("tempToggle");
-function updateCelsiusFahrenheitTemp() {
-    if (!currentTempData) {
-        return;
-    }
-    const isFahrenheit = tempToggle.checked;
-    let { temp, feelsLike, highTemp, lowTemp } = currentTempData;
-    if (isFahrenheit) {
-        temp = convertToFahrenheit(temp);
-        feelsLike = convertToFahrenheit(feelsLike);
-        highTemp = convertToFahrenheit(highTemp);
-        lowTemp = convertToFahrenheit(lowTemp);
-    }
-    const unit = isFahrenheit ? "°F" : "°C";
-    document.querySelector(".temp-value").textContent = `${temp}${unit}`;
-    document.querySelector(".feels-like").textContent = `Feels like ${feelsLike}${unit}`;
-    document.querySelector(".high").textContent = `High: ${highTemp}${unit}`;
-    document.querySelector(".low").textContent = `Low: ${lowTemp}${unit}`;
 }
 
 // Function to update days forecast list in DOM
@@ -364,50 +315,9 @@ function updateDaysForecast() {
             <span class="nxt-temp">${temp}${isFahrenheit ? "°F" : "°C"}</span>
             <span>${formattedDate}</span>
         `;
-
         daylistsContainer.appendChild(dayListDiv);
     });
 }
-
-tempToggle.addEventListener("change", () => {
-    updateCelsiusFahrenheitTemp();
-    updateHourlyChart(lastHourlyData);
-    updateDaysForecast();
-    localStorage.setItem("tempUnit", tempToggle.checked ? "F" : "C");
-
-});
-
-
-
-// Dark/Light theme toggle button handler
-const toggleBtn = document.getElementById("darklightToggle");
-const themeIcon = document.getElementById("theme-icon");
-const themeText = document.getElementById("theme-text");
-
-const moonIconClass = "fa-solid fa-moon";
-const sunIconClass = "fa-solid fa-sun";
-
-toggleBtn.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-
-    if(document.body.classList.contains("dark-mode")) {
-        themeIcon.innerHTML = `<i class="${sunIconClass}"></i>`;
-        themeText.textContent = "Light Mode";
-        toggleBtn.style.background = "white";
-        toggleBtn.style.color = "black";
-    }
-    else {
-        themeIcon.innerHTML = `<i class="${moonIconClass}"></i>`;
-        themeText.innerHTML = "Dark Mode";
-        toggleBtn.style.background = "black";
-        toggleBtn.style.color = "white";
-    }
-
-    const isDark = document.body.classList.contains("dark-mode");
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-
-});
-
 
 // Hourly temperature graph using Chart.js
 const canvasEl = document.getElementById("hourChart");
@@ -445,123 +355,6 @@ function updateHourlyChart(hourlyData) {
     hourlyChart.data.datasets[0].data = hrTemp;
     hourlyChart.update();
 }
-
-// Load current location via Geolocation API
-const currLocationBtn = document.querySelector('.curr-location');
-currLocationBtn.addEventListener("click", () => {
-    loadCurrentLocation();
-});
-
-// Function to get current location and fetch weather data
-async function loadCurrentLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(async (position) => {
-                const {latitude, longitude} = position.coords;
-                try {
-                   const apiKey = "968b2abf92825ff2190a5cdbfd465552";
-                   const geoURL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`;
-                   const res = await fetch(geoURL);
-                   const data = await res.json(); 
-                   console.log(data);
-
-                   const cityName = data[0]?.name || "Mumbai";
-                   locationElement.style.display = "inline-block";
-                   locationElement.style.width = "auto";
-                   lctnIcon.style.marginRight = "0.1rem";
-                   locationName.textContent = cityName;
-                   locationName.style.display = "inline";
-                   getWeather(null, latitude, longitude);
-                   localStorage.setItem("locationData", JSON.stringify({
-                        type: "current",
-                        value: cityName,
-                        lat: latitude,
-                        lon: longitude
-                    }));
-                }
-                catch (error) {
-                    console.error("Error fetching location:", error);
-                    showErrorAlert("Unable to fetch location name.");
-                }  
-            },  (error) => {
-                    console.error('Geolocation error:', error);
-                    showErrorAlert('Unable to retrieve your location.');
-                }
-        );
-    } 
-    else {
-        showErrorAlert('Geolocation is not supported by your browser.');
-    }
-}
-
-
-// Debounce utility for API call throttling
-function debounce(func, delay) {
-    let timeoutId;
-    return function(...args) {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
-            func.apply(this, args);
-        }, delay);
-    };
-}
-
-// Fetch city suggestions for autocomplete
-async function fetchCitySuggestions(query) {
-    const suggestionBox = document.getElementById("suggestion-box");
-
-    if (!query) {
-        suggestionBox.innerHTML = '';
-        return;
-    }
-    try {
-        const apiKey = "968b2abf92825ff2190a5cdbfd465552";
-        const geoCityFetchurl = `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${apiKey}`;
-        const res = await fetch(geoCityFetchurl);
-        const data = await res.json();
-        suggestionBox.innerHTML = "";
-        data.forEach(city => {
-            const div = document.createElement("div");
-            div.classList.add("suggestion-item");
-            const cityName = `${city.name}, ${city.country}`;
-            div.textContent = cityName;
-            div.addEventListener("click", () => {
-                searchInput.value = city.name;
-                suggestionBox.innerHTML = "";
-                displayLocationName(); 
-            });
-            suggestionBox.appendChild(div);
-        });
-    }
-    catch (error) {
-        console.error("Error fetching suggestions:", error);
-    }
-}
-
-// Debounced input event for city suggestions
-const debouncedSearch = debounce(fetchCitySuggestions, 300);
-searchInput.addEventListener("input", (e) => {
-    const query = e.target.value.trim();
-    debouncedSearch(query);
-});
-
-
-// Error alert display function
-const errorAlertBox = document.getElementById("error-alert");
-const errorAlertMsg = document.getElementById("error-alert-msg");
-const closeIcon = document.querySelector(".fa-square-xmark");
-
-closeIcon.addEventListener("click", () => {
-    errorAlertBox.classList.remove("show");
-});
-
-function showErrorAlert(message) {
-    errorAlertMsg.textContent = message;
-    errorAlertBox.classList.add("show");
-    setTimeout(() => {
-        errorAlertBox.classList.remove("show");
-    }, 3000);
-}
-
 
 // Function to generate options for hourly chart based on window size
 function getHourlyChartOptions() {
@@ -638,147 +431,316 @@ function getHourlyChartOptions() {
     };
 }
 
+// Load current location via Geolocation API
+const currLocationBtn = document.querySelector('.curr-location');
+currLocationBtn.addEventListener("click", () => {
+    loadCurrentLocation();
+});
+
+// Function to get current location and fetch weather data
+async function loadCurrentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async (position) => {
+                const {latitude, longitude} = position.coords;
+                try {
+                   const apiKey = "968b2abf92825ff2190a5cdbfd465552";
+                   const geoURL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`;
+                   const res = await fetch(geoURL);
+                   const data = await res.json(); 
+                   const cityName = data[0]?.name || "Mumbai";
+                   locationElement.style.display = "inline-block";
+                   locationElement.style.width = "auto";
+                   lctnIcon.style.marginRight = "0.1rem";
+                   locationName.textContent = cityName;
+                   locationName.style.display = "inline";
+                   getWeather(null, latitude, longitude);
+                   localStorage.setItem("locationData", JSON.stringify({
+                        type: "current",
+                        value: cityName,
+                        lat: latitude,
+                        lon: longitude
+                    }));
+                }
+                catch (error) {
+                    showErrorAlert("Unable to fetch location name.");
+                }  
+            },  (error) => {
+                    showErrorAlert('Unable to retrieve your location.');
+                }
+        );
+    } 
+    else {
+        showErrorAlert('Geolocation is not supported by your browser.');
+    }
+}
+
+// Debounce utility for API call throttling
+function debounce(func, delay) {
+    let timeoutId;
+    return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
+    };
+}
+
+// Fetch city suggestions for autocomplete
+async function fetchCitySuggestions(query) {
+    const suggestionBox = document.getElementById("suggestion-box");
+
+    if (!query) {
+        suggestionBox.innerHTML = '';
+        return;
+    }
+    try {
+        const apiKey = "968b2abf92825ff2190a5cdbfd465552";
+        const geoCityFetchurl = `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${apiKey}`;
+        const res = await fetch(geoCityFetchurl);
+        const data = await res.json();
+        suggestionBox.innerHTML = "";
+        data.forEach(city => {
+            const div = document.createElement("div");
+            div.classList.add("suggestion-item");
+            const cityName = `${city.name}, ${city.country}`;
+            div.textContent = cityName;
+            div.addEventListener("click", () => {
+                searchInput.value = city.name;
+                suggestionBox.innerHTML = "";
+                displayLocationName(); 
+            });
+            suggestionBox.appendChild(div);
+        });
+    }
+    catch (error) {
+        console.error("Error fetching suggestions:", error);
+    }
+}
+
+// Debounced input event for city suggestions
+const debouncedSearch = debounce(fetchCitySuggestions, 300);
+searchInput.addEventListener("input", (e) => {
+    const query = e.target.value.trim();
+    debouncedSearch(query);
+});
+
+// Error alert display function
+const errorAlertBox = document.getElementById("error-alert");
+const errorAlertMsg = document.getElementById("error-alert-msg");
+const closeIcon = document.querySelector(".fa-square-xmark");
+
+closeIcon.addEventListener("click", () => {
+    errorAlertBox.classList.remove("show");
+});
+
+function showErrorAlert(message) {
+    errorAlertMsg.textContent = message;
+    errorAlertBox.classList.add("show");
+    setTimeout(() => {
+        errorAlertBox.classList.remove("show");
+    }, 3000);
+}
+
+// Conversion from Celsius to Fahrenheit
+function convertToFahrenheit(celsius) {
+    return Math.round((celsius * 9/5) + 32);
+}
+
+// Function to update temperature display based on toggle (°C/°F)
+const tempToggle = document.getElementById("tempToggle");
+function updateCelsiusFahrenheitTemp() {
+    if (!currentTempData) {
+        return;
+    }
+    const isFahrenheit = tempToggle.checked;
+    let { temp, feelsLike, highTemp, lowTemp } = currentTempData;
+    if (isFahrenheit) {
+        temp = convertToFahrenheit(temp);
+        feelsLike = convertToFahrenheit(feelsLike);
+        highTemp = convertToFahrenheit(highTemp);
+        lowTemp = convertToFahrenheit(lowTemp);
+    }
+    const unit = isFahrenheit ? "°F" : "°C";
+    document.querySelector(".temp-value").textContent = `${temp}${unit}`;
+    document.querySelector(".feels-like").textContent = `Feels like ${feelsLike}${unit}`;
+    document.querySelector(".high").textContent = `High: ${highTemp}${unit}`;
+    document.querySelector(".low").textContent = `Low: ${lowTemp}${unit}`;
+}
+
+tempToggle.addEventListener("change", () => {
+    updateCelsiusFahrenheitTemp();
+    updateHourlyChart(lastHourlyData);
+    updateDaysForecast();
+    localStorage.setItem("tempUnit", tempToggle.checked ? "F" : "C");
+});
+
+// Dark/Light theme toggle button handler
+const toggleBtn = document.getElementById("darklightToggle");
+const themeIcon = document.getElementById("theme-icon");
+const themeText = document.getElementById("theme-text");
+
+const moonIconClass = "fa-solid fa-moon";
+const sunIconClass = "fa-solid fa-sun";
+
+toggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+
+    if(document.body.classList.contains("dark-mode")) {
+        themeIcon.innerHTML = `<i class="${sunIconClass}"></i>`;
+        themeText.textContent = "Light Mode";
+        toggleBtn.style.background = "white";
+        toggleBtn.style.color = "black";
+    }
+    else {
+        themeIcon.innerHTML = `<i class="${moonIconClass}"></i>`;
+        themeText.innerHTML = "Dark Mode";
+        toggleBtn.style.background = "black";
+        toggleBtn.style.color = "white";
+    }
+
+    const isDark = document.body.classList.contains("dark-mode");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+});
+
 // Function to update the weather background image based on icon code
 const backgroundImage = document.getElementById("bgImage");
 function updateWeatherBgImg(iconCode) {
-  let backgroundUrl = '';
-  const screenWidth = window.innerWidth;
+    let backgroundUrl = '';
+    const screenWidth = window.innerWidth;
 
-  function getResponsiveImage(mobile, desktop) {
-    if (screenWidth <= 480) return mobile;
-    if (screenWidth <= 768) return mobile;
-    if (screenWidth <= 1024) return mobile;
-    return desktop;
-  }
+    function getResponsiveImage(mobile, desktop) {
+        if (screenWidth <= 480) return mobile;
+        if (screenWidth <= 768) return mobile;
+        if (screenWidth <= 1024) return mobile;
+        return desktop;
+    }
 
-  switch(iconCode) {
-    case '01d':
-        backgroundUrl = getResponsiveImage(
-        'assets/mobile/Clearsky-Day.webp',
-        'assets/largeDesktop/ClearSky-Day.webp'
-        );
-        break;
-    case '01n':
-        backgroundUrl = getResponsiveImage(
-        'assets/mobile/Clearsky-Night.webp',
-        'assets/largeDesktop/ClearSky-Night.webp'
-        );
-        break;
+    switch(iconCode) {
+        case '01d':
+            backgroundUrl = getResponsiveImage(
+            'assets/mobile/Clearsky-Day.webp',
+            'assets/largeDesktop/ClearSky-Day.webp'
+            );
+            break;
+        case '01n':
+            backgroundUrl = getResponsiveImage(
+            'assets/mobile/Clearsky-Night.webp',
+            'assets/largeDesktop/ClearSky-Night.webp'
+            );
+            break;
 
-    case '02d':
-        backgroundUrl = getResponsiveImage(
-        'assets/mobile/fewClouds-Day.webp',
-        'assets/largeDesktop/fewClouds-Day.webp'
-        );
-        break;
-    case '02n':
-        backgroundUrl = getResponsiveImage(
-        'assets/mobile/fewClouds-Night.webp',
-        'assets/largeDesktop/fewClouds-Night.webp'
-        );
-        break;
+        case '02d':
+            backgroundUrl = getResponsiveImage(
+            'assets/mobile/fewClouds-Day.webp',
+            'assets/largeDesktop/fewClouds-Day.webp'
+            );
+            break;
+        case '02n':
+            backgroundUrl = getResponsiveImage(
+            'assets/mobile/fewClouds-Night.webp',
+            'assets/largeDesktop/fewClouds-Night.webp'
+            );
+            break;
 
-    case '03d':
-        backgroundUrl = getResponsiveImage(
-        'assets/mobile/scatteredClouds-Day.webp',
-        'assets/largeDesktop/ScatteredClouds-Day.webp'
-        );
-        break;
-    case '03n':
-        backgroundUrl = getResponsiveImage(
-        'assets/mobile/scatteredClouds-Night.webp',
-        'assets/largeDesktop/ScatteredClouds-Night.webp'
-        );
-        break;
+        case '03d':
+            backgroundUrl = getResponsiveImage(
+            'assets/mobile/scatteredClouds-Day.webp',
+            'assets/largeDesktop/ScatteredClouds-Day.webp'
+            );
+            break;
+        case '03n':
+            backgroundUrl = getResponsiveImage(
+            'assets/mobile/scatteredClouds-Night.webp',
+            'assets/largeDesktop/ScatteredClouds-Night.webp'
+            );
+            break;
 
-    case '04d':
-        backgroundUrl = getResponsiveImage(
-        'assets/mobile/brokenClouds-Day.webp',
-        'assets/largeDesktop/BrokenClouds-Day.webp'
-        );
-        break;
-    case '04n':
-        backgroundUrl = getResponsiveImage(
-        'assets/mobile/brokenClouds-Night.webp',
-        'assets/largeDesktop/BrokenClouds-Night.webp'
-        );
-        break;
+        case '04d':
+            backgroundUrl = getResponsiveImage(
+            'assets/mobile/brokenClouds-Day.webp',
+            'assets/largeDesktop/BrokenClouds-Day.webp'
+            );
+            break;
+        case '04n':
+            backgroundUrl = getResponsiveImage(
+            'assets/mobile/brokenClouds-Night.webp',
+            'assets/largeDesktop/BrokenClouds-Night.webp'
+            );
+            break;
 
-    case '09d':
-        backgroundUrl = getResponsiveImage(
-        'assets/mobile/showerrain-day.webp',
-        'assets/largeDesktop/ShowerRain-Day.webp'
-        );
-        break;
-    case '09n':
-        backgroundUrl = getResponsiveImage(
-        'assets/mobile/showerRain-Night.webp',
-        'assets/largeDesktop/ShowerRain-Night.webp'
-        );
-        break;
+        case '09d':
+            backgroundUrl = getResponsiveImage(
+            'assets/mobile/showerrain-day.webp',
+            'assets/largeDesktop/ShowerRain-Day.webp'
+            );
+            break;
+        case '09n':
+            backgroundUrl = getResponsiveImage(
+            'assets/mobile/showerRain-Night.webp',
+            'assets/largeDesktop/ShowerRain-Night.webp'
+            );
+            break;
 
-    case '10d':
-        backgroundUrl = getResponsiveImage(
-        'assets/mobile/Rain-Day.webp',
-        'assets/largeDesktop/RainDay.webp'
-        );
-        break;
-    case '10n':
-        backgroundUrl = getResponsiveImage(
-        'assets/mobile/Rain-Night.webp',
-        'assets/largeDesktop/RainNight.webp'
-        );
-        break;
+        case '10d':
+            backgroundUrl = getResponsiveImage(
+            'assets/mobile/Rain-Day.webp',
+            'assets/largeDesktop/RainDay.webp'
+            );
+            break;
+        case '10n':
+            backgroundUrl = getResponsiveImage(
+            'assets/mobile/Rain-Night.webp',
+            'assets/largeDesktop/RainNight.webp'
+            );
+            break;
 
-    case '11d':
-        backgroundUrl = getResponsiveImage(
-        'assets/mobile/Thunderstorm-Day.webp',
-        'assets/largeDesktop/ThunderstormDay.webp'
-        );
-        break;
-    case '11n':
-        backgroundUrl = getResponsiveImage(
-        'assets/mobile/Thundestorm_night.webp',
-        'assets/largeDesktop/ThundestormNight.webp'
-        );
-        break;
+        case '11d':
+            backgroundUrl = getResponsiveImage(
+            'assets/mobile/Thunderstorm-Day.webp',
+            'assets/largeDesktop/ThunderstormDay.webp'
+            );
+            break;
+        case '11n':
+            backgroundUrl = getResponsiveImage(
+            'assets/mobile/Thundestorm_night.webp',
+            'assets/largeDesktop/ThundestormNight.webp'
+            );
+            break;
 
-    case '13d':
-        backgroundUrl = getResponsiveImage(
-        'assets/mobile/Snow-Day.webp',
-        'assets/largeDesktop/snowDay.webp'
-        );
-        break;
-    case '13n':
-        backgroundUrl = getResponsiveImage(
-        'assets/mobile/Snow-Night.webp',
-        'assets/largeDesktop/SnowNight.webp'
-        );
-        break;
+        case '13d':
+            backgroundUrl = getResponsiveImage(
+            'assets/mobile/Snow-Day.webp',
+            'assets/largeDesktop/snowDay.webp'
+            );
+            break;
+        case '13n':
+            backgroundUrl = getResponsiveImage(
+            'assets/mobile/Snow-Night.webp',
+            'assets/largeDesktop/SnowNight.webp'
+            );
+            break;
 
-    case '50d':
-        backgroundUrl = getResponsiveImage(
-        'assets/mobile/Mist-Day.webp',
-        'assets/largeDesktop/MistDay.webp'
-        );
-        break;
-    case '50n':
-        backgroundUrl = getResponsiveImage(
-        'assets/mobile/Mist-Night.webp',
-        'assets/largeDesktop/MistNight.webp'
-        );
-        break;
+        case '50d':
+            backgroundUrl = getResponsiveImage(
+            'assets/mobile/Mist-Day.webp',
+            'assets/largeDesktop/MistDay.webp'
+            );
+            break;
+        case '50n':
+            backgroundUrl = getResponsiveImage(
+            'assets/mobile/Mist-Night.webp',
+            'assets/largeDesktop/MistNight.webp'
+            );
+            break;
 
-    default:
-        backgroundUrl = getResponsiveImage(
-        'assets/mobBackImg.webp',
-        'assets/NaturePic1.webp'
-        );
-  }
-
-  backgroundImage.style.backgroundImage = `url(${backgroundUrl})`;
+        default:
+            backgroundUrl = getResponsiveImage(
+            'assets/mobBackImg.webp',
+            'assets/NaturePic.webp'
+            );
+    }
+    backgroundImage.style.backgroundImage = `url(${backgroundUrl})`;
 }
-
 
 // Load preferences and location data on window load
 window.addEventListener("load", () => {
@@ -791,7 +753,6 @@ window.addEventListener("load", () => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark") {
         document.body.classList.add("dark-mode");
-
         themeIcon.innerHTML = `<i class="${sunIconClass}"></i>`;
         themeText.textContent = "Light Mode";
         toggleBtn.style.background = "white";
