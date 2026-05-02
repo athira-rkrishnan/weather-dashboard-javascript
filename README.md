@@ -1,5 +1,5 @@
 # Advanced Weather Dashboard
-A responsive and dynamic full-stack weather dashboard built using HTML, CSS, JavaScript, Node.js, and Express.js. The application fetches real-time weather data from the OpenWeatherMap API and displays current weather conditions, hourly weather forecast, 7-day forecast, air quality index, sunrise/sunset timings, and dynamic weather-based background images.
+A responsive and dynamic full-stack weather dashboard built using HTML, CSS, JavaScript, Node.js, and Express.js. The application fetches real-time weather data from the OpenWeatherMap API and displays current weather conditions, hourly forecast, 7-day forecast, air quality index, sunrise and sunset timings, and dynamic weather-based background images.
 
 ## Features
 **Location-Based Weather**
@@ -47,11 +47,8 @@ A responsive and dynamic full-stack weather dashboard built using HTML, CSS, Jav
 - CORS enabled for frontend-backend communication
 - Frontend communicates securely with backend APIs instead of exposing API keys in client-side code
 
-
 ## Demo GIF
-![Weather Dashboard Demo](https://github.com/athira-rkrishnan/weather-dashboard-javascript/blob/main/frontend/assets/Weather-dashboard.gif?raw=true
-)
-
+![Weather Dashboard Demo](https://github.com/athira-rkrishnan/weather-dashboard-javascript/blob/main/frontend/assets/Weather-dashboard.gif?raw=true)
 
 ## Deployment
 Frontend deployed on:
@@ -59,8 +56,7 @@ Frontend deployed on:
 * **Vercel:**  [View Demo](https://weather-dashboard-javascript.vercel.app/)
 
 Backend deployed on:
-* **Render:** [View Demo]()
-* **Railway:**  [View Demo]()
+* **Render:** [View Demo](https://weather-dashboard-se9j.onrender.com/)
 
 ## Responsive Design Screenshots
 - Mobile: 320px – 480px  [View](https://raw.githubusercontent.com/athira-rkrishnan/weather-dashboard-javascript/main/frontend/assets/Responsive-480px.png?raw=true)
@@ -76,6 +72,16 @@ Backend deployed on:
 - OpenWeatherMap API (via Express.js backend)
 - Chart.js for hourly temperature graph
 - Font Awesome for icons
+
+## Project Architecture
+
+```plaintext
+Frontend (HTML/CSS/JS)
+        ↓
+Express.js Backend API
+        ↓
+OpenWeatherMap API
+```
 
 ## How to Run Locally
 1. Clone the repository:
@@ -95,24 +101,27 @@ API_KEY = your_openweathermap_api_key
 ```bash
 npm run dev
 ```
-5. Open the frontend folder in VS Code.
-6. Run the frontend using Live Server.
-7. Make sure backend server is running on localhost:3000.
-8. Search for a city or use your current location.
-9. Toggle temperature units and themes as desired.
+5. Run the frontend using Live Server.
+6. Make sure backend server is running on localhost:3000.
+7. Search for a city or use your current location.
+8. Toggle temperature units and themes as desired.
 
 ## Customization
-
 - Add your OpenWeatherMap API key inside the backend `.env` file.
 - Add or update background images for different weather conditions and device sizes.
 - Enhance styles as per your preference.
 
-## Challenges Faced
-- Handling multiple API calls efficiently using Promise.all.
-- Managing state for temperature unit toggle.
-- Optimizing chart rendering on different screen sizes.
-- Optimizing search with debounce.
-- Making complex layouts responsive across devices.
+## Challenges Faced & Solutions
+
+| Challenge                               | Solution                                                                 |
+|-----------------------------------------|---------------------------------------------------------------------------|
+| Multiple API calls slowing UI           | Utilized `Promise.all` to fetch data in parallel, reducing load times.  |
+| Excessive API requests during search    | Implemented debounce to limit API calls and optimize performance.       |
+| Responsive chart rendering              | Dynamically adjusted Chart.js options for better responsiveness across devices. |
+| API key security                        | Moved API keys to the backend and managed them securely with environment variables using `dotenv`. |
+| State management for unit conversion    | Stored user preferences and conversion values using `localStorage` for persistence.     |
+| Frontend and backend communication issues | Enabled CORS in Express.js backend to allow secure API requests from deployed frontend applications. |
+| Deployment configuration issues | Configured separate frontend and backend deployments using Netlify/Vercel for frontend and Render for backend hosting. |
 
 ## Future Improvements
 - Add loading spinner
@@ -131,4 +140,5 @@ This project is open-source. Feel free to fork, modify, and share!
 Feel free to connect with me on LinkedIn for feedback or collaboration!
 
 ⭐ If you like this project, give it a star!
+
 
