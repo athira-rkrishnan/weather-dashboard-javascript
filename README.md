@@ -1,5 +1,5 @@
 # Advanced Weather Dashboard
-A responsive and dynamic weather dashboard built with HTML, CSS, and JavaScript. It fetches real-time weather data from OpenWeatherMap API, displays current weather, 7-days forecast, hourly temperature chart, air quality index, and background images that adapt to weather conditions and screen size.
+A responsive and dynamic full-stack weather dashboard built using HTML, CSS, JavaScript, Node.js, and Express.js. The application fetches real-time weather data from the OpenWeatherMap API and displays current weather conditions, hourly weather forecast, 7-day forecast, air quality index, sunrise/sunset timings, and dynamic weather-based background images.
 
 ## Features
 **Location-Based Weather**
@@ -39,14 +39,27 @@ A responsive and dynamic weather dashboard built with HTML, CSS, and JavaScript.
 **Error Handling & Alerts**
 - User-friendly error messages for invalid input or fetch errors
 
+**Backend Features**
+- Secure API handling using Node.js & Express.js
+- Environment variables using dotenv
+- API key hidden securely using environment variables
+- REST API routes for weather, forecast, AQI, reverse geocoding, and city suggestions
+- CORS enabled for frontend-backend communication
+- Frontend communicates securely with backend APIs instead of exposing API keys in client-side code
+
+
 ## Live Demo
 
 
 ## Deployment
-This project is hosted on multiple platforms:
+Frontend deployed on:
 * **GitHub Pages:** [View Demo]()
 * **Netlify:**  [View Demo]()
 * **Vercel:**  [View Demo]()
+
+Backend deployed on:
+* **Render:** [View Demo]()
+* **Railway:**  [View Demo]()
 
 ## Responsive Design Screenshots
 - Mobile: 320px – 480px  [View]()
@@ -57,22 +70,39 @@ This project is hosted on multiple platforms:
 ## Technologies Used
 - HTML5 & CSS3
 - JavaScript (ES6+)
-- OpenWeatherMap API for weather data
+- Node.js
+- Express.js
+- OpenWeatherMap API (via Express.js backend)
 - Chart.js for hourly temperature graph
 - Font Awesome for icons
 
-## How to Use
+## How to Run Locally
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/weather-dashboard.git
+git clone 
 ```
-2. Open index.html in your browser.
-3. Search for a city or use your current location.
-4. Toggle temperature units and themes as desired.
+2. Install backend dependencies
+```bash 
+cd backend
+npm install 
+```
+3. Create a .env file inside backend folder
+```bash 
+API_KEY = your_openweathermap_api_key
+```
+4. Start backend server
+```bash
+npm run dev
+```
+5. Open the frontend folder in VS Code.
+6. Run the frontend using Live Server.
+7. Make sure backend server is running on localhost:3000.
+8. Search for a city or use your current location.
+9. Toggle temperature units and themes as desired.
 
 ## Customization
 
-- Replace the API key in script.js with your own OpenWeatherMap API key.
+- Add your OpenWeatherMap API key inside the backend `.env` file.
 - Add or update background images for different weather conditions and device sizes.
 - Enhance styles as per your preference.
 
