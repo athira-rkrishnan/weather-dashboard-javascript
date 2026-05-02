@@ -55,9 +55,8 @@ A responsive and dynamic full-stack weather dashboard built using HTML, CSS, Jav
 
 ## Deployment
 Frontend deployed on:
-* **GitHub Pages:** [View Demo]()
-* **Netlify:**  [View Demo]()
-* **Vercel:**  [View Demo]()
+* **Netlify:**  [View Demo](https://weather-dashboard-javascript.netlify.app/)
+* **Vercel:**  [View Demo](https://weather-dashboard-javascript.vercel.app/)
 
 Backend deployed on:
 * **Render:** [View Demo]()

@@ -6,6 +6,11 @@ app.use(cors());
 const API_KEY = process.env.API_KEY;
 const PORT = process.env.PORT || 3000;
 
+// Root route
+app.get("/", (req, res) => {
+    res.send("Weather API Backend Running");
+});
+
 //Current Weather 
 app.get('/weather', async (req, res) => {
     const { city, lat, lon } = req.query;

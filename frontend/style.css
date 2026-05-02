@@ -538,7 +538,7 @@ input:checked + .tempSlider:before {
 }
 .tempDetailsSec .tempDetail p .wicon {
     margin-right: 0.8rem;
-    stroke: url(#svgIconGradient);
+    stroke: url(#svgIconGradient) !important;
 }
 .overviewHourly .hourlyForecast {
     width: 100%; 
