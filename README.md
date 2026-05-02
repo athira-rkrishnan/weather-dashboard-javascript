@@ -48,7 +48,9 @@ A responsive and dynamic full-stack weather dashboard built using HTML, CSS, Jav
 - Frontend communicates securely with backend APIs instead of exposing API keys in client-side code
 
 
-## Live Demo
+## Demo GIF
+![Weather Dashboard Demo](https://github.com/athira-rkrishnan/weather-dashboard-javascript/blob/main/frontend/assets/Weather-dashboard.gif?raw=true
+)
 
 
 ## Deployment
@@ -62,10 +64,10 @@ Backend deployed on:
 * **Railway:**  [View Demo]()
 
 ## Responsive Design Screenshots
-- Mobile: 320px – 480px  [View]()
-- Tablet: 481px – 768px  [View]()
-- Small Desktop: 769px – 1024px  [View]()
-- Large Desktop: 1025px – 1500px [View]()
+- Mobile: 320px – 480px  [View](https://raw.githubusercontent.com/athira-rkrishnan/weather-dashboard-javascript/main/frontend/assets/Responsive-480px.png?raw=true)
+- Tablet: 481px – 768px  [View](https://raw.githubusercontent.com/athira-rkrishnan/weather-dashboard-javascript/main/frontend/assets/Responsive-768px.png?raw=true)
+- Small Desktop: 769px – 1024px  [View](https://raw.githubusercontent.com/athira-rkrishnan/weather-dashboard-javascript/main/frontend/assets/Responsive-1024px.png?raw=true)
+- Large Desktop: 1025px – 1500px [View](https://raw.githubusercontent.com/athira-rkrishnan/weather-dashboard-javascript/main/frontend/assets/Responsive-1500px.png?raw=true)
 
 ## Technologies Used
 - HTML5 & CSS3
@@ -79,7 +81,7 @@ Backend deployed on:
 ## How to Run Locally
 1. Clone the repository:
 ```bash
-git clone 
+git clone https://github.com/athira-rkrishnan/weather-dashboard-javascript.git
 ```
 2. Install backend dependencies
 ```bash 

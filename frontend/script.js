@@ -98,16 +98,16 @@ searchInput.addEventListener("keydown", (event) => {
 async function getWeather(locationName, lat, lon) {
     let weatherapiURL;
     if(lat && lon) {
-        weatherapiURL = `http://localhost:3000/weather?lat=${lat}&lon=${lon}`;
+        weatherapiURL = `https://weather-dashboard-se9j.onrender.com/weather?lat=${lat}&lon=${lon}`;
     }
     else {
-        weatherapiURL = `http://localhost:3000/weather?city=${locationName}`;
+        weatherapiURL = `https://weather-dashboard-se9j.onrender.com/weather?city=${locationName}`;
     }
     const airQualityIndexURL= (lat, lon) => {
-        return `http://localhost:3000/air-quality?lat=${lat}&lon=${lon}`;
+        return `https://weather-dashboard-se9j.onrender.com/air-quality?lat=${lat}&lon=${lon}`;
     };
     const currForecastAPIUrl = (lat, lon) => {
-        return `http://localhost:3000/forecast?lat=${lat}&lon=${lon}`;
+        return `https://weather-dashboard-se9j.onrender.com/forecast?lat=${lat}&lon=${lon}`;
     };
         
     try {
@@ -442,7 +442,7 @@ async function loadCurrentLocation() {
         navigator.geolocation.getCurrentPosition(async (position) => {
                 const {latitude, longitude} = position.coords;
                 try {
-                   const geoURL = `http://localhost:3000/reverse-geocode?lat=${latitude}&lon=${longitude}`;
+                   const geoURL = `https://weather-dashboard-se9j.onrender.com/reverse-geocode?lat=${latitude}&lon=${longitude}`;
                    const res = await fetch(geoURL);
                    const data = await res.json(); 
                    const cityName = data[0]?.name || "Mumbai";
@@ -492,7 +492,7 @@ async function fetchCitySuggestions(query) {
         return;
     }
     try {
-        const geoCityFetchurl = `http://localhost:3000/city-suggestions?query=${query}`;
+        const geoCityFetchurl = `https://weather-dashboard-se9j.onrender.com/city-suggestions?query=${query}`;
         const res = await fetch(geoCityFetchurl);
         const data = await res.json();
         suggestionBox.innerHTML = "";
