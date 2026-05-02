@@ -94,21 +94,20 @@ searchInput.addEventListener("keydown", (event) => {
     }
 });
 
-// Function to fetch weather data from API 
+// Function to fetch weather, air quality, and forecast data from API 
 async function getWeather(locationName, lat, lon) {
-    const apiKey = "968b2abf92825ff2190a5cdbfd465552";
     let weatherapiURL;
     if(lat && lon) {
-        weatherapiURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+        weatherapiURL = `http://localhost:3000/weather?lat=${lat}&lon=${lon}`;
     }
     else {
-        weatherapiURL = `https://api.openweathermap.org/data/2.5/weather?q=${locationName}&appid=${apiKey}&units=metric`;
+        weatherapiURL = `http://localhost:3000/weather?city=${locationName}`;
     }
     const airQualityIndexURL= (lat, lon) => {
-       return `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+        return `http://localhost:3000/air-quality?lat=${lat}&lon=${lon}`;
     };
     const currForecastAPIUrl = (lat, lon) => {
-        return `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&appid=${apiKey}&units=metric`;
+        return `http://localhost:3000/forecast?lat=${lat}&lon=${lon}`;
     };
         
     try {
@@ -254,7 +253,7 @@ async function getWeather(locationName, lat, lon) {
     }
 }
 
-// Function to translate air quality index number to description and color
+// Function to translate air quality index number to descriptive label and color
 function getAirQltyIndexName(aqi) {
     let description = "";
     let color = "";
@@ -319,7 +318,7 @@ function updateDaysForecast() {
     });
 }
 
-// Hourly temperature graph using Chart.js
+// Initialize hourly temperature graph using Chart.js
 const canvasEl = document.getElementById("hourChart");
 const hourlyChart = new Chart(canvasEl, {
     type: 'line',
@@ -443,8 +442,7 @@ async function loadCurrentLocation() {
         navigator.geolocation.getCurrentPosition(async (position) => {
                 const {latitude, longitude} = position.coords;
                 try {
-                   const apiKey = "968b2abf92825ff2190a5cdbfd465552";
-                   const geoURL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`;
+                   const geoURL = `http://localhost:3000/reverse-geocode?lat=${latitude}&lon=${longitude}`;
                    const res = await fetch(geoURL);
                    const data = await res.json(); 
                    const cityName = data[0]?.name || "Mumbai";
@@ -474,7 +472,7 @@ async function loadCurrentLocation() {
     }
 }
 
-// Debounce utility for API call throttling
+// Utility debounce function to limit API call frequency
 function debounce(func, delay) {
     let timeoutId;
     return function(...args) {
@@ -485,7 +483,7 @@ function debounce(func, delay) {
     };
 }
 
-// Fetch city suggestions for autocomplete
+// Fetch city suggestions for autocomplete based on user input
 async function fetchCitySuggestions(query) {
     const suggestionBox = document.getElementById("suggestion-box");
 
@@ -494,8 +492,7 @@ async function fetchCitySuggestions(query) {
         return;
     }
     try {
-        const apiKey = "968b2abf92825ff2190a5cdbfd465552";
-        const geoCityFetchurl = `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${apiKey}`;
+        const geoCityFetchurl = `http://localhost:3000/city-suggestions?query=${query}`;
         const res = await fetch(geoCityFetchurl);
         const data = await res.json();
         suggestionBox.innerHTML = "";
@@ -742,7 +739,7 @@ function updateWeatherBgImg(iconCode) {
     backgroundImage.style.backgroundImage = `url(${backgroundUrl})`;
 }
 
-// Load preferences and location data on window load
+// Load saved preferences and location data on window load
 window.addEventListener("load", () => {
     const savedUnit = localStorage.getItem("tempUnit");
     if (savedUnit === "F") {
