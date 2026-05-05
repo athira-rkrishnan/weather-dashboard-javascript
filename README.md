@@ -48,7 +48,52 @@ A responsive and dynamic full-stack weather dashboard built using HTML, CSS, Jav
 - Frontend communicates securely with backend APIs instead of exposing API keys in client-side code
 
 ## Preview 
+<table align="center">
+<tr>
+<td align="center">
+<h4>Light Theme</h4>
+<a href="frontend/assets/LightTheme.png">
+    <img src="frontend/assets/LightTheme.png" width="450">
+</a>
+</td>
+<td align="center">
+<h4>Dark Theme</h4>
+<a href="frontend/assets/Dark-Theme.png">
+    <img src="frontend/assets/Dark-Theme.png" width="450" height="auto">
+</a>
+</td>
+</tr>
 
+<tr>
+<td align="center">
+<h4>Empty Input Validation</h4>
+<a href="frontend/assets/Empty-input-validation.png">
+    <img src="frontend/assets/Empty-input-validation.png" width="450" height="auto">
+</a>
+</td>
+<td align="center">
+<h4>City Autocompletion</h4>
+<a href="frontend/assets/City-Autocomplete.png">
+    <img src="frontend/assets/City-Autocomplete.png" width="450">
+</a>
+</td>
+</tr>
+
+<tr>
+<td align="center">
+<h4>Current Location Access</h4>
+<a href="frontend/assets/CurrentLocationAccess.png">
+    <img src="frontend/assets/CurrentLocationAccess.png" width="450" height="auto">
+</a>
+</td>
+<td align="center">
+<h4>Weather Data Fetch Error</h4>
+<a href="frontend/assets/Weather-fetch-error.png">
+    <img src="frontend/assets/Weather-fetch-error.png" width="450">
+</a>
+</td>
+</tr>
+</table>
 
 ## Demo GIF
 ![Weather Dashboard Demo](https://github.com/athira-rkrishnan/weather-dashboard-javascript/blob/main/frontend/assets/Weather-dashboard.gif?raw=true)
