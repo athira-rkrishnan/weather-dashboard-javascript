@@ -47,6 +47,9 @@ A responsive and dynamic full-stack weather dashboard built using HTML, CSS, Jav
 - CORS enabled for frontend-backend communication
 - Frontend communicates securely with backend APIs instead of exposing API keys in client-side code
 
+## Preview 
+
+
 ## Demo GIF
 ![Weather Dashboard Demo](https://github.com/athira-rkrishnan/weather-dashboard-javascript/blob/main/frontend/assets/Weather-dashboard.gif?raw=true)
 
